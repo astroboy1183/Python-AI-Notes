@@ -1,7 +1,7 @@
 ---
 title: Types of Memory in LLMs
 date: 2026-05-28
-source: Video transcript
+source: "Notes from working through the material"
 type: lecture-notes
 status: in-progress
 tags:
@@ -61,9 +61,6 @@ LLM memory splits into **two categories**:
 ### 2.1 Definition
 Short-Term Memory is a **temporary, session-scoped** memory that lives only **while a conversation or task is actively going on**. The moment the task completes — or the session ends — the memory is wiped.
 
-> [!quote] From the transcript
-> "Short term memory… it lives for a particular session while the conversation [is] going on… It is removed once your task is completed."
-
 ### 2.2 Key characteristics
 - **Short-lived** — exists only during active interaction.
 - **Session-bound** — tied to a single chat / task / agent run.
@@ -97,9 +94,6 @@ While the project is being built, the model **remembers** Python, SQLite, and un
 
 ### 3.1 Definition
 Long-Term Memory is **persistent** memory about the user that **stays forever** — across sessions, across days, across months. Even after 30 days away, the model still "remembers" the user.
-
-> [!quote] From the transcript
-> "Long term memory always stays… even if you come back after 10 days, 20 days, 30 days, even if the session is over, the long term memory always stays."
 
 ### 3.2 Key characteristics
 - **Persistent** — survives session boundaries.
@@ -181,7 +175,7 @@ LTM further breaks down into **three distinct flavors**, each serving a differen
 - **How it's queried**: semantic search / retrieval-augmented generation (RAG).
 - **Updates**: when new facts are learned or curated.
 
-**Example entries (from the transcript):**
+**Example entries:**
 - *"Delhi is the capital of India."*
 - *"The speed of light is ~299,792 km/s."*
 - *"Python's GIL prevents true multi-threaded CPU parallelism."*
@@ -269,5 +263,3 @@ Each memory type gets its own dedicated note. Links below:
 ## Related
 - [[AI-Productivity-and-Obsidian-Setup]]
 
-## Sources
-- Video transcript (introductory lesson on LLM memory types).

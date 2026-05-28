@@ -1,7 +1,7 @@
 ---
 title: Short-Term Memory in LLMs
 date: 2026-05-28
-source: Video transcript
+source: "Notes from working through the material"
 type: lecture-notes
 status: in-progress
 parent: "[[00 - Types of Memory in LLMs]]"
@@ -42,7 +42,7 @@ Short-Term Memory is:
 
 ## 2. Real-world analogy: the restaurant order
 
-The speaker's main analogy — perfectly captures what STM is.
+This analogy captures what STM is.
 
 ### The scenario
 1. Walk into a restaurant and order a burger.
@@ -184,16 +184,16 @@ message_history = None
 - **MongoDB / Redis** — when sessions span multiple requests (e.g., a web app).
 - **Conversation buffer** — built in to frameworks like LangChain (`ConversationBufferMemory`).
 
-> [!quote] From the transcript
-> "We were storing this history in a MongoDB. We always give this history of messages. This is a short term memory."
+> [!tip]
+> A common setup is storing the message history in MongoDB and replaying it on every turn — that's STM in practice.
 
 ---
 
-## 7. STM in the speaker's existing code
+## 7. STM in existing code
 
-The speaker pointed out that **STM is something that's already been in use** in earlier examples — just unnamed.
+STM is already in use in earlier examples — just unnamed.
 
-Examples mentioned:
+Examples:
 - **Hello World** agent — passes message history each turn.
 - **Chain-of-Thought (CoT)** prompts — append every step to a running message history while the application runs.
 - Any chatbot that does `messages.append(...)` and then re-sends the full `messages` list to the LLM.
@@ -215,7 +215,7 @@ Also commonly called **working memory** — maintains short-term conversational 
 
 ## 9. Tools & frameworks
 
-### Mem0 (mentioned in the lecture)
+### Mem0
 - A framework for managing memory in AI agents.
 - Used later in the course.
 - Website: [mem0.ai](https://mem0.ai)
@@ -276,5 +276,5 @@ Also commonly called **working memory** — maintains short-term conversational 
 - [[AI-Productivity-and-Obsidian-Setup]]
 
 ## Sources
-- Video transcript (dedicated short-term memory lecture).
-- Referenced: IBM blog on agentic memory, [Mem0](https://mem0.ai).
+- IBM blog on agentic memory
+- [Mem0](https://mem0.ai)

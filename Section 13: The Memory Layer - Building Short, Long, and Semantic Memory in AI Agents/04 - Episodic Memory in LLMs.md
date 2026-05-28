@@ -1,7 +1,7 @@
 ---
 title: Episodic Memory in LLMs
 date: 2026-05-28
-source: Video transcript
+source: "Notes from working through the material"
 type: lecture-notes
 status: in-progress
 parent: "[[02 - Long-Term Memory in LLMs]]"
@@ -46,7 +46,7 @@ Episodic memory is:
 
 ---
 
-## 2. Definition (from the lecture)
+## 2. Definition
 
 > **Episodic memory = information about previous interactions / specific past events.**
 >
@@ -131,8 +131,8 @@ What happens when an episodic-style question comes in:
 └──────────────────────────────────────────────────────────┘
 ```
 
-> [!quote] From the transcript
-> "If user asks a question which you feel is episodic memory… your LLM decides, oh, it's kind of an episodic memory. So now you can do a tool call, you can do a RAG, you can go into your vector DB or wherever these conversations are stored, you can retrieve that particular point."
+> [!info] Decision flow
+> When a question seems episodic, the LLM (or orchestration layer) decides it's an episodic-memory query, fires a tool call / RAG step, hits the vector DB where past conversations are stored, and pulls back the relevant entry.
 
 ---
 
@@ -299,5 +299,5 @@ def end_session(user_id, message_history):
 - [[01 - Short-Term Memory in LLMs]] — session-scoped counterpart
 
 ## Sources
-- Video transcript (dedicated episodic memory lecture).
-- Referenced tools: [Qdrant](https://qdrant.tech), [Mem0](https://mem0.ai), vector databases for semantic search.
+- [Qdrant](https://qdrant.tech)
+- [Mem0](https://mem0.ai)

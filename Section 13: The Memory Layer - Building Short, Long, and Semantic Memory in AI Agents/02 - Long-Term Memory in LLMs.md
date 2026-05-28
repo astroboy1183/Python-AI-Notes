@@ -1,7 +1,7 @@
 ---
 title: Long-Term Memory in LLMs
 date: 2026-05-28
-source: Video transcript
+source: "Notes from working through the material"
 type: lecture-notes
 status: in-progress
 parent: "[[00 - Types of Memory in LLMs]]"
@@ -100,10 +100,7 @@ LTM lives in **external storage** — outside the LLM itself. Common choices:
 | **PostgreSQL** | Strict relational facts | Solid transactional integrity |
 | **Redis** | Fast key-value lookups | Speed when memory must be retrieved frequently |
 
-> [!quote] From the transcript
-> "This database can be anything. It can be a MongoDB, it can be a Qdrant vector store, it can be a graph database. It is stored forever."
-
-The course will demonstrate **Qdrant** and **GraphDB** alongside **Mem0** to build LTM systems.
+The store can be anything — MongoDB, a Qdrant vector store, or a graph database — what matters is that it's persistent. The course will demonstrate **Qdrant** and **GraphDB** alongside **Mem0** to build LTM systems.
 
 ---
 
@@ -151,7 +148,7 @@ The flow:
 
 ## 6. The big problem: LTM grows forever
 
-The catch the speaker emphasized:
+The catch:
 
 > Over time, a single user might accumulate **4,000+ memories**.
 > Can all 4,000 be dumped into the system prompt?
@@ -311,5 +308,5 @@ def end_session(user_id, message_history):
 - [[01 - Short-Term Memory in LLMs]] — the volatile counterpart
 
 ## Sources
-- Video transcript (dedicated long-term memory lecture).
-- Referenced tools: [Mem0](https://mem0.ai), [Qdrant](https://qdrant.tech), graph databases.
+- [Mem0](https://mem0.ai)
+- [Qdrant](https://qdrant.tech)

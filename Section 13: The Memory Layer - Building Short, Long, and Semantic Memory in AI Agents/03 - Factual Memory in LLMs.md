@@ -1,7 +1,7 @@
 ---
 title: Factual Memory in LLMs
 date: 2026-05-28
-source: Video transcript
+source: "Notes from working through the material"
 type: lecture-notes
 status: in-progress
 parent: "[[02 - Long-Term Memory in LLMs]]"
@@ -43,7 +43,7 @@ Factual memory is:
 
 ---
 
-## 2. Definition (from the lecture)
+## 2. Definition
 
 > **Factual memory = facts about the user**
 >
@@ -85,15 +85,14 @@ Factual memory is:
 
 ## 4. The "friend" analogy
 
-The speaker's analogy:
+Thinking about a friend doesn't bring up **every conversation** ever had with them. What it does bring up:
 
-> Thinking about a friend doesn't bring up **every conversation** ever had with them. What it does bring up:
-> - Their name
-> - Where they live
-> - What they wear
-> - What they like
->
-> Those persistent, **summary-level facts** about a person? **That's factual memory.**
+- Their name
+- Where they live
+- What they wear
+- What they like
+
+Those persistent, **summary-level facts** about a person? **That's factual memory.**
 
 The forgotten conversations? Those belong in **episodic memory** (covered next).
 
@@ -266,5 +265,3 @@ Output format preference = factual memory.
 - [[02 - Long-Term Memory in LLMs]] — the parent LTM concept
 - [[01 - Short-Term Memory in LLMs]] — session-scoped counterpart
 
-## Sources
-- Video transcript (dedicated factual memory lecture).

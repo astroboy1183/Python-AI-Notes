@@ -1,7 +1,7 @@
 ---
 title: Semantic Memory in LLMs
 date: 2026-05-28
-source: Video transcript
+source: "Notes from working through the material"
 type: lecture-notes
 status: in-progress
 parent: "[[02 - Long-Term Memory in LLMs]]"
@@ -46,7 +46,7 @@ Semantic memory is:
 
 ---
 
-## 2. Definition (from the lecture)
+## 2. Definition
 
 > **Semantic memory = general knowledge.**
 >
@@ -207,9 +207,7 @@ def handle_user_message(user_id, user_msg, message_history):
 
 ## 11. Why semantic often isn't an early priority
 
-The speaker:
-
-> *"You usually don't have to worry about a semantic memory a lot."*
+In most agent designs, semantic memory isn't something to worry about early on.
 
 Reasons:
 - The LLM already has **massive pretrained world knowledge**.
@@ -289,7 +287,7 @@ This wraps up the **four memory types**:
 
 ## 16. Next up
 
-The next video sets up the practical infrastructure:
+Next: setting up the practical infrastructure.
 
 - [ ] [[Mem0 with Qdrant - Setup]] — installing & configuring Mem0 with Qdrant DB to start building a real memory-enabled agent.
 
@@ -303,5 +301,5 @@ The next video sets up the practical infrastructure:
 - [[01 - Short-Term Memory in LLMs]] — the volatile counterpart
 
 ## Sources
-- Video transcript (dedicated semantic memory lecture).
-- Referenced tools: [Qdrant](https://qdrant.tech), [Mem0](https://mem0.ai), vector databases for RAG-style retrieval.
+- [Qdrant](https://qdrant.tech)
+- [Mem0](https://mem0.ai)
