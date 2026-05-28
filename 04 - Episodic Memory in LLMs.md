@@ -26,14 +26,14 @@ related:
 # Episodic Memory in LLMs
 
 > [!abstract] TL;DR
-> **Episodic memory** is the **second sub-type of [[02 - Long-Term Memory in LLMs|Long-Term Memory]]**. It stores **specific past events and interactions** with the user — long, detailed, ever-growing. Unlike [[03 - Factual Memory in LLMs|factual memory]] (always injected), episodic memory is **retrieved on demand** via a tool call / RAG / vector search — only when the conversation touches something relevant. Think of it as the agent's **journal** of past moments with the user.
+> **Episodic memory** is the **second sub-type of [[02 - Long-Term Memory in LLMs|Long-Term Memory]]**. It stores **specific past events and interactions** with the user — long, detailed, ever-growing. Unlike [[03 - Factual Memory in LLMs|factual memory]] (always injected), episodic memory is **retrieved on demand** via a tool call / RAG / vector search — only when the conversation touches something relevant. The agent's **journal** of past moments with the user.
 
 > [!info] Where this fits
 > Episodic is the **middle** sub-type of LTM: bigger than [[03 - Factual Memory in LLMs]], more user-specific than [[05 - Semantic Memory in LLMs]]. See [[00 - Types of Memory in LLMs]] for the full taxonomy.
 
 ---
 
-## 1. The Core Idea
+## 1. The core idea
 
 Episodic memory is:
 - A **subtype of long-term memory** (persistent, DB-backed).
@@ -46,7 +46,7 @@ Episodic memory is:
 
 ---
 
-## 2. Definition (From the Lecture)
+## 2. Definition (from the lecture)
 
 > **Episodic memory = information about previous interactions / specific past events.**
 >
@@ -56,54 +56,54 @@ Episodic memory is:
 
 ---
 
-## 3. Examples of Episodic Memories
+## 3. Examples of episodic memories
 
 | Type of Episode | Example |
 |---|---|
 | **Past trip / event** | "User went to Paris in 2023." |
-| **Past decision** | "We chose PostgreSQL over MongoDB last sprint." |
-| **Past outcome** | "Last time we deployed this model, latency increased." |
+| **Past decision** | "PostgreSQL chosen over MongoDB last sprint." |
+| **Past outcome** | "Last deployment of this model — latency increased." |
 | **Past topic** | "User asked about LangChain last week and found it verbose." |
 | **Past frustration / preference signal** | "User dislikes long answers — confirmed during chat on May 15." |
 | **Past goal** | "User started prepping for AWS cert exam in March." |
 
 > [!note]
-> Notice these are all **specific, dated, contextual events** — not stable facts. They're the kinds of things you'd write in a diary, not on a profile card.
+> All of these are **specific, dated, contextual events** — not stable facts. The kind of thing belonging in a diary, not on a profile card.
 
 ---
 
-## 4. The Diary Analogy
+## 4. The diary analogy
 
-If [[03 - Factual Memory in LLMs|factual memory]] is your friend's **profile card** (name, where they live), then episodic memory is your **diary of moments with them**:
+If [[03 - Factual Memory in LLMs|factual memory]] is a friend's **profile card** (name, where they live), then episodic memory is the **diary of moments with them**:
 
-- "Last summer, we hiked in the Alps."
-- "She told me she's switching jobs in March."
+- "Last summer we hiked in the Alps."
+- "She mentioned switching jobs in March."
 - "We disagreed about that movie."
 
-You don't recite the whole diary every time you meet them. Instead, when something **triggers a memory** — *"Oh, this reminds me of when we..."* — you flip back to the relevant page.
+The whole diary doesn't get recited every meeting. Instead, when something **triggers a memory** — *"Oh, this reminds me of when we..."* — that page gets flipped to.
 
 > [!tip] Mental model
 > Episodic memory = the agent's **diary** with the user. Always recorded. Selectively recalled.
 
 ---
 
-## 5. Why It's NOT Always Injected
+## 5. Why it's NOT always injected
 
-Why can't we just dump episodic memory into the system prompt like factual?
+Reasons episodic memory can't just be dumped into the system prompt like factual:
 
-1. **It's huge** — months of chats = thousands of entries.
+1. **Huge** — months of chats = thousands of entries.
 2. **Context window** — would blow the model's token budget instantly.
 3. **Cost** — paying tokens for irrelevant old episodes is wasteful.
 4. **Noise** — irrelevant past episodes confuse the model and degrade reasoning.
 
 > [!warning] The key constraint
-> You **cannot** preload all episodic memories. You **must** retrieve **only the relevant ones**, **when** they become relevant.
+> All of episodic memory **cannot** be preloaded. The system **must** retrieve **only the relevant ones**, **when** they become relevant.
 
 ---
 
-## 6. The "On-Demand" Retrieval Flow
+## 6. The "on-demand" retrieval flow
 
-Here's what happens when an episodic-style question comes in:
+What happens when an episodic-style question comes in:
 
 ```
 ┌──────────────────────────────────────────────────────────┐
@@ -136,9 +136,9 @@ Here's what happens when an episodic-style question comes in:
 
 ---
 
-## 7. Trigger Phrases (How LLM Decides to Look)
+## 7. Trigger phrases (how the LLM decides to look)
 
-The LLM (or your orchestration layer) usually recognizes episodic-memory cues like:
+The LLM (or the orchestration layer) usually recognizes episodic-memory cues like:
 
 - *"Do you remember when..."*
 - *"Last time we..."*
@@ -151,7 +151,7 @@ When these triggers fire → **run a retrieval** → inject results → answer.
 
 ---
 
-## 8. How Episodic Memory Is Stored
+## 8. How episodic memory gets stored
 
 Because it must be **searchable by meaning**, episodic memory typically lives in a **vector database**:
 
@@ -165,9 +165,9 @@ Because it must be **searchable by meaning**, episodic memory typically lives in
 | **Graph DB (Neo4j)** | When episodes are richly connected (people, places, projects) |
 
 ### Why not a regular DB?
-- You don't know **which episode** you'll need ahead of time.
-- You need to search by **meaning**, not exact keywords.
-- Vector embeddings let you ask *"find episodes similar to 'Paris trip'"* — even if the user said *"my visit to France"*.
+- The relevant episode isn't known ahead of time.
+- Search has to be by **meaning**, not exact keywords.
+- Vector embeddings allow queries like *"find episodes similar to 'Paris trip'"* — even when the user said *"my visit to France"*.
 
 ---
 
@@ -209,7 +209,7 @@ def end_session(user_id, message_history):
 
 ---
 
-## 10. Concrete Walkthrough — The Paris Example
+## 10. Concrete walkthrough — the Paris example
 
 1. **Months ago**, the user mentioned: *"I went to Paris in 2023, it was amazing."*
 2. The agent stored this as an episode: `{"user_id": "jayanth", "text": "Visited Paris in 2023, enjoyed it", "date": "2023-..."}`. Embedded and saved in Qdrant.
@@ -221,7 +221,7 @@ def end_session(user_id, message_history):
 
 ---
 
-## 11. Factual vs Episodic — Side by Side
+## 11. Factual vs episodic — side by side
 
 | | Factual | Episodic |
 |---|---|---|
@@ -235,7 +235,7 @@ def end_session(user_id, message_history):
 
 ---
 
-## 12. Gotchas & Best Practices
+## 12. Gotchas & best practices
 
 > [!warning] Watch out for these
 
@@ -243,13 +243,13 @@ def end_session(user_id, message_history):
 - **Top-K tuning** — too few = miss relevant memories; too many = noise + token cost. Often K=3–10 works.
 - **Recency vs relevance** — sometimes recent matters more than semantically similar. Hybrid scoring helps.
 - **Conflicting episodes** — old episodes may be outdated ("loved Paris" → "Paris was overrated"). Use timestamps.
-- **Embedding drift** — if you change embedding models, you must re-embed everything.
+- **Embedding drift** — changing embedding models means re-embedding everything.
 - **Privacy** — episodic memory is *very* personal. Honor deletion requests and isolate per user.
 - **Avoid double storage** — extract facts → push to factual; keep episodes lean.
 
 ---
 
-## 13. The Three LTM Sub-types — Where Episodic Sits
+## 13. The three LTM sub-types — where episodic sits
 
 | Sub-type | Retrieval | Size | Storage |
 |---|---|---|---|
@@ -264,7 +264,7 @@ def end_session(user_id, message_history):
 
 ---
 
-## 14. Key Takeaways
+## 14. Main takeaways
 
 - Episodic memory = **specific past interactions / events** with the user.
 - Subtype of **LTM** — persistent, DB-backed.
@@ -276,17 +276,17 @@ def end_session(user_id, message_history):
 
 ---
 
-## 15. Open Questions
+## 15. Things I still want to figure out
 
 - **What counts as a memorable episode?** Every turn? Or only "significant" ones? Who decides?
 - **How to summarize episodes** before storing — verbatim, summary, or structured (who/what/when/where)?
-- **Hybrid retrieval** — should we combine vector similarity with recency and importance?
+- **Hybrid retrieval** — should vector similarity be combined with recency and importance?
 - **How to handle outdated episodes?** Mark stale? Decay weights?
-- **Cross-session privacy** — what if a user wants to forget a specific episode?
+- **Cross-session privacy** — what about a user wanting to forget a specific episode?
 
 ---
 
-## 16. Coming Up Next
+## 16. Next up in this section
 
 - [[05 - Semantic Memory in LLMs]] — general world knowledge (not user-specific), retrieved on demand.
 

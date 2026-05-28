@@ -21,14 +21,14 @@ related:
 # Short-Term Memory in LLMs (STM)
 
 > [!abstract] TL;DR
-> **Short-Term Memory (STM)** in an LLM agent is simply the **ongoing conversation history** of the current session. It's held only while a task is in progress, and discarded once the task ends. If you've ever built a chatbot that passes the message history back to the LLM on every turn — **you've already been using STM.**
+> **Short-Term Memory (STM)** in an LLM agent is simply the **ongoing conversation history** of the current session. It's held only while a task is in progress, and discarded once the task ends. Any chatbot that passes the message history back to the LLM on every turn is already using STM.
 
 > [!info] Where this fits
-> This is the first memory type in the syllabus. STM lives under the broader [[00 - Types of Memory in LLMs]] taxonomy and is the volatile counterpart to **Long-Term Memory (LTM)**.
+> First memory type in the syllabus. STM lives under the broader [[00 - Types of Memory in LLMs]] taxonomy and is the volatile counterpart to **Long-Term Memory (LTM)**.
 
 ---
 
-## 1. The Core Idea
+## 1. The core idea
 
 Short-Term Memory is:
 - **Short-lived** — exists only for the duration of an active session/task.
@@ -36,34 +36,34 @@ Short-Term Memory is:
 - **Volatile** — deleted/discarded once the task is complete.
 - **Working memory** — also called *working memory* in agentic AI literature.
 
-> **In one sentence:** STM = the conversation history of the session that's currently in progress.
+> **In one sentence:** STM = the conversation history of the session currently in progress.
 
 ---
 
-## 2. Real-World Analogy: The Restaurant Order
+## 2. Real-world analogy: the restaurant order
 
-This is the speaker's main analogy — it perfectly captures what STM is.
+The speaker's main analogy — perfectly captures what STM is.
 
 ### The scenario
-1. You walk into a restaurant and order a burger.
-2. The cashier hands you **order number 132**.
-3. You **remember 132** while you wait — you keep glancing at the screen showing ready orders.
-4. Your number comes up → you grab your food → **transaction complete**.
-5. A week later, someone asks: *"What was your order number last time?"* — **you have no idea.**
+1. Walk into a restaurant and order a burger.
+2. The cashier hands over **order number 132**.
+3. The number is **held in mind** while waiting — glancing at the screen showing ready orders.
+4. The number comes up → grab the food → **transaction complete**.
+5. A week later, when asked *"What was the order number last time?"* — no idea.
 
 ### Why this is STM
-- You held the number **only during the transaction**.
-- Your brain didn't bother committing it to long-term storage — there was no reason to.
-- Once the goal (getting your food) was achieved, the data was **purged**.
+- The number was held **only during the transaction**.
+- The brain didn't bother committing it to long-term storage — no reason to.
+- Once the goal (getting the food) was achieved, the data was **purged**.
 
 > [!tip] The key insight
-> Your brain made an implicit decision: *"I need this number right now, but I won't need it tomorrow."* That's exactly how STM works in LLM agents.
+> The brain made an implicit decision: *"This number matters right now, but won't matter tomorrow."* That's exactly how STM works in LLM agents.
 
 ---
 
-## 3. Concrete LLM Example: A Food-Ordering Agent
+## 3. Concrete LLM example: a food-ordering agent
 
-Let's say you're building an **AI agent that takes food orders** for a hotel/restaurant.
+Imagine an **AI agent that takes food orders** for a hotel/restaurant.
 
 ### The interaction
 
@@ -81,11 +81,11 @@ If the agent **doesn't pass the conversation history** back to the LLM on turn 4
 
 > "Hi! What's your order number?"
 
-The user just told it the number two turns ago. This is a **terrible UX** — frustrating and unprofessional.
+The user just gave the number two turns ago. **Terrible UX** — frustrating and unprofessional.
 
 ### What goes right with STM
 
-On every turn, you send the **entire conversation history** to the LLM:
+On every turn, the **entire conversation history** gets sent to the LLM:
 
 ```
 [User]:  Where is my order number 132?
@@ -96,11 +96,11 @@ On every turn, you send the **entire conversation history** to the LLM:
 Now the LLM sees `132` in context and correctly looks up that order in the database.
 
 > [!warning] Rule of thumb
-> Always pass the **full ongoing conversation history** back to the LLM during a session. The LLM is stateless — if you don't pass history, it doesn't have it.
+> Always pass the **full ongoing conversation history** back to the LLM during a session. The LLM is stateless — no history sent, no history known.
 
 ---
 
-## 4. The Lifecycle of STM
+## 4. The lifecycle of STM
 
 ```
 ┌──────────────────────────────────────────────────────┐
@@ -134,30 +134,30 @@ Now the LLM sees `132` in context and correctly looks up that order in the datab
 ### What happens when a NEW order starts?
 - A **brand new** chat history is created (say, for order **#432**).
 - The agent has **zero memory** of order #132 — that's by design.
-- It will ask: *"What's your order number?"* — which is correct, because this is a different transaction.
+- It will ask: *"What's your order number?"* — correct, because this is a different transaction.
 
 > [!example] The pattern
 > **One session = one STM history.** New session → fresh empty history. Old session ends → history can be deleted.
 
 ---
 
-## 5. Why Not Store STM Forever?
+## 5. Why not store STM forever
 
-You *could* store every chat history forever — but you **shouldn't** for STM data, because:
+Keeping every chat history forever is *possible* but **wrong** for STM data, because:
 
-1. **It's not useful long-term** — yesterday's order number is irrelevant today.
+1. **Not useful long-term** — yesterday's order number is irrelevant today.
 2. **Cost** — storing and retrieving stale data wastes money.
 3. **Context bloat** — sending old, irrelevant history to the LLM degrades performance and increases token cost.
-4. **Privacy / clutter** — keeping data you don't need is a liability.
+4. **Privacy / clutter** — keeping unneeded data is a liability.
 
 > [!info]
-> If something *is* worth keeping (like the user's name or preferences), that's **Long-Term Memory's** job — see [[02 - Long-Term Memory in LLMs]].
+> Things actually worth keeping (like the user's name or preferences) belong in **Long-Term Memory** — see [[02 - Long-Term Memory in LLMs]].
 
 ---
 
-## 6. How STM Is Implemented in Practice
+## 6. How STM is implemented in practice
 
-In code, STM usually looks like an **append-only list of messages** that you pass to the LLM on every call.
+In code, STM usually looks like an **append-only list of messages** passed to the LLM on every call.
 
 ### Typical pattern
 
@@ -182,42 +182,42 @@ message_history = None
 ### Common storage patterns
 - **In-memory list** — simplest, fine for single-turn or short sessions.
 - **MongoDB / Redis** — when sessions span multiple requests (e.g., a web app).
-- **Conversation buffer** — built-in in frameworks like LangChain (`ConversationBufferMemory`).
+- **Conversation buffer** — built in to frameworks like LangChain (`ConversationBufferMemory`).
 
 > [!quote] From the transcript
 > "We were storing this history in a MongoDB. We always give this history of messages. This is a short term memory."
 
 ---
 
-## 7. STM in the Speaker's Existing Code
+## 7. STM in the speaker's existing code
 
-The speaker pointed out that **STM is something you've already been using** — you just didn't know it had a name.
+The speaker pointed out that **STM is something that's already been in use** in earlier examples — just unnamed.
 
 Examples mentioned:
 - **Hello World** agent — passes message history each turn.
 - **Chain-of-Thought (CoT)** prompts — append every step to a running message history while the application runs.
-- Any chatbot where you `messages.append(...)` and then re-send the full `messages` list to the LLM.
+- Any chatbot that does `messages.append(...)` and then re-sends the full `messages` list to the LLM.
 
 > [!tip]
-> If your code has a `message_history` (or `messages`, `chat_history`, `conversation`) list that grows during a session and gets passed to the LLM repeatedly — **that's STM in action.**
+> Any code with a `message_history` (or `messages`, `chat_history`, `conversation`) list that grows during a session and gets passed to the LLM repeatedly — **that's STM in action.**
 
 ---
 
-## 8. Industry Definition
+## 8. Industry definition
 
 From IBM's blog on agentic memory:
 
 > *"Short-term memory (STM) enables an AI agent to remember recent inputs for immediate decision making. This type of memory is useful in conversational AI where maintaining context across multiple exchanges is required."*
 
-Also commonly called **working memory** — it maintains short-term conversational context (e.g., "what was the last question?").
+Also commonly called **working memory** — maintains short-term conversational context (e.g., "what was the last question?").
 
 ---
 
-## 9. Tools & Frameworks
+## 9. Tools & frameworks
 
 ### Mem0 (mentioned in the lecture)
 - A framework for managing memory in AI agents.
-- Will be used later in the course.
+- Used later in the course.
 - Website: [mem0.ai](https://mem0.ai)
 
 ### Other notable options
@@ -228,41 +228,41 @@ Also commonly called **working memory** — it maintains short-term conversation
 
 ---
 
-## 10. Gotchas & Best Practices
+## 10. Gotchas & best practices
 
 > [!warning] Watch out for these
 
-- **Context window limits** — STM grows with every turn. Eventually it exceeds the LLM's context window (e.g., 8k, 128k tokens) and you have to:
+- **Context window limits** — STM grows with every turn. Eventually it exceeds the LLM's context window (e.g., 8k, 128k tokens). Mitigations:
   - Truncate (drop oldest messages), or
   - Summarize (condense history into a shorter form), or
   - Use sliding-window memory.
 - **Don't confuse STM with state** — STM is conversation history. State (e.g., "current order being placed") may be tracked separately.
-- **Privacy** — even though STM is short-lived, ensure logs/MongoDB aren't keeping it around unintentionally.
+- **Privacy** — even though STM is short-lived, logs/MongoDB shouldn't be keeping it around unintentionally.
 - **Don't pass irrelevant history** — if the user shifts topics mid-session, old history can confuse the model.
 
 ---
 
-## 11. Key Takeaways
+## 11. Main takeaways
 
 - STM = **ongoing conversation history** for the **current session**.
-- The LLM is stateless — **you** are responsible for sending history back on every turn.
+- The LLM is stateless — sending history back on every turn is the application's responsibility.
 - Restaurant order #132 analogy: remember during the task, forget after.
 - STM is **deleted** when the task/session ends.
 - A new session = a **new, empty** STM.
-- You've probably been using STM already — any chatbot that appends to a `messages` list is doing exactly this.
+- Any chatbot that appends to a `messages` list is already doing STM.
 
 ---
 
-## 12. Open Questions
+## 12. Things I still want to figure out
 
-- At what point do you **summarize vs. truncate** old STM messages?
-- How do you decide what's worth **promoting from STM → LTM**?
+- At what point should old STM messages be **summarized vs. truncated**?
+- What's the heuristic for **promoting STM → LTM** — what's worth remembering?
 - For long sessions, is it better to keep history in memory (RAM) or in a DB like MongoDB/Redis?
 - How does STM interact with **tool calls** — do tool outputs become part of STM?
 
 ---
 
-## 13. Coming Up Next
+## 13. Next up in this section
 
 - [[02 - Long-Term Memory in LLMs]] — persistent memory across sessions
 - [[03 - Factual Memory in LLMs]]

@@ -23,27 +23,27 @@ related:
 # Factual Memory in LLMs
 
 > [!abstract] TL;DR
-> **Factual memory** is the **first sub-type of [[02 - Long-Term Memory in LLMs|Long-Term Memory]]**. It stores **stable facts about the user** — name, age, location, preferences. It's **small**, **slow-changing**, and **always injected into the context** of every session. Think of it as the "profile card" the agent never forgets.
+> **Factual memory** is the **first sub-type of [[02 - Long-Term Memory in LLMs|Long-Term Memory]]**. It stores **stable facts about the user** — name, age, location, preferences. It's **small**, **slow-changing**, and **always injected into the context** of every session. The "profile card" the agent never forgets.
 
 > [!info] Where this fits
 > Factual memory is one of three LTM sub-types, alongside [[04 - Episodic Memory in LLMs]] (past interactions) and [[05 - Semantic Memory in LLMs]] (world knowledge). See [[00 - Types of Memory in LLMs]] for the full taxonomy.
 
 ---
 
-## 1. The Core Idea
+## 1. The core idea
 
 Factual memory is:
 - A **subtype of long-term memory** (so it's persistent and DB-backed).
 - **Facts about the user** — not about the world, not about past chats.
 - **Small** — typically 5–20 data points per user.
-- **Slow-changing** — name/age don't change often; preferences change occasionally.
+- **Slow-changing** — name/age change rarely; preferences change occasionally.
 - **Always in context** — injected into **every** session's system prompt.
 
 > **In one sentence:** Factual memory = the user's profile facts, always loaded into the LLM's context.
 
 ---
 
-## 2. Definition (From the Lecture)
+## 2. Definition (from the lecture)
 
 > **Factual memory = facts about the user**
 >
@@ -53,7 +53,7 @@ Factual memory is:
 
 ---
 
-## 3. What Counts as a Fact?
+## 3. What counts as a fact
 
 | Type of Fact | Example |
 |---|---|
@@ -83,11 +83,11 @@ Factual memory is:
 
 ---
 
-## 4. The "Friend" Analogy
+## 4. The "friend" analogy
 
-The speaker uses a great human analogy:
+The speaker's analogy:
 
-> When you think of your friend, you **don't remember every conversation** you've ever had with them. But you **do remember**:
+> Thinking about a friend doesn't bring up **every conversation** ever had with them. What it does bring up:
 > - Their name
 > - Where they live
 > - What they wear
@@ -95,23 +95,23 @@ The speaker uses a great human analogy:
 >
 > Those persistent, **summary-level facts** about a person? **That's factual memory.**
 
-The forgotten conversations? Those would be **episodic memory** (covered next).
+The forgotten conversations? Those belong in **episodic memory** (covered next).
 
 > [!tip] Mental model
-> Factual memory is the **profile card** in your head — a small, stable set of facts. Episodic memory is the **album of moments** with that person.
+> Factual memory = the **profile card** held in mind — a small, stable set of facts. Episodic memory = the **album of moments** with that person.
 
 ---
 
-## 5. Key Property: Always Injected
+## 5. Key property: always injected
 
-This is what makes factual memory special among the LTM sub-types:
+What makes factual memory special among the LTM sub-types:
 
 > **Factual memory is pushed into the LLM's context on EVERY session.**
 
 ### Why it's safe to always inject
-1. **It's small** — 5 to 20 facts, maybe a few hundred tokens.
-2. **It's high-signal** — knowing the user's name + preferences improves nearly every reply.
-3. **It rarely changes** — no need to re-fetch frequently.
+1. **Small** — 5 to 20 facts, maybe a few hundred tokens.
+2. **High-signal** — knowing the user's name + preferences improves nearly every reply.
+3. **Rarely changes** — no need to re-fetch frequently.
 
 ### Contrast with other LTM sub-types
 | Sub-type | Retrieval Pattern | Why |
@@ -122,7 +122,7 @@ This is what makes factual memory special among the LTM sub-types:
 
 ---
 
-## 6. How Factual Memory Plugs Into a Session
+## 6. How factual memory plugs into a session
 
 ```
 ┌────────────────────────────────────────────────────────┐
@@ -157,11 +157,11 @@ def build_system_prompt(user_id):
 ```
 
 > [!note]
-> Compare this with episodic/semantic memory — those require **semantic search** to pick *which* memories to retrieve. Factual is simple: **fetch them all, always.**
+> Compared with episodic/semantic memory — those require **semantic search** to pick *which* memories to retrieve. Factual is simple: **fetch them all, always.**
 
 ---
 
-## 7. Why Factual Memory Is "Cheap"
+## 7. Why factual memory is "cheap"
 
 Because it's so small, factual memory:
 - **Doesn't blow up the context window** (a few hundred tokens at most).
@@ -170,11 +170,11 @@ Because it's so small, factual memory:
 - **Is easy to update** — overwrite the field; no embeddings to recompute.
 
 > [!tip]
-> If you're starting to build memory into an AI agent, **factual memory is the easiest win** — minimal infra, maximum personalization impact.
+> When starting to add memory to an AI agent, **factual memory is the easiest win** — minimal infra, maximum personalization impact.
 
 ---
 
-## 8. Storage Patterns
+## 8. Storage patterns
 
 Factual memory fits a wide range of storage options:
 
@@ -186,11 +186,11 @@ Factual memory fits a wide range of storage options:
 | **Mem0** | Handles factual storage + retrieval automatically |
 | **JSON file** | Fine for prototypes and single-user agents |
 
-Unlike episodic/semantic memory, you generally **don't need a vector DB** for factual memory.
+Unlike episodic/semantic memory, factual memory generally **doesn't need a vector DB**.
 
 ---
 
-## 9. Examples in Action
+## 9. Examples in action
 
 ### Example 1 — A coding assistant
 > "Hey Jayanth, since you work mostly in **Python**, here's the snippet..."
@@ -198,31 +198,31 @@ Unlike episodic/semantic memory, you generally **don't need a vector DB** for fa
 The agent knew "works in Python" because it's in factual memory.
 
 ### Example 2 — A health app
-> "Good morning! Reminder: you've set your daily protein goal at 80g."
+> "Good morning! Reminder: daily protein goal is 80g."
 
 The goal (80g) is a stable user fact → factual memory.
 
 ### Example 3 — A writing assistant
-> "Here's the draft in **markdown** with **short paragraphs**, as you prefer."
+> "Here's the draft in **markdown** with **short paragraphs**."
 
 Output format preference = factual memory.
 
 ---
 
-## 10. Gotchas & Best Practices
+## 10. Gotchas & best practices
 
 > [!warning] Watch out for these
 
 - **Don't overstuff** — factual memory should stay small. Long histories belong in episodic.
 - **Versioning** — if a fact changes (user moves cities), update with timestamp; don't keep both.
-- **Validation** — don't blindly trust new "facts" extracted from chat. Confirm with the user where it matters.
+- **Validation** — don't blindly trust new "facts" extracted from chat. Confirm where it matters.
 - **Privacy** — factual memory holds the most sensitive PII. Encrypt at rest. Allow deletion.
 - **One source of truth** — when the same fact lives in multiple places (signup form, chat-extracted), pick one canonical source.
 - **Don't mix with state** — "current order #132" is **session state / STM**, not a fact.
 
 ---
 
-## 11. Factual vs Episodic vs Semantic
+## 11. Factual vs episodic vs semantic
 
 | | Factual | Episodic | Semantic |
 |---|---|---|---|
@@ -234,27 +234,27 @@ Output format preference = factual memory.
 
 ---
 
-## 12. Key Takeaways
+## 12. Main takeaways
 
 - Factual memory = **facts about the user** (name, age, location, preferences).
-- It's a **subtype of LTM** — persistent, DB-backed, user-scoped.
-- It's **small** — typically 5–20 entries — so it's safe to **always inject** into the system prompt.
+- A **subtype of LTM** — persistent, DB-backed, user-scoped.
+- **Small** — typically 5–20 entries — so safe to **always inject** into the system prompt.
 - Uses simple storage (Mongo, Postgres, Redis) — **no vector search needed**.
-- The friend analogy: it's the small, stable "profile" you carry about someone in your head.
-- It's the **easiest, highest-ROI memory** to add to an AI agent.
+- The friend analogy: the small, stable "profile" held in mind about someone.
+- The **easiest, highest-ROI memory** to add to an AI agent.
 
 ---
 
-## 13. Open Questions
+## 13. Things I still want to figure out
 
 - How does the agent decide which **new** facts to commit to factual memory (vs ignore as noise)?
-- When a user says something that **contradicts** an existing fact, how do you reconcile?
+- When a user says something that **contradicts** an existing fact, how is it reconciled?
 - Should preferences be **inferred** from behavior or only stored when **explicitly stated**?
-- What's the right strategy when factual memory **does** grow past 50+ entries — start sub-categorizing? Move into episodic?
+- What's the right strategy when factual memory **does** grow past 50+ entries — sub-categorize? Move into episodic?
 
 ---
 
-## 14. Coming Up Next
+## 14. Next up in this section
 
 - [[04 - Episodic Memory in LLMs]] — past interactions & patterns (large, retrieved when relevant)
 - [[05 - Semantic Memory in LLMs]] — general world knowledge (curated, retrieved on demand)

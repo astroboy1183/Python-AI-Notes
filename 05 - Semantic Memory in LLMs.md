@@ -26,14 +26,14 @@ related:
 # Semantic Memory in LLMs
 
 > [!abstract] TL;DR
-> **Semantic memory** is the **third (and final) sub-type of [[02 - Long-Term Memory in LLMs|Long-Term Memory]]**. It stores **general world knowledge** — facts about reality, not about the user, not about past events. Things like *"Paris is the capital of France"* or curated domain templates. It's retrieved **on demand** when the conversation needs that knowledge. You usually don't need to worry about it much in early agent designs.
+> **Semantic memory** is the **third (and final) sub-type of [[02 - Long-Term Memory in LLMs|Long-Term Memory]]**. It stores **general world knowledge** — facts about reality, not about the user, not about past events. Things like *"Paris is the capital of France"* or curated domain templates. Retrieved **on demand** when the conversation needs that knowledge. Usually not the first memory layer to worry about in early agent designs.
 
 > [!info] Where this fits
 > Semantic memory is the third LTM sub-type, alongside [[03 - Factual Memory in LLMs]] (about the user) and [[04 - Episodic Memory in LLMs]] (past interactions). See [[00 - Types of Memory in LLMs]] for the full taxonomy.
 
 ---
 
-## 1. The Core Idea
+## 1. The core idea
 
 Semantic memory is:
 - A **subtype of long-term memory** (persistent, DB-backed).
@@ -46,7 +46,7 @@ Semantic memory is:
 
 ---
 
-## 2. Definition (From the Lecture)
+## 2. Definition (from the lecture)
 
 > **Semantic memory = general knowledge.**
 >
@@ -57,7 +57,7 @@ Semantic memory is:
 
 ---
 
-## 3. Examples of Semantic Memories
+## 3. Examples of semantic memories
 
 | Type of Knowledge | Example |
 |---|---|
@@ -73,51 +73,51 @@ Semantic memory is:
 
 ---
 
-## 4. The Library Analogy
+## 4. The library analogy
 
-If we extend the previous analogies:
+Extending the previous analogies:
 
-- [[03 - Factual Memory in LLMs|Factual]] = your friend's **profile card** in your head.
-- [[04 - Episodic Memory in LLMs|Episodic]] = your **diary** of moments with them.
-- **Semantic** = the **library / encyclopedia** you both share — generic knowledge anyone could look up.
+- [[03 - Factual Memory in LLMs|Factual]] = a friend's **profile card** held in mind.
+- [[04 - Episodic Memory in LLMs|Episodic]] = the **diary** of moments shared with them.
+- **Semantic** = the **library / encyclopedia** anyone could look up — generic knowledge.
 
 > [!tip] Mental model
-> Semantic memory is the **library** the agent walks over to whenever the conversation needs a generic fact or template. It's not personal — it's reference material.
+> Semantic memory is the **library** the agent walks over to whenever the conversation needs a generic fact or template. Not personal — reference material.
 
 ---
 
-## 5. Why Semantic Is "Not Always Injected"
+## 5. Why semantic is "not always injected"
 
-Like episodic memory, semantic memory is **on-demand**, not always-loaded. Why?
+Like episodic memory, semantic memory is **on-demand**, not always-loaded. Why:
 
-1. **It's potentially huge** — a curated knowledge base can contain millions of facts.
+1. **Potentially huge** — a curated knowledge base can contain millions of facts.
 2. **Most facts are irrelevant** to any given conversation.
 3. **Context window** is finite — would be wasted on unrelated knowledge.
 4. **Cost** — paying tokens for unused background knowledge is wasteful.
 
-So you **retrieve only what's relevant** to the current question.
+So **only what's relevant** to the current question gets retrieved.
 
 ---
 
-## 6. Semantic vs. the LLM's Pretrained Knowledge
+## 6. Semantic vs. the LLM's pretrained knowledge
 
-This is a subtle but important point.
+A subtle but important point.
 
 > [!warning] Important nuance
 > The LLM already "knows" Paris is the capital of France **from its training data**. So why store it in semantic memory?
 
-You'd add semantic memory when you need:
-- **Curated, vetted facts** — sources you trust.
-- **Up-to-date knowledge** — newer than the model's training cutoff.
-- **Domain-specific knowledge** — internal company docs, niche field info.
-- **Reusable templates** — code snippets, boilerplates, formats the agent should reuse.
-- **Authoritative reference** — when "the model might know" isn't good enough.
+Semantic memory becomes worthwhile when:
+- **Curated, vetted facts** are required — trusted sources.
+- **Up-to-date knowledge** is needed — newer than the model's training cutoff.
+- **Domain-specific knowledge** matters — internal company docs, niche field info.
+- **Reusable templates** are valuable — code snippets, boilerplates, formats the agent should reuse.
+- **Authoritative reference** is required — "the model might know" isn't good enough.
 
-In other words: **semantic memory is for knowledge you want the agent to use reliably**, not just stuff it might have absorbed at training time.
+In other words: **semantic memory is for knowledge the agent should use reliably**, not just stuff it might have absorbed at training time.
 
 ---
 
-## 7. On-Demand Retrieval Flow
+## 7. On-demand retrieval flow
 
 ```
 ┌──────────────────────────────────────────────────────────┐
@@ -140,11 +140,11 @@ In other words: **semantic memory is for knowledge you want the agent to use rel
 └──────────────────────────────────────────────────────────┘
 ```
 
-This is essentially a classic **RAG (Retrieval-Augmented Generation)** pipeline — semantic memory and RAG are very close cousins.
+Essentially a classic **RAG (Retrieval-Augmented Generation)** pipeline — semantic memory and RAG are very close cousins.
 
 ---
 
-## 8. How Semantic Memory Is Stored
+## 8. How semantic memory gets stored
 
 Typical storage choices:
 
@@ -157,7 +157,7 @@ Typical storage choices:
 | **Markdown / docs in a folder** + RAG | Simple knowledge bases (e.g., team wikis) |
 | **Mem0** | Abstracted semantic store |
 
-Just like [[04 - Episodic Memory in LLMs|episodic]], semantic memory typically wants **semantic search** capability → **vector DBs** dominate.
+Just like [[04 - Episodic Memory in LLMs|episodic]], semantic memory typically needs **semantic search** capability → **vector DBs** dominate.
 
 ---
 
@@ -186,11 +186,11 @@ def handle_user_message(user_id, user_msg, message_history):
 ```
 
 > [!note] Key difference from episodic
-> Notice: semantic memory is **not scoped by `user_id`**. It's a shared knowledge base across all users.
+> Semantic memory is **not scoped by `user_id`**. It's a shared knowledge base across all users.
 
 ---
 
-## 10. The Three LTM Sub-types — Final Recap
+## 10. The three LTM sub-types — final recap
 
 | Sub-type | About | Scope | Retrieval | Size | Storage |
 |---|---|---|---|---|---|
@@ -205,51 +205,51 @@ def handle_user_message(user_id, user_msg, message_history):
 
 ---
 
-## 11. Why You Often Don't Need to Worry About It
+## 11. Why semantic often isn't an early priority
 
-The speaker says:
+The speaker:
 
 > *"You usually don't have to worry about a semantic memory a lot."*
 
-Why?
+Reasons:
 - The LLM already has **massive pretrained world knowledge**.
 - For most agents, factual + episodic memory carries the personalization weight.
 - Semantic memory becomes important when:
-  - You're building a **domain-specific assistant** (legal, medical, enterprise docs).
-  - You need **authoritative or up-to-date** info.
-  - You want to **constrain** the agent's answers to a known knowledge base.
+  - Building a **domain-specific assistant** (legal, medical, enterprise docs).
+  - **Authoritative or up-to-date** info is needed.
+  - The agent's answers need to be **constrained** to a known knowledge base.
 
 > [!info]
-> If you're starting out, prioritize **factual** first, then **episodic**. Add **semantic** only when you have curated knowledge worth retrieving.
+> Build order in early agents: **factual** first, then **episodic**. Add **semantic** only when curated knowledge worth retrieving exists.
 
 ---
 
-## 12. Gotchas & Best Practices
+## 12. Gotchas & best practices
 
 > [!warning] Watch out for these
 
-- **Don't duplicate pretrained knowledge** unless you need authoritative / fresher sources.
+- **Don't duplicate pretrained knowledge** unless authoritative / fresher sources are needed.
 - **Source attribution** — track where each semantic fact came from; useful for trust + audit.
 - **Versioning / freshness** — world knowledge can become outdated (e.g., political leadership changes). Add timestamps.
-- **Chunking strategy** — for big docs, how you split affects retrieval quality (paragraphs vs sentences vs semantic chunks).
+- **Chunking strategy** — for big docs, how the splits are done affects retrieval quality (paragraphs vs sentences vs semantic chunks).
 - **Embedding consistency** — same embedding model across writes + queries.
 - **Hybrid search** — combine vector similarity with keyword/BM25 for robust retrieval.
 - **Don't confuse with user data** — semantic memory has **no user scoping**.
 
 ---
 
-## 13. Key Takeaways
+## 13. Main takeaways
 
 - Semantic memory = **general world knowledge** stored in an external knowledge base.
 - **Not user-specific.** **Not episode-specific.** Just **facts about reality / domain**.
 - A **subtype of LTM** — persistent, DB-backed (usually a vector DB).
 - Retrieved **on demand** (RAG-style) when the topic comes up.
-- Often **not the first memory you build** — pretrained LLM knowledge handles a lot already.
+- Often **not the first memory layer to build** — pretrained LLM knowledge already covers a lot.
 - Becomes critical for **domain-specific** or **knowledge-grounded** agents.
 
 ---
 
-## 14. Open Questions
+## 14. Things I still want to figure out
 
 - **When to override pretrained knowledge** — should retrieved semantic facts always win over the model's prior?
 - **Conflict between semantic and episodic** — what if a user remembered something that contradicts a "known" fact?
@@ -259,7 +259,7 @@ Why?
 
 ---
 
-## 15. Series Complete — The Full Memory Taxonomy
+## 15. Series complete — the full memory taxonomy
 
 This wraps up the **four memory types**:
 
@@ -287,7 +287,7 @@ This wraps up the **four memory types**:
 
 ---
 
-## 16. Coming Up Next
+## 16. Next up
 
 The next video sets up the practical infrastructure:
 

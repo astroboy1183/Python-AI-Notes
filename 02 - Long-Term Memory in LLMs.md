@@ -27,52 +27,52 @@ related:
 # Long-Term Memory in LLMs (LTM)
 
 > [!abstract] TL;DR
-> **Long-Term Memory (LTM)** is information about the **user** that is stored in an external database and **persists forever** — across sessions, devices, and time. Unlike STM (which is session-scoped), LTM is **user-scoped**. The big challenge: LTM **keeps growing**, and you can't dump it all into the LLM's context window. That's why LTM is further split into **factual**, **episodic**, and **semantic** memory — each with different retrieval rules.
+> **Long-Term Memory (LTM)** is information about the **user** that is stored in an external database and **persists forever** — across sessions, devices, and time. Unlike STM (which is session-scoped), LTM is **user-scoped**. The big challenge: LTM **keeps growing**, and dumping it all into the LLM's context window isn't viable. That's why LTM is further split into **factual**, **episodic**, and **semantic** memory — each with different retrieval rules.
 
 > [!info] Where this fits
 > LTM is the **persistent counterpart** to [[01 - Short-Term Memory in LLMs]]. Together they form the two halves of the [[00 - Types of Memory in LLMs]] taxonomy.
 
 ---
 
-## 1. The Core Idea
+## 1. The core idea
 
 Long-Term Memory is:
 - **Persistent** — stored in a real database; not lost when the session ends.
 - **User-scoped** — tied to a specific user, not a specific conversation.
-- **Cross-session** — survives across days, weeks, and months.
+- **Cross-session** — survives days, weeks, and months.
 - **Injected as context** — pulled from the DB and added to the prompt when needed.
-- **Growing** — accumulates over time → must be **selectively retrieved**.
+- **Growing** — accumulates over time → requires **selective retrieval**.
 
-> **In one sentence:** LTM = facts about the user that I never want to forget, stored in a database, injected into the conversation when needed.
+> **In one sentence:** LTM = facts about the user that should never be forgotten, stored in a database, injected into the conversation when needed.
 
 ---
 
-## 2. Real-World Analogy: The Restaurant Remembers You
+## 2. Real-world analogy: the restaurant remembers
 
-This continues the restaurant analogy from [[01 - Short-Term Memory in LLMs]].
+Continuing the restaurant analogy from [[01 - Short-Term Memory in LLMs]].
 
 ### The scenario
 1. **First visit**: Walk in, tell the agent *"My name is Jayanth."* Order #132.
-2. **#132 is STM** — temporary; gone once you get your burger.
+2. **#132 is STM** — temporary; gone once the burger's served.
 3. **"Name is Jayanth" is LTM** — stored in the database **forever**.
 
 ### Second visit (weeks later)
-You walk in. The agent says:
+On returning, the agent says:
 
 > **"Hey Jayanth! What's your order number?"**
 
 Notice:
-- The agent **doesn't ask your name** — it pulled that from LTM.
-- The agent **does ask your order number** — that's session-specific (STM).
+- The agent **doesn't ask the name** — pulled from LTM.
+- The agent **does ask the order number** — that's session-specific (STM).
 
 > [!tip] The key insight
 > LTM lets the agent **personalize** by carrying user-level facts across sessions. Without LTM, every visit feels like the first time.
 
 ---
 
-## 3. What Goes Into LTM?
+## 3. What goes into LTM
 
-Things you'd **always want to remember about a specific user**:
+Things worth **always remembering about a specific user**:
 - Name
 - Age
 - Preferences (e.g., "prefers spicy food", "vegetarian", "concise replies")
@@ -81,14 +81,14 @@ Things you'd **always want to remember about a specific user**:
 - Past behavior patterns
 - Important relationships and history
 
-Things you would **NOT** put in LTM:
+Things that do **NOT** belong in LTM:
 - The current order number
 - Today's specific question
 - Transient session state
 
 ---
 
-## 4. Where Is LTM Stored?
+## 4. Where LTM gets stored
 
 LTM lives in **external storage** — outside the LLM itself. Common choices:
 
@@ -107,9 +107,9 @@ The course will demonstrate **Qdrant** and **GraphDB** alongside **Mem0** to bui
 
 ---
 
-## 5. How LTM Plugs Into a Conversation
+## 5. How LTM plugs into a conversation
 
-The flow looks like this:
+The flow:
 
 ```
 ┌────────────────────────────────────────────────────────┐
@@ -140,40 +140,40 @@ The flow looks like this:
 ### The pattern is similar to RAG
 
 > [!example] Mental model
-> If you've built a **RAG (Retrieval-Augmented Generation)** app, you already know this pattern:
+> The pattern mirrors **RAG (Retrieval-Augmented Generation)**:
 > 1. Fetch relevant info from a DB beforehand.
 > 2. Inject it as system prompt / context.
 > 3. Let the LLM use it during the conversation.
 >
-> LTM works the **exact same way** — except instead of retrieving documents, you retrieve **facts about the user**.
+> LTM works the **exact same way** — except instead of retrieving documents, the system retrieves **facts about the user**.
 
 ---
 
-## 6. The Big Problem: LTM Grows Forever
+## 6. The big problem: LTM grows forever
 
-Here's the catch the speaker emphasizes:
+The catch the speaker emphasized:
 
 > Over time, a single user might accumulate **4,000+ memories**.
-> Can you dump all 4,000 into the system prompt?
+> Can all 4,000 be dumped into the system prompt?
 > **No.**
 
-### Why not?
+### Why not
 - **Context window is finite** (8k / 128k / 1M tokens — but still bounded).
 - **Cost** — every token sent costs money + latency.
 - **Signal-to-noise** — irrelevant facts confuse the model.
 - **Performance** — too much context degrades reasoning quality.
 
 > [!warning] The retrieval problem
-> You can't inject *all* of LTM. You have to decide:
-> - What do I **always** want to retrieve?
-> - What do I want to retrieve **on demand** (only when relevant)?
-> - What do I want to retrieve **rarely / occasionally**?
+> All of LTM can't be injected. Choices have to be made:
+> - What gets retrieved **always**?
+> - What gets retrieved **on demand** (only when relevant)?
+> - What gets retrieved **rarely / occasionally**?
 
 This question — *"what to retrieve when"* — is what drives the **sub-division of LTM** into three types.
 
 ---
 
-## 7. The Three Sub-Types of LTM (Preview)
+## 7. The three sub-types of LTM (preview)
 
 | Sub-type | Retrieval Pattern | Example |
 |---|---|---|
@@ -187,11 +187,11 @@ Each gets its own dedicated note:
 - [[05 - Semantic Memory in LLMs]]
 
 > [!info]
-> These sub-types aren't arbitrary — they come from cognitive science (Tulving's work) and they map to different **retrieval strategies** in production AI systems.
+> These sub-types aren't arbitrary — they come from cognitive science (Tulving's work) and map to different **retrieval strategies** in production AI systems.
 
 ---
 
-## 8. STM vs LTM — Side by Side
+## 8. STM vs LTM — side by side
 
 | Dimension | STM | LTM |
 |---|---|---|
@@ -205,7 +205,7 @@ Each gets its own dedicated note:
 
 ---
 
-## 9. Implementation Patterns
+## 9. Implementation patterns
 
 ### Basic pattern (pseudocode)
 
@@ -218,7 +218,7 @@ def start_session(user_id):
     # 2. Build the initial system prompt
     system_prompt = f"""
     You are an AI assistant.
-    Here is what you know about the user:
+    Here is what is known about the user:
     {format_facts(ltm_facts)}
     """
 
@@ -243,9 +243,9 @@ def end_session(user_id, message_history):
 
 ---
 
-## 10. Tools & Frameworks
+## 10. Tools & frameworks
 
-### Mem0 (will be used in this course)
+### Mem0 (used later in this course)
 - Framework specifically designed for LLM memory management.
 - Handles both writing to and retrieving from LTM.
 
@@ -263,42 +263,42 @@ def end_session(user_id, message_history):
 
 ---
 
-## 11. Gotchas & Best Practices
+## 11. Gotchas & best practices
 
 > [!warning] Common pitfalls
 
 - **Don't store everything** — be selective; not every chat detail belongs in LTM.
 - **Mind the context window** — retrieve only what's needed, not all 4,000 memories.
 - **Stale memories** — preferences change. Add timestamps; periodically refresh or expire.
-- **Conflicting facts** — what if "User loves coffee" and later "User quit caffeine"? Need conflict resolution / recency rules.
+- **Conflicting facts** — "User loves coffee" later contradicted by "User quit caffeine." Conflict resolution / recency rules needed.
 - **Privacy & consent** — LTM stores real personal data. Honor deletion requests.
-- **User isolation** — never leak one user's LTM into another's session.
+- **User isolation** — one user's LTM must never leak into another's session.
 - **Backups** — losing LTM means the agent "forgets" everyone.
 
 ---
 
-## 12. Key Takeaways
+## 12. Main takeaways
 
 - LTM = persistent, **user-scoped**, **database-backed** memory.
 - Stored in MongoDB / Qdrant / GraphDB / etc. — **outside** the LLM.
 - Injected as **initial context** when a session starts (RAG-like pattern).
-- LTM **grows over time** → can't inject everything → need **selective retrieval**.
+- LTM **grows over time** → injecting everything isn't viable → **selective retrieval** required.
 - That selection problem is why LTM splits into **factual**, **episodic**, and **semantic** sub-types.
 - Once LTM is in place, agents can **personalize** across sessions ("Hey Jayanth!").
 
 ---
 
-## 13. Open Questions
+## 13. Things I still want to figure out
 
-- **What's worth storing?** How do you decide which session facts get promoted to LTM?
-- **When to retrieve?** Always-on vs. on-demand vs. rare retrieval — by what trigger?
+- **What's worth storing?** What's the heuristic for promoting session facts to LTM?
+- **When to retrieve?** Always-on vs. on-demand vs. rare retrieval — triggered by what?
 - **Conflict resolution** — when new facts contradict old ones, which wins?
 - **Memory decay** — should some memories expire? When?
-- **Cross-user inference** — is there any case where one user's LTM informs answers to others (anonymized patterns)?
+- **Cross-user inference** — is there a case where one user's LTM informs answers to others (anonymized patterns)?
 
 ---
 
-## 14. Coming Up Next
+## 14. Next up in this section
 
 - [[03 - Factual Memory in LLMs]] — facts about the user (name, age, preferences) — **always retrieve**.
 - [[04 - Episodic Memory in LLMs]] — past interactions and patterns — retrieve **when relevant**.
