@@ -15,3 +15,7 @@ Thumbs.db
 *.log
 .env
 .env.*
+
+# Local infrastructure — not part of the public notes
+sync-from-vault.sh
+sync.log
