@@ -1,0 +1,17 @@
+# Obsidian — workspace state (volatile)
+.obsidian/
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+
+# Common temp/secret patterns
+*.tmp
+*.log
+.env
+.env.*
