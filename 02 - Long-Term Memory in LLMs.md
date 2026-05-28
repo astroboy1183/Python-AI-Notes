@@ -52,14 +52,14 @@ Long-Term Memory is:
 This continues the restaurant analogy from [[01 - Short-Term Memory in LLMs]].
 
 ### The scenario
-1. **First visit**: Walk in, tell the agent *"My name is Piyush."* Order #132.
+1. **First visit**: Walk in, tell the agent *"My name is Jayanth."* Order #132.
 2. **#132 is STM** — temporary; gone once you get your burger.
-3. **"Name is Piyush" is LTM** — stored in the database **forever**.
+3. **"Name is Jayanth" is LTM** — stored in the database **forever**.
 
 ### Second visit (weeks later)
 You walk in. The agent says:
 
-> **"Hey Piyush! What's your order number?"**
+> **"Hey Jayanth! What's your order number?"**
 
 Notice:
 - The agent **doesn't ask your name** — it pulled that from LTM.
@@ -96,7 +96,7 @@ LTM lives in **external storage** — outside the LLM itself. Common choices:
 |---|---|---|
 | **MongoDB** (or any document DB) | Structured user facts | Flexible schema, easy lookup by user_id |
 | **Qdrant** (vector store) | Semantic search over memories | Find "similar" past facts via embeddings |
-| **Graph databases** (Neo4j, etc.) | Relationships between facts/users | Capture "Piyush works with Rahul on Project X" |
+| **Graph databases** (Neo4j, etc.) | Relationships between facts/users | Capture "Jayanth works with Rahul on Project X" |
 | **PostgreSQL** | Strict relational facts | Solid transactional integrity |
 | **Redis** | Fast key-value lookups | Speed when memory must be retrieved frequently |
 
@@ -120,7 +120,7 @@ The flow looks like this:
 │      │                                                  │
 │      ▼                                                  │
 │  LTM facts are injected as the initial system prompt:  │
-│    "User's name is Piyush.                             │
+│    "User's name is Jayanth.                             │
 │     Age is 28.                                          │
 │     Prefers vegetarian food.                            │
 │     ..."                                                │
@@ -199,7 +199,7 @@ Each gets its own dedicated note:
 | **Scope** | Current conversation | The user across all sessions |
 | **Storage** | In-memory / context window | External DB (MongoDB, Qdrant, Neo4j, ...) |
 | **Cleared when** | Task completes | Rarely — only on explicit deletion |
-| **Example** | "Order #132" | "User's name is Piyush" |
+| **Example** | "Order #132" | "User's name is Jayanth" |
 | **Retrieval** | Just pass the message history | Fetch from DB → inject into prompt |
 | **Growth concern** | Limited (one session) | Unbounded → needs selective retrieval |
 
@@ -255,7 +255,7 @@ def end_session(user_id, message_history):
 
 ### Graph databases (Neo4j, ArangoDB)
 - Model relationships explicitly.
-- Useful when memories form a network ("Piyush → works with → Rahul → on → ProjectX").
+- Useful when memories form a network ("Jayanth → works with → Rahul → on → ProjectX").
 
 ### Others
 - **LangChain memory modules**, **LangGraph checkpointers**, **LlamaIndex** memory.
@@ -284,7 +284,7 @@ def end_session(user_id, message_history):
 - Injected as **initial context** when a session starts (RAG-like pattern).
 - LTM **grows over time** → can't inject everything → need **selective retrieval**.
 - That selection problem is why LTM splits into **factual**, **episodic**, and **semantic** sub-types.
-- Once LTM is in place, agents can **personalize** across sessions ("Hey Piyush!").
+- Once LTM is in place, agents can **personalize** across sessions ("Hey Jayanth!").
 
 ---
 

@@ -68,10 +68,10 @@ Factual memory is:
 > [!example] Concrete factual-memory entry
 > ```json
 > {
->   "name": "Piyush",
+>   "name": "Jayanth",
 >   "age": 28,
 >   "location": "Bangalore",
->   "email": "piyush@example.com",
+>   "email": "jayanth@example.com",
 >   "preferences": {
 >     "output_format": "markdown",
 >     "answer_length": "short",
@@ -133,7 +133,7 @@ This is what makes factual memory special among the LTM sub-types:
 │      │                                                  │
 │      ▼                                                  │
 │  Build system prompt:                                  │
-│    "You are helping Piyush, 28, from Bangalore.        │
+│    "You are helping Jayanth, 28, from Bangalore.        │
 │     He prefers markdown and short answers."            │
 │      │                                                  │
 │      ▼                                                  │
@@ -193,7 +193,7 @@ Unlike episodic/semantic memory, you generally **don't need a vector DB** for fa
 ## 9. Examples in Action
 
 ### Example 1 — A coding assistant
-> "Hey Piyush, since you work mostly in **Python**, here's the snippet..."
+> "Hey Jayanth, since you work mostly in **Python**, here's the snippet..."
 
 The agent knew "works in Python" because it's in factual memory.
 
@@ -230,7 +230,7 @@ Output format preference = factual memory.
 | **Size** | Tiny (5–20 entries) | Large (grows continuously) | Large (curated knowledge base) |
 | **Storage** | KV / document DB | Vector DB | Vector DB / RAG store |
 | **Retrieval** | Always inject | When relevant | On demand |
-| **Example** | "Name is Piyush" | "Last week debugged auth bug" | "Delhi is the capital of India" |
+| **Example** | "Name is Jayanth" | "Last week debugged auth bug" | "Delhi is the capital of India" |
 
 ---
 

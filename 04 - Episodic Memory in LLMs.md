@@ -212,7 +212,7 @@ def end_session(user_id, message_history):
 ## 10. Concrete Walkthrough — The Paris Example
 
 1. **Months ago**, the user mentioned: *"I went to Paris in 2023, it was amazing."*
-2. The agent stored this as an episode: `{"user_id": "piyush", "text": "Visited Paris in 2023, enjoyed it", "date": "2023-..."}`. Embedded and saved in Qdrant.
+2. The agent stored this as an episode: `{"user_id": "jayanth", "text": "Visited Paris in 2023, enjoyed it", "date": "2023-..."}`. Embedded and saved in Qdrant.
 3. **Today**, the user opens a new session: *"Do you remember when I went to Paris?"*
 4. The LLM flags this as an episodic query → calls the retrieval tool.
 5. Vector search returns the Paris episode (high similarity).
@@ -231,7 +231,7 @@ def end_session(user_id, message_history):
 | **Storage** | Document DB / KV store | **Vector DB** (semantic search needed) |
 | **Retrieval** | **Always inject** | **On demand** (semantic search) |
 | **Trigger** | Every session | Cue phrases like "remember when..." |
-| **Example** | "Name is Piyush" | "Visited Paris in 2023" |
+| **Example** | "Name is Jayanth" | "Visited Paris in 2023" |
 
 ---
 
