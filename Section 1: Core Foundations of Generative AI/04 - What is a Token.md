@@ -25,10 +25,12 @@ related:
 
 # What is a Token?
 
-> [!abstract] TL;DR
+> [!NOTE]
+> **TL;DR**
 > A **token** is a chunk of text that's been mapped to a **number** so a computer (and the transformer) can work with it. Computers don't understand letters or words — they understand math. Tokenization is the process of converting human text → list of numbers. **Detokenization** is the reverse — converting the model's output numbers back into readable text. Every LLM has its own tokenizer; GPT-4o, Gemini, and Claude all break the same sentence into different tokens. Tokens aren't always whole words — they're often **sub-word chunks** (e.g., `"Piyush"` might split into `P`, `iy`, `ush`). The transformer never sees text directly; it sees numbers, predicts the next number, and then those numbers get decoded back to text for the user.
 
-> [!info] Where this fits
+> [!NOTE]
+> **Where this fits**
 > Fourth note of **Section 1: Core Foundations of Generative AI**. The previous note ([[03 - The Transformer - Predicting the Next Token]]) explained that the transformer predicts "the next token" in a loop. This note answers the dangling question: *what IS a token?* The next note ([[05 - Coding our Own Tokenizer]]) makes this concrete with Python code using `tiktoken`.
 
 ---
@@ -45,7 +47,8 @@ So the very first step of any LLM pipeline is to **convert text into numbers**. 
 "hey there"  ──[tokenizer]──→  [9220, 1009]  ──→  [transformer]
 ```
 
-> [!tip] Mental model
+> [!TIP]
+> **Mental model**
 > A token is a chunk of text that has a **unique ID number** in the model's vocabulary. The model thinks in IDs, not in strings.
 
 ---
@@ -68,7 +71,8 @@ So typing `BDE` would become tokens `[2, 4, 5]`.
 
 Then, feeding `[1, 2, 3]` (= `ABC`) to a transformer, it might predict `4` (= `D`). Feeding `[1, 2, 3, 4]` next, it might predict `5` (= `E`). The transformer is doing the same next-token prediction explored in the previous note — just in the world of numbers.
 
-> [!warning] This isn't how it really works
+> [!WARNING]
+> **This isn't how it really works**
 > Real tokenization is **much** more sophisticated than letter-by-letter. This is only a teaching device.
 
 ---
@@ -82,7 +86,8 @@ In practice, every modern LLM uses **sub-word tokenization** — chunks bigger t
 - Punctuation, spaces, special chars → their own tokens
 - **Special tokens** mark the start/end of sequences, roles (`user`, `assistant`), etc.
 
-> [!example] Byte-Pair Encoding (BPE)
+> [!NOTE]
+> **Byte-Pair Encoding (BPE)**
 > OpenAI and most modern LLMs use a variant of **BPE (Byte-Pair Encoding)**. The high-level idea:
 > 1. Start with every individual byte/character as a token.
 > 2. Find the most common adjacent pair → merge it into a new token.
@@ -131,10 +136,12 @@ Example walkthrough: typing `"hey there, my name is Jayanth"` into the **GPT-4o 
 | n | `<\|im_end\|>` | … | "End of message" marker |
 | n+1 | `assistant` | … | Where the model is expected to reply |
 
-> [!note] Surprising fact
+> [!NOTE]
+> **Surprising fact**
 > The **leading space** is usually part of the next token. ` there` (with space) is a different token from `there` (without). This makes tokenization more compact for typical English text where words are space-separated.
 
-> [!tip] Try it
+> [!TIP]
+> **Try it**
 > `tiktokenizer` web app: paste any text, pick a model, see the live tokenization.
 > URL: https://platform.openai.com/tokenizer (for OpenAI models specifically).
 

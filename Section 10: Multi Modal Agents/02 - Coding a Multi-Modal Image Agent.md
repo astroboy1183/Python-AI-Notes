@@ -18,10 +18,12 @@ related:
 
 # Coding a Multi-Modal Image Agent
 
-> [!abstract] TL;DR
+> [!NOTE]
+> **TL;DR**
 > Build the smallest possible vision agent: create an OpenAI client, then call `client.chat.completions.create` with a **multi-modal `content` array** — one `text` part ("generate a caption for this image in ~50 words") and one `image_url` part pointing at a publicly hosted photo. Pick a model that supports image input (GPT-4o / 4.1 mini). The response comes back as **text** describing the picture. For a coding-themed stock photo, the model returned something like *"A cheerful young man proudly holds up a sticky note with the word 'code' written on it, emphasizing his passion for programming."* — an accurate description of the image it was given. Local files work too, via **base64**, but a public URL is the cleaner default.
 
-> [!info] Where this fits
+> [!NOTE]
+> **Where this fits**
 > Second note of **Section 10: Multi Modal Agents**, and the hands-on follow-up to [[01 - What is Multi-Modal AI]]. It turns the "content can be an array" idea into a running script.
 
 ---
@@ -48,7 +50,8 @@ image/
 
 `.env` holds the key; it gets loaded into the environment so the client picks it up automatically.
 
-> [!warning] Keep the key out of git
+> [!WARNING]
+> **Keep the key out of git**
 > Add `.env` to `.gitignore`. Never hardcode the key in `main.py`. If a key ever leaks, **revoke it** and mint a fresh one from the API dashboard — old keys can and should be rotated.
 
 ---
@@ -73,7 +76,8 @@ Nothing new here versus earlier sections — `load_dotenv()` first, then constru
 
 Any publicly reachable image URL works. A stock-photo site (Pexels, Wikimedia, etc.) is an easy source — search a theme (e.g. "coding"), open a photo, and copy its direct image link.
 
-> [!important] It must be a *direct, public* image URL
+> [!IMPORTANT]
+> **It must be a *direct, public* image URL**
 > The URL has to point straight at the image file and be reachable without login. A good sanity check: paste the URL into a fresh browser tab — if the raw image loads, the model can fetch it too. A link to a *webpage that contains* the image is not the same as the image's own URL.
 
 ---
@@ -192,7 +196,8 @@ The URL route is the cleaner default; base64 is the fallback when there's no pub
 
 ## 9. Common gotchas
 
-> [!warning] Vision request issues
+> [!WARNING]
+> **Vision request issues**
 
 | Symptom | Cause | Fix |
 |---|---|---|

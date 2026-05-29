@@ -21,10 +21,12 @@ related:
 
 # The Retrieval Phase
 
-> [!abstract] TL;DR
+> [!NOTE]
+> **TL;DR**
 > The **retrieval phase** is the online, per-query side of RAG. Four sub-steps every time a user asks something: (1) take the **user query**, (2) embed it using the **same embedding model** as the index, (3) do a **vector similarity search** against the vector DB → get the top-K most semantically related chunks, (4) build a **system prompt** containing those chunks (with page numbers + source for citations) and send it along with the user query to the LLM. The LLM produces a grounded answer citing the chunks. End-to-end: ~1-3 seconds, ~$0.001-0.01 per query. The pattern works for **any external knowledge** (PDFs, code, wiki pages, customer history) — change the indexed corpus, the retrieval logic stays the same.
 
-> [!info] Where this fits
+> [!NOTE]
+> **Where this fits**
 > Fifth lecture of **Section 8: Building Chat with PDF Project using RAG**. Completes the RAG architecture (after [[04 - The Indexing Phase]]). Notes 6-10 implement indexing in code; Note 11 implements retrieval. By the end of the section: a working chat-with-PDF system.
 
 ---
@@ -84,7 +86,8 @@ Convert the query into the same vector space as the indexed chunks:
 query_vector = embedding_model.embed_query(user_query)
 ```
 
-> [!warning] Must use the same embedding model as indexing
+> [!WARNING]
+> **Must use the same embedding model as indexing**
 > If chunks were indexed with `text-embedding-3-large`, the query **must** be embedded with `text-embedding-3-large` too. Different models → different vector spaces → meaningless similarity scores.
 
 Cost per query embedding: **negligible** (microcents). Latency: ~100-300 ms for OpenAI's API.
@@ -127,7 +130,7 @@ K is a tunable parameter:
 | **5-10** | More context, more tokens, slightly slower |
 | **20+** | Wide retrieval; needs re-ranking |
 
-> [!tip]
+> [!TIP]
 > Start with K=5 and tune. If retrievals miss obvious matches, increase. If retrievals include irrelevant chunks, decrease (or add a reranker).
 
 ### What comes back
@@ -233,7 +236,8 @@ The retrieval works even when the user's query doesn't share exact keywords with
 
 This is impossible with **keyword search** (Elasticsearch, grep, SQL `LIKE`). Vector search retrieves on **meaning**, not text.
 
-> [!warning] But it can also fail
+> [!WARNING]
+> **But it can also fail**
 > Semantic search misses when:
 > - The query is too vague.
 > - Embedding the query produces a "wrong" vector (the query language style differs from the corpus's).

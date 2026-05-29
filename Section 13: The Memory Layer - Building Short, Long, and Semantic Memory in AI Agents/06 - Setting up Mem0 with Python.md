@@ -18,10 +18,12 @@ related:
 
 # Setting up Mem0 with Python
 
-> [!abstract] TL;DR
+> [!NOTE]
+> **TL;DR**
 > Time to make the memory theory concrete. **Mem0** (`mem0ai`) is a memory layer for LLM apps — it extracts facts from conversations, stores them, and retrieves the relevant ones later. Install it with `pip install mem0ai`, then freeze. Basic usage is dead simple: `from mem0 import Memory`, set `OPENAI_API_KEY`, and `memory.add(messages, user_id=..., metadata=...)`. But the bare default isn't how this build will run — instead Mem0 gets configured to use **Qdrant** as the vector store so memories persist in a real vector DB. This note is just the install + a read-through of the Python SDK quickstart; the actual configuration comes next.
 
-> [!info] Where this fits
+> [!NOTE]
+> **Where this fits**
 > Sixth note of **Section 13** and the start of the **hands-on** half. Notes 00–05 covered memory *concepts* (short/long-term, factual, episodic, semantic). From here on it's implementation with Mem0 + Qdrant. The full config is in [[07 - Configuring the Mem0 Memory Client]].
 
 ---
@@ -47,7 +49,8 @@ pip freeze > requirements.txt
 
 The package name is `mem0ai`; the import is `mem0`. Working in the same project as the LangGraph work (a `cd ..` up from the LangGraph folder is enough to reuse the environment).
 
-> [!note] Package vs import name
+> [!NOTE]
+> **Package vs import name**
 > Install **`mem0ai`** but import **`mem0`** (`from mem0 import Memory`). Easy mismatch to trip on.
 
 ---
@@ -90,7 +93,8 @@ This works out of the box, but the defaults use an in-process store. For somethi
 
 ## 5. Why not just use the default?
 
-> [!important] Default store vs Qdrant
+> [!IMPORTANT]
+> **Default store vs Qdrant**
 > The bare `Memory()` is fine for a quick test, but this section configures Mem0 to use **Qdrant** as the vector store. Reasons: memories live in a real, persistent vector DB; I can open the Qdrant dashboard and *see* the stored facts; and it mirrors a production setup. So the next note builds an explicit configuration rather than relying on defaults.
 
 ```

@@ -20,10 +20,12 @@ related:
 
 # Section Intro — RAG
 
-> [!abstract] TL;DR
+> [!NOTE]
+> **TL;DR**
 > **RAG (Retrieval-Augmented Generation)** is the most common and most economically important agentic-AI pattern in industry — roughly **90% of what big companies are doing right now**. The section covers the full pipeline: indexing documents into a vector database, then retrieving relevant chunks at query time and injecting them into the LLM's context. By the end: a chat-with-PDF system that answers questions about a 100-page Node.js book with page-level citations, running locally with **Qdrant** as the vector database and **LangChain** for the glue code. This is production-grade material — most enterprise AI products are some flavor of this pipeline.
 
-> [!info] Where this fits
+> [!NOTE]
+> **Where this fits**
 > First lecture of **Section 8: Building Chat with PDF Project using RAG (Retrieval-Augmented Generation)**. Builds on the agent loop from [[01 - Section Intro - Welcome to Agentic AI|Section 7]] by giving the agent access to **private domain data** the LLM was never trained on. The next section ([[Section 22]]) makes this RAG pipeline asynchronous and scalable for production.
 
 ---

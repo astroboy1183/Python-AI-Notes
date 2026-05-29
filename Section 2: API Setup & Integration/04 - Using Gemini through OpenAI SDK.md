@@ -24,13 +24,16 @@ related:
 
 # Using Gemini through OpenAI SDK
 
-> [!abstract] TL;DR
+> [!NOTE]
+> **TL;DR**
 > Google's Gemini exposes an **OpenAI-compatible API endpoint**. That means the **same OpenAI Python SDK code** from [[02 - Using OpenAI API in Python]] can talk to Gemini with only **two parameters changed**: `api_key` (point at the Gemini key) and `base_url` (point at Google's compat URL). The third change is to use a Gemini model name (e.g., `gemini-2.5-flash` instead of `gpt-4o`). This compatibility layer means a single codebase can target either provider — useful for these notes (anyone can follow along whether they're paying for OpenAI or using free Gemini) and useful in production (provider lock-in is bad). I'm sticking with **OpenAI** as the primary, but this trick makes Gemini a drop-in alternative for ~99% of cases.
 
-> [!info] Where this fits
+> [!NOTE]
+> **Where this fits**
 > Fourth and final note of **Section 2: API Setup & Integration**. Wraps up the foundations of "talking to an LLM from code." After this, the focus shifts to **prompt engineering, prompt serialization, local LLMs, agents, RAG**, etc. — all of which assume an LLM client is already wired up.
 
-> [!warning] Caveats
+> [!WARNING]
+> **Caveats**
 > - **99% compatibility, not 100%**: some advanced features (specific tool-calling shapes, structured outputs, image inputs) may behave differently.
 > - **Free tier may change**: Gemini's no-cost access is generous now but isn't guaranteed forever.
 > - The compatibility layer is a **convenience**, not a magic universal adapter. For production-critical edges, test against both providers.
@@ -109,7 +112,8 @@ The OpenAI SDK sends HTTP requests to `https://api.openai.com/v1/` by default. S
 | Together AI | `https://api.together.xyz/v1/` |
 | Groq | `https://api.groq.com/openai/v1/` |
 
-> [!tip] The OpenAI protocol has become a de facto standard
+> [!TIP]
+> **The OpenAI protocol has become a de facto standard**
 > Many providers ship "OpenAI-compatible" endpoints, partly because the chat-completions schema is widely understood, partly because client libraries already exist in every language. As of 2024+, "OpenAI-compatible" is the **lingua franca of LLM APIs**.
 
 ---
@@ -178,7 +182,8 @@ response = client.chat.completions.create(
 print(response.choices[0].message.content)
 ```
 
-> [!example] Output difference
+> [!NOTE]
+> **Output difference**
 > The replies' wording differs (different model, different training data), but the **call shape, message shape, response shape — all identical**.
 >
 > Asking *"Who are you?"* through the Gemini-via-OpenAI path returns something like: *"I am a large language model trained by Google."* — confirming the calls actually reach Gemini's servers.
@@ -236,7 +241,8 @@ response = client.chat.completions.create(
 
 Flipping `LLM_PROVIDER=gemini` (or `groq`, etc.) in the environment changes the backend with zero code changes. This is the simplest possible **provider abstraction**.
 
-> [!tip] Real-world benefit
+> [!TIP]
+> **Real-world benefit**
 > In production, having a one-line switch between providers is huge:
 > - **Cost optimization**: route cheap prompts to Gemini Flash, complex ones to GPT-4o.
 > - **Fallback**: when one provider has an outage, switch over.
@@ -288,14 +294,16 @@ This compatibility trick reveals an industry-wide pattern:
    endpoint     endpoint  (via proxy)                    vLLM)
 ```
 
-> [!info] Why this matters
+> [!NOTE]
+> **Why this matters**
 > Knowing this pattern means **a single skill** (the OpenAI SDK) effectively unlocks the entire LLM API ecosystem. These notes lean into that for exactly that reason.
 
 ---
 
 ## 9. Common gotchas
 
-> [!warning] Issues to watch for
+> [!WARNING]
+> **Issues to watch for**
 
 | Symptom | Likely cause | Fix |
 |---|---|---|

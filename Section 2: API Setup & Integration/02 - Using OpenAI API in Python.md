@@ -23,7 +23,8 @@ related:
 
 # Using OpenAI API in Python
 
-> [!abstract] TL;DR
+> [!NOTE]
+> **TL;DR**
 > First real LLM API call from code. Workflow:
 > 1. `pip install openai python-dotenv` → official OpenAI SDK + a helper for loading env files.
 > 2. Create a `.env` file: `OPENAI_API_KEY=sk-...`.
@@ -32,7 +33,8 @@ related:
 >
 > Messages are structured as a list of `{"role": "user"/"assistant"/"system", "content": "..."}` dictionaries — this is the **chat completion** format that's now the industry-standard interface to LLMs. The first run reveals a common gotcha: if `.env` isn't actually loaded, the client throws an authentication error. Adding `load_dotenv()` before constructing the client fixes it.
 
-> [!info] Where this fits
+> [!NOTE]
+> **Where this fits**
 > Second note of **Section 2: API Setup & Integration**. Follows [[01 - Setting up OpenAI Account]] (which got the API key created). This is where **real LLM calls happen from real code** for the first time — every later section builds on this foundation. The `messages` list + `chat.completions.create` pattern shows up everywhere downstream (agents, RAG, memory).
 
 ---
@@ -74,7 +76,8 @@ cd hello_world
 touch main.py
 ```
 
-> [!tip] Project structure so far
+> [!TIP]
+> **Project structure so far**
 > ```
 > Python-AI-Course/
 > ├── venv/
@@ -106,7 +109,8 @@ Key things:
 | **No spaces** around `=` | Some shells will choke. |
 | **Add `.env` to `.gitignore`** | Otherwise the key gets committed and leaked. |
 
-> [!warning] Always gitignore `.env`
+> [!WARNING]
+> **Always gitignore `.env`**
 > In the project's `.gitignore`:
 > ```
 > .env
@@ -243,7 +247,8 @@ Three valid roles:
 
 A `tool` role also exists for function-calling responses (covered later in the course).
 
-> [!info] Why this schema is standard
+> [!NOTE]
+> **Why this schema is standard**
 > The `messages` list with `role` + `content` is the **lingua franca** of modern LLM APIs:
 > - OpenAI uses it (since 2023).
 > - Anthropic Claude uses (almost) the same schema.
@@ -296,7 +301,8 @@ ChatCompletion(
 )
 ```
 
-> [!tip] Useful extras
+> [!TIP]
+> **Useful extras**
 > - `response.usage` → token counts. Use this to track cost per call.
 > - `response.choices[0].finish_reason` → `"stop"`, `"length"`, `"content_filter"`, `"tool_calls"`. Tells *why* the model stopped generating.
 > - `response.model` → confirms which model version actually served the request (useful when an alias like `gpt-4o` is used).
@@ -325,7 +331,8 @@ The model **incorporates the user-provided name** because it's in the input toke
 
 ## 9. Common gotchas
 
-> [!warning] First-time problems
+> [!WARNING]
+> **First-time problems**
 
 | Symptom | Likely cause | Fix |
 |---|---|---|
@@ -342,7 +349,8 @@ The model **incorporates the user-provided name** because it's in the input toke
 
 ## 10. Useful extras
 
-> [!example] Common parameters
+> [!NOTE]
+> **Common parameters**
 
 ```python
 response = client.chat.completions.create(
@@ -361,7 +369,8 @@ response = client.chat.completions.create(
 )
 ```
 
-> [!example] Streaming responses
+> [!NOTE]
+> **Streaming responses**
 
 ```python
 stream = client.chat.completions.create(
@@ -378,7 +387,8 @@ for chunk in stream:
 
 Streaming = print tokens as they're generated → snappier UX for chat apps.
 
-> [!example] Multi-turn conversation
+> [!NOTE]
+> **Multi-turn conversation**
 
 ```python
 messages = [{"role": "system", "content": "You are Jayanth's assistant."}]

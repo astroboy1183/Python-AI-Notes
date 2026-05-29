@@ -20,10 +20,12 @@ related:
 
 # Short-Term Memory in LLMs (STM)
 
-> [!abstract] TL;DR
+> [!NOTE]
+> **TL;DR**
 > **Short-Term Memory (STM)** in an LLM agent is simply the **ongoing conversation history** of the current session. It's held only while a task is in progress, and discarded once the task ends. Any chatbot that passes the message history back to the LLM on every turn is already using STM.
 
-> [!info] Where this fits
+> [!NOTE]
+> **Where this fits**
 > First memory type in the syllabus. STM lives under the broader [[00 - Types of Memory in LLMs]] taxonomy and is the volatile counterpart to **Long-Term Memory (LTM)**.
 
 ---
@@ -56,7 +58,8 @@ This analogy captures what STM is.
 - The brain didn't bother committing it to long-term storage — no reason to.
 - Once the goal (getting the food) was achieved, the data was **purged**.
 
-> [!tip] The key insight
+> [!TIP]
+> **The key insight**
 > The brain made an implicit decision: *"This number matters right now, but won't matter tomorrow."* That's exactly how STM works in LLM agents.
 
 ---
@@ -95,7 +98,8 @@ On every turn, the **entire conversation history** gets sent to the LLM:
 
 Now the LLM sees `132` in context and correctly looks up that order in the database.
 
-> [!warning] Rule of thumb
+> [!WARNING]
+> **Rule of thumb**
 > Always pass the **full ongoing conversation history** back to the LLM during a session. The LLM is stateless — no history sent, no history known.
 
 ---
@@ -136,7 +140,8 @@ Now the LLM sees `132` in context and correctly looks up that order in the datab
 - The agent has **zero memory** of order #132 — that's by design.
 - It will ask: *"What's your order number?"* — correct, because this is a different transaction.
 
-> [!example] The pattern
+> [!NOTE]
+> **The pattern**
 > **One session = one STM history.** New session → fresh empty history. Old session ends → history can be deleted.
 
 ---
@@ -150,7 +155,7 @@ Keeping every chat history forever is *possible* but **wrong** for STM data, bec
 3. **Context bloat** — sending old, irrelevant history to the LLM degrades performance and increases token cost.
 4. **Privacy / clutter** — keeping unneeded data is a liability.
 
-> [!info]
+> [!NOTE]
 > Things actually worth keeping (like the user's name or preferences) belong in **Long-Term Memory** — see [[02 - Long-Term Memory in LLMs]].
 
 ---
@@ -184,7 +189,7 @@ message_history = None
 - **MongoDB / Redis** — when sessions span multiple requests (e.g., a web app).
 - **Conversation buffer** — built in to frameworks like LangChain (`ConversationBufferMemory`).
 
-> [!tip]
+> [!TIP]
 > A common setup is storing the message history in MongoDB and replaying it on every turn — that's STM in practice.
 
 ---
@@ -198,7 +203,7 @@ Examples:
 - **Chain-of-Thought (CoT)** prompts — append every step to a running message history while the application runs.
 - Any chatbot that does `messages.append(...)` and then re-sends the full `messages` list to the LLM.
 
-> [!tip]
+> [!TIP]
 > Any code with a `message_history` (or `messages`, `chat_history`, `conversation`) list that grows during a session and gets passed to the LLM repeatedly — **that's STM in action.**
 
 ---
@@ -230,7 +235,8 @@ Also commonly called **working memory** — maintains short-term conversational 
 
 ## 10. Gotchas & best practices
 
-> [!warning] Watch out for these
+> [!WARNING]
+> **Watch out for these**
 
 - **Context window limits** — STM grows with every turn. Eventually it exceeds the LLM's context window (e.g., 8k, 128k tokens). Mitigations:
   - Truncate (drop oldest messages), or

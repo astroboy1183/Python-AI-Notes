@@ -21,10 +21,12 @@ related:
 
 # FastAPI Setup
 
-> [!abstract] TL;DR
+> [!NOTE]
+> **TL;DR**
 > **FastAPI** (by **Sebastián Ramírez / Tiangolo**) is a modern Python web framework for building REST APIs. Three big advantages: **fast** (built on Starlette + Uvicorn), **typed** (uses Python type hints for validation via Pydantic), and **auto-documented** (generates an interactive Swagger UI at `/docs` for free). Install: `pip install "fastapi[standard]"`. Hello-world endpoint: define a function decorated with `@app.get("/")` returning a dict — done. Run: `fastapi dev server.py` → server up at `localhost:8000` with built-in hot-reload. This lecture builds a basic FastAPI server with two routes (`/` and `/contact-us`) — the foundation for [[06 - Connecting FastAPI to Ollama]] which wraps the local LLM in a REST API.
 
-> [!info] Where this fits
+> [!NOTE]
+> **Where this fits**
 > Fifth lecture of **Section 5: Local LLM Deployment & API Integration**. Pivots from "model + UI" to "model + programmatic access." After this lecture, the basic FastAPI server is running; the next lecture connects it to Ollama so the local model becomes a real REST API.
 
 ---
@@ -54,7 +56,8 @@ Inside the project's activated virtual environment:
 pip install "fastapi[standard]"
 ```
 
-> [!note] The `[standard]` extras
+> [!NOTE]
+> **The `[standard]` extras**
 > Plain `pip install fastapi` installs the core library. `"fastapi[standard]"` includes:
 > - **Uvicorn** — the ASGI server.
 > - **httpx** — modern HTTP client for testing.
@@ -99,7 +102,8 @@ That's a complete FastAPI server. Five lines.
 | `def root():` | The handler function |
 | `return {"hello": "world"}` | Return data — FastAPI auto-serializes to JSON |
 
-> [!tip] Auto-JSON
+> [!TIP]
+> **Auto-JSON**
 > Whatever the handler returns (dict, list, Pydantic model) gets **automatically serialized to JSON** in the HTTP response, with the right `Content-Type: application/json` header set. No `jsonify` calls needed.
 
 ---
@@ -176,7 +180,8 @@ Behind the scenes:
 
 Especially useful for the next note: instead of running `curl` commands, click "Try it out" → enter a message → see the LLM reply.
 
-> [!tip] Alternative docs view
+> [!TIP]
+> **Alternative docs view**
 > FastAPI also exposes ReDoc at `/redoc` — a different, more reference-doc-style view of the same OpenAPI spec. Both update automatically.
 
 ---
@@ -242,7 +247,8 @@ For LLM API services in 2024+, **FastAPI is the standard pick**. Streaming respo
 
 ## 11. Common gotchas
 
-> [!warning] First-time FastAPI snags
+> [!WARNING]
+> **First-time FastAPI snags**
 
 | Symptom | Likely cause | Fix |
 |---|---|---|

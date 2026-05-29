@@ -24,10 +24,12 @@ related:
 
 # Connecting FastAPI to Ollama
 
-> [!abstract] TL;DR
+> [!NOTE]
+> **TL;DR**
 > Final note of Section 5. Wire FastAPI to Ollama so the local LLM is reachable via a **REST API** — same shape an application would use against OpenAI's hosted API. Use the **`ollama` Python SDK** (`pip install ollama`) with `Client(host="http://localhost:11434")` pointing at the Dockerized Ollama server. Build a `POST /chat` endpoint that accepts a `message` body, calls `client.chat(model="gemma:2b", messages=[ChatML])`, and returns the assistant's reply. Test interactively via FastAPI's auto-generated **`/docs`** Swagger UI. The result: a custom **API layer over a local model** — the foundation pattern for serving any local LLM to client apps.
 
-> [!info] Where this fits
+> [!NOTE]
+> **Where this fits**
 > Sixth and final note of **Section 5: Local LLM Deployment & API Integration**. Combines everything from earlier notes: Ollama running ([[03 - Running Ollama in Docker]]), FastAPI scaffolded ([[05 - FastAPI Setup]]), ChatML format ([[03 - ChatML Prompting]]). After this, the course pivots to **Section 6 (Hugging Face)** and beyond.
 
 ---
@@ -109,10 +111,12 @@ client = Client(
 
 This is the exact pattern from [[04 - Using Gemini through OpenAI SDK]] but for Ollama's native SDK — pointing the client at a custom server endpoint.
 
-> [!note] Why localhost:11434
+> [!NOTE]
+> **Why localhost:11434**
 > Because Ollama runs in Docker with `-p 11434:11434` (from [[03 - Running Ollama in Docker]]), it's reachable from the host's `localhost` on that port. The FastAPI server (on the host) connects to it via `http://localhost:11434`.
 
-> [!warning] Make sure Ollama is up
+> [!WARNING]
+> **Make sure Ollama is up**
 > Easy trap: the Ollama container gets stopped (manual `docker stop`, reboot, etc.) and the FastAPI call fails with a connection error. **Always confirm Ollama is running** (`docker ps` should show the container) before testing the FastAPI endpoint.
 
 ---
@@ -163,7 +167,8 @@ This tells FastAPI:
 - It's a required `string`.
 - Description "The message" appears in the auto-generated `/docs` UI.
 
-> [!example] Pydantic alternative (more idiomatic)
+> [!NOTE]
+> **Pydantic alternative (more idiomatic)**
 > A cleaner production pattern:
 > ```python
 > from pydantic import BaseModel
@@ -250,7 +255,8 @@ FastAPI is talking to Ollama, Ollama runs the model, the reply comes back, and t
 
 Crystal-clear after this exercise:
 
-> [!tip] The big idea
+> [!TIP]
+> **The big idea**
 > Local Ollama, hosted OpenAI, hosted Gemini, hosted Claude — they all expose the same conceptual interface (`messages → reply`). A FastAPI wrapper makes a local model look like a hosted one to client apps.
 >
 > Result: a client app doesn't need to know (or care) whether it's talking to a free local model or a paid hosted one. Behind the FastAPI proxy, **swap implementations freely**.

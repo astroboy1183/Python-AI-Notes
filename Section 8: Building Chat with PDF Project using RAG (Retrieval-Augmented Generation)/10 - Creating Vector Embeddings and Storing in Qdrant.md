@@ -24,10 +24,12 @@ related:
 
 # Creating Vector Embeddings and Storing in Qdrant
 
-> [!abstract] TL;DR
+> [!NOTE]
+> **TL;DR**
 > Final indexing step: convert each chunk into a vector and persist it in Qdrant. Use **`OpenAIEmbeddings(model="text-embedding-3-large")`** for the embedding model and **`QdrantVectorStore.from_documents(...)`** to do the embed-and-store in one call. Pass: `documents=chunks`, `embedding=embedding_model`, `url="http://localhost:6333"`, `collection_name="learning_rag"`. Behind the scenes: each chunk → OpenAI embeddings API → 3072-dim vector → Qdrant. Set `OPENAI_API_KEY` in a `.env` file and `load_dotenv()`. After running, the Qdrant dashboard at `http://localhost:6333/dashboard` shows the new collection with ~192 points, each storing the vector + chunk text + page metadata. **Indexing pipeline complete** — corpus is now semantically searchable.
 
-> [!info] Where this fits
+> [!NOTE]
+> **Where this fits**
 > Tenth lecture of **Section 8: Building Chat with PDF Project using RAG**. Completes the **indexing phase**. The next (and final) note ([[11 - Building the Retrieval (chat.py)]]) implements the retrieval side using the index built here.
 
 ---
@@ -102,7 +104,7 @@ OpenAI's flagship embedding model as of mid-2024:
 
 The "large" model produces higher-quality embeddings — better semantic search. Cost per query is still measured in cents, so usually worth it.
 
-> [!tip]
+> [!TIP]
 > Both 3-large and 3-small support **dimension reduction** via the `dimensions=...` parameter. Useful when storage cost matters: a 256-dim embedding is 1/12 the storage of full 3072 with surprisingly modest quality loss.
 
 ---
@@ -128,7 +130,8 @@ If `python-dotenv` isn't installed:
 pip install python-dotenv
 ```
 
-> [!warning] Don't commit `.env`
+> [!WARNING]
+> **Don't commit `.env`**
 > Add to `.gitignore`:
 > ```
 > .env
@@ -312,7 +315,8 @@ For learning, deleting + reindexing is fine. For production: deterministic IDs +
 
 ## 11. Common gotchas
 
-> [!warning] First-time indexing issues
+> [!WARNING]
+> **First-time indexing issues**
 
 | Symptom | Cause | Fix |
 |---|---|---|

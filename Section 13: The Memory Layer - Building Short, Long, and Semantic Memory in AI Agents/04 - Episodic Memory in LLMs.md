@@ -25,10 +25,12 @@ related:
 
 # Episodic Memory in LLMs
 
-> [!abstract] TL;DR
+> [!NOTE]
+> **TL;DR**
 > **Episodic memory** is the **second sub-type of [[02 - Long-Term Memory in LLMs|Long-Term Memory]]**. It stores **specific past events and interactions** with the user — long, detailed, ever-growing. Unlike [[03 - Factual Memory in LLMs|factual memory]] (always injected), episodic memory is **retrieved on demand** via a tool call / RAG / vector search — only when the conversation touches something relevant. The agent's **journal** of past moments with the user.
 
-> [!info] Where this fits
+> [!NOTE]
+> **Where this fits**
 > Episodic is the **middle** sub-type of LTM: bigger than [[03 - Factual Memory in LLMs]], more user-specific than [[05 - Semantic Memory in LLMs]]. See [[00 - Types of Memory in LLMs]] for the full taxonomy.
 
 ---
@@ -67,7 +69,7 @@ Episodic memory is:
 | **Past frustration / preference signal** | "User dislikes long answers — confirmed during chat on May 15." |
 | **Past goal** | "User started prepping for AWS cert exam in March." |
 
-> [!note]
+> [!NOTE]
 > All of these are **specific, dated, contextual events** — not stable facts. The kind of thing belonging in a diary, not on a profile card.
 
 ---
@@ -82,7 +84,8 @@ If [[03 - Factual Memory in LLMs|factual memory]] is a friend's **profile card**
 
 The whole diary doesn't get recited every meeting. Instead, when something **triggers a memory** — *"Oh, this reminds me of when we..."* — that page gets flipped to.
 
-> [!tip] Mental model
+> [!TIP]
+> **Mental model**
 > Episodic memory = the agent's **diary** with the user. Always recorded. Selectively recalled.
 
 ---
@@ -96,7 +99,8 @@ Reasons episodic memory can't just be dumped into the system prompt like factual
 3. **Cost** — paying tokens for irrelevant old episodes is wasteful.
 4. **Noise** — irrelevant past episodes confuse the model and degrade reasoning.
 
-> [!warning] The key constraint
+> [!WARNING]
+> **The key constraint**
 > All of episodic memory **cannot** be preloaded. The system **must** retrieve **only the relevant ones**, **when** they become relevant.
 
 ---
@@ -131,7 +135,8 @@ What happens when an episodic-style question comes in:
 └──────────────────────────────────────────────────────────┘
 ```
 
-> [!info] Decision flow
+> [!NOTE]
+> **Decision flow**
 > When a question seems episodic, the LLM (or orchestration layer) decides it's an episodic-memory query, fires a tool call / RAG step, hits the vector DB where past conversations are stored, and pulls back the relevant entry.
 
 ---
@@ -203,7 +208,8 @@ def end_session(user_id, message_history):
         vector_db.upsert(user_id=user_id, vector=embed(ep), payload=ep)
 ```
 
-> [!example] Two phases
+> [!NOTE]
+> **Two phases**
 > - **Write**: at the end of (or during) sessions, extract and embed memorable episodes → vector DB.
 > - **Read**: during sessions, when a trigger fires → semantic search → inject top-K.
 
@@ -237,7 +243,8 @@ def end_session(user_id, message_history):
 
 ## 12. Gotchas & best practices
 
-> [!warning] Watch out for these
+> [!WARNING]
+> **Watch out for these**
 
 - **Don't store everything verbatim** — summarize episodes; raw chat logs are noisy + huge.
 - **Top-K tuning** — too few = miss relevant memories; too many = noise + token cost. Often K=3–10 works.
@@ -257,7 +264,8 @@ def end_session(user_id, message_history):
 | **Episodic** (this note) | **On demand** | Large | Vector DB |
 | [[05 - Semantic Memory in LLMs|Semantic]] | **On demand** | Large | Vector DB / RAG store |
 
-> [!note] Factual vs episodic vs semantic in one line each
+> [!NOTE]
+> **Factual vs episodic vs semantic in one line each**
 > - **Factual** = profile facts about the user → always loaded.
 > - **Episodic** = past events with the user → recalled when triggered.
 > - **Semantic** = facts about the world → fetched when topic comes up.

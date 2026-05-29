@@ -19,10 +19,12 @@ related:
 
 # Creating the State and Graph Builder
 
-> [!abstract] TL;DR
+> [!NOTE]
+> **TL;DR**
 > First two building blocks of any LangGraph app. **State** is a `TypedDict` describing the data that flows through the graph — for a chatbot, the key that matters is `messages`, typed as `Annotated[list, add_messages]`. That `add_messages` annotation is a **reducer**: instead of *overwriting* `messages` when a node returns it, LangGraph **appends** to the list. So the conversation grows — user query first, then every node's output gets tacked on. With the state schema defined, build a **`StateGraph`**: `graph_builder = StateGraph(State)`. That builder is what I'll hang nodes and edges off of in the next notes.
 
-> [!info] Where this fits
+> [!NOTE]
+> **Where this fits**
 > Fourth note of **Section 11**, and the first hands-on step. Sets up `chat.py` with a state and a graph builder. [[05 - Coding the Nodes]] adds the nodes; [[06 - Adding Edges and Compiling the Graph]] wires and compiles.
 
 ---
@@ -82,10 +84,12 @@ node returns:       [ AI("It's 3pm") ]
 after reducer:      [ Human("hi, what is the time?"), AI("It's 3pm") ]   ← appended, not replaced
 ```
 
-> [!important] Why append, not overwrite
+> [!IMPORTANT]
+> **Why append, not overwrite**
 > A conversation must keep its history. If each node *replaced* `messages`, every turn would wipe the previous messages and the model would lose all context. `add_messages` is what lets the list grow turn by turn — exactly what a chat needs.
 
-> [!tip] Reducers are a general mechanism
+> [!TIP]
+> **Reducers are a general mechanism**
 > `add_messages` is a built-in reducer specialised for message lists (it also handles message IDs and updates intelligently). Other state keys can use other reducers — or none (default overwrite). The annotation pattern `Annotated[type, reducer]` is how LangGraph knows how to merge updates for each key.
 
 ---

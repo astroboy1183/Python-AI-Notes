@@ -18,10 +18,12 @@ related:
 
 # What is Multi-Modal AI
 
-> [!abstract] TL;DR
+> [!NOTE]
+> **TL;DR**
 > **Multi-modal AI** (the "modal" with an **A** — *modality*, not "model") refers to models that can take in **more than one type of data** — text, images, audio, video — and reason across them, instead of being limited to text-in / text-out. The model I've been using so far (GPT-4.1 mini) is already multi-modal on the input side: its `content` field can be an **array** mixing a `text` part and an `image_url` part, so I can hand it a picture and ask "what's in this image?". Older models like GPT-3.5 Turbo are **text-to-text only** — they cannot see images at all. The key mental shift: a message's `content` stops being a single string and becomes a **list of typed parts**.
 
-> [!info] Where this fits
+> [!NOTE]
+> **Where this fits**
 > First note of **Section 10: Multi Modal Agents**. This one is conceptual — what "multi-modal" means and how to spot which models support it. The next note ([[02 - Coding a Multi-Modal Image Agent]]) puts it into practice by sending an image to the model and getting a caption back.
 
 ---
@@ -37,14 +39,16 @@ This is the single most important distinction in the whole topic, and it's easy 
 
 A **modality** is just a *type* of data. Text is one modality. An image is another. Audio is a third. "Multi-modal" = "many data types."
 
-> [!tip] How to keep it straight
+> [!TIP]
+> **How to keep it straight**
 > Read it as **multi-*modality* AI**. The model understands more than one *kind* of input. The extra "A" is doing real work — it changes the meaning from "many models" to "many senses."
 
 ---
 
 ## 2. What multi-modal AI actually is
 
-> [!note] Definition
+> [!NOTE]
+> **Definition**
 > Multi-modal AI refers to artificial-intelligence systems that **process and integrate information from multiple data types** — such as text, images, audio, and more — within a single model.
 
 So far my mental model of an LLM has been:
@@ -93,7 +97,8 @@ On the OpenAI models page, each model lists its supported input and output modal
 
 The lesson: **don't assume**. Before sending an image, confirm the chosen model actually lists image as a supported input — otherwise the call fails or the image is ignored.
 
-> [!warning] Old models can't see
+> [!WARNING]
+> **Old models can't see**
 > If I accidentally point a vision request at something like GPT-3.5 Turbo, it has no image-input capability at all. The fix is always to pick a model whose spec sheet lists **image** (or whatever modality I need) as an input.
 
 ---

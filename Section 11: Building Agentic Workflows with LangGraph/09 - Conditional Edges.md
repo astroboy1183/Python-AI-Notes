@@ -19,10 +19,12 @@ related:
 
 # Conditional Edges
 
-> [!abstract] TL;DR
+> [!NOTE]
+> **TL;DR**
 > A **conditional edge** is the diamond in the flowchart — "go this way *or* that way" depending on a condition. The pattern: write a **routing function** that takes the state, decides, and **returns the name of the next node** to jump to (its return type is a `Literal[...]` of the possible destinations). Register it with `graph_builder.add_conditional_edges("from_node", routing_fn)`. The worked example: take a user query → answer it with GPT-4.1-mini (`chatbot` node) → an `evaluate_response` router decides if the answer is good → if **good**, route to an `end_node`; if **not good**, route to a `chatbot_gemini` node that retries with a different/bigger model → then end. A subtle but critical bug: `add_conditional_edges` routing must return **actual node names** (strings registered via `add_node`), not arbitrary values. (Hardcoding "good" for now; making the judge a real LLM call is the homework.)
 
-> [!info] Where this fits
+> [!NOTE]
+> **Where this fits**
 > Ninth and final note of **Section 11**. It completes the picture from [[02 - What is LangGraph]] — the flowchart's decision diamonds are now real code. Builds directly on the LLM node from [[08 - Adding Real LLM Support]].
 
 ---
@@ -134,7 +136,8 @@ evaluate_response(state) ──► "end_node"        (if good)
                          └─► "chatbot_gemini"   (if not good)
 ```
 
-> [!important] The router returns a *destination*, not state
+> [!IMPORTANT]
+> **The router returns a *destination*, not state**
 > Unlike normal nodes (which return state updates), a conditional-edge routing function returns the **name of the next node**. That string is the decision. This is the one place in LangGraph where a function's job is "pick the path," not "transform data."
 
 ---
@@ -180,7 +183,8 @@ graph_builder.add_edge("end_node", END)
 graph = graph_builder.compile()
 ```
 
-> [!note] `add_conditional_edges` vs `add_edge`
+> [!NOTE]
+> **`add_conditional_edges` vs `add_edge`**
 > - `add_edge(from, to)` — an **unconditional** hop.
 > - `add_conditional_edges(from, routing_fn)` — runs `routing_fn(state)` and jumps to whatever node **name** it returns.
 
@@ -188,7 +192,8 @@ graph = graph_builder.compile()
 
 ## 8. The bug to watch for
 
-> [!warning] Conditional edges route to node *names*, and the API name is plural
+> [!WARNING]
+> **Conditional edges route to node *names*, and the API name is plural**
 > Two easy mistakes here:
 > 1. The method is **`add_conditional_edges`** (plural "edges"), not `add_conditional_edge`. Using the singular form raises an error.
 > 2. The routing function must return a **registered node name** (a string that exists in `add_node`). Returning some other value — or an object where a node-name string is expected — fails. The `Literal[...]` return annotation is there precisely to keep the possible return values pinned to real node names.
@@ -257,7 +262,8 @@ That closes the loop into the full pattern from [[02 - What is LangGraph]]: answ
 
 ## 12. Common gotchas
 
-> [!warning] Conditional edge issues
+> [!WARNING]
+> **Conditional edge issues**
 
 | Symptom | Cause | Fix |
 |---|---|---|

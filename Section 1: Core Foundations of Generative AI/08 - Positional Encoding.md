@@ -23,10 +23,12 @@ related:
 
 # Positional Encoding
 
-> [!abstract] TL;DR
+> [!NOTE]
+> **TL;DR**
 > **Vector embeddings alone don't know word order.** `"dog ate cat"` and `"cat ate dog"` use exactly the same tokens — same embeddings — but mean opposite things. Without sequence-position information, a transformer would treat both sentences identically. **Positional encoding** fixes this by adding a per-position signal to each token's embedding: each token's final vector = (its semantic embedding) + (a vector that encodes "I am position N in the sequence"). After this step, "dog at position 0, ate at position 1, cat at position 2" is materially different from "cat at position 0, ate at position 1, dog at position 2" — even though the tokens are the same. Attention layers downstream can now use both **what** the token means *and* **where** it sits.
 
-> [!info] Where this fits
+> [!NOTE]
+> **Where this fits**
 > Eighth note of **Section 1: Core Foundations of Generative AI**. From the architecture diagram in [[06 - Attention Is All You Need - Architecture Walkthrough]], this is the **positional encoding** box that sits right after [[07 - Vector Embeddings]]. Together, embeddings + positional encoding produce the **final input representation** that attention layers operate on.
 
 ---
@@ -50,7 +52,8 @@ Same three tokens (`dog`, `ate`, `cat`). Same embeddings. **But entirely opposit
 
 Without positional information, the attention mechanism can't tell them apart — it would treat both sentences as a "bag of words" containing `{dog, ate, cat}`.
 
-> [!warning] Why this is a real problem
+> [!WARNING]
+> **Why this is a real problem**
 > Transformers process all tokens **in parallel** (unlike older RNNs which processed one at a time). Parallel = fast, but the model loses any natural sense of "first / second / third" position. **Positional encoding is what re-injects that information.**
 
 ---
@@ -121,7 +124,8 @@ These are now what the attention layers see.
 | 1 | `ate` | `[0.11, 0.55, -0.32, …]` | `[0.84, 0.54, 0.00, …]` | `[0.95, 1.09, -0.32, …]` |
 | 2 | `dog` | `[0.21, -0.45, 0.78, …]` | `[0.91, -0.42, 0.00, …]` | `[1.12, -0.87, 0.78, …]` |
 
-> [!tip] The key observation
+> [!TIP]
+> **The key observation**
 > `dog`'s vector now looks **different** depending on whether it's at position 0 or position 2 — because different position vectors were added to it. The downstream attention layers will treat the two sentences differently.
 
 ---
@@ -130,7 +134,8 @@ These are now what the attention layers see.
 
 Conceptually it's "add some info about position 0, 1, 2". The actual math from the original paper uses **sinusoidal functions**.
 
-> [!example] Sinusoidal positional encoding (the original paper's formula)
+> [!NOTE]
+> **Sinusoidal positional encoding (the original paper's formula)**
 > For position `pos` and dimension index `i` of the embedding (size `d_model`):
 >
 > ```
@@ -168,7 +173,7 @@ A subtle but important design choice: positional encoding is **added** to the em
 - The semantic and positional information end up living in the **same vector**, sharing the same dimensions.
 - In high-dimensional space (hundreds of dimensions), there's enough "room" for the model to learn to disentangle position from meaning.
 
-> [!note]
+> [!NOTE]
 > It feels surprising that adding two unrelated signals doesn't destroy either of them — but in practice the model learns to separate them. Modern transformer architectures all do it this way.
 
 ---

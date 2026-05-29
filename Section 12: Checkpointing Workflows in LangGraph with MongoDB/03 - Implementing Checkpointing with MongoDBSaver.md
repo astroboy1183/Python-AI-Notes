@@ -19,10 +19,12 @@ related:
 
 # Implementing Checkpointing with MongoDBSaver
 
-> [!abstract] TL;DR
+> [!NOTE]
+> **TL;DR**
 > Wire MongoDB into the graph as a checkpointer. Install `pymongo langgraph langgraph-checkpoint-mongodb`, import `MongoDBSaver`, and compile the graph **inside** the saver's connection context: `with MongoDBSaver.from_conn_string(uri) as checkpointer: graph = graph_builder.compile(checkpointer=checkpointer)`. Connection URI: `mongodb://admin:admin@localhost:27017` (matching the Docker creds; **no trailing slash**, and don't close the connection before you're done using the graph — both bite). Crucially, a checkpointed graph needs a **`thread_id`** at invoke time: `graph.invoke(state, config={"configurable": {"thread_id": "Jayanth"}})`. State is **scoped per thread** — like a table keyed by thread. Run with `thread_id="Jayanth"`, say "my name is Jayanth," and a later run with the same thread remembers it; switch to `thread_id="John"` and it's a clean slate. Thread ID = usually the **user ID**, so users never see each other's history. For readable output, **stream** with `stream_mode="values"` and `pretty_print()` the last message.
 
-> [!info] Where this fits
+> [!NOTE]
+> **Where this fits**
 > Third and final note of **Section 12**. It completes the persistence story from [[01 - The State Persistence Problem]] using the MongoDB stood up in [[02 - Setting up MongoDB with Docker Compose]].
 
 ---
@@ -92,7 +94,8 @@ mongodb://admin:admin@localhost:27017
 
 — matching the Docker credentials and port from [[02 - Setting up MongoDB with Docker Compose]].
 
-> [!warning] Two bugs that bite here
+> [!WARNING]
+> **Two bugs that bite here**
 > **Bug 1 — trailing slash / wrong URI.** Adding a stray `/...` or a slash where none belongs causes `Authentication failed`. The correct form is `mongodb://admin:admin@localhost:27017` (no trailing slash). If auth fails, the URI is the first thing to check.
 >
 > **Bug 2 — `Cannot use MongoDB client after close`.** If the `with MongoDBSaver(...)` block creates the graph and then *exits* before the graph is invoked, the Mongo connection is already closed when invoke runs. **Fix:** keep everything that uses the graph **inside** the `with` block — open connection → build graph → use graph → (block exits, connection closes). Don't compile inside the `with` and invoke outside it.
@@ -138,7 +141,8 @@ graph.invoke(state, config)
 | 1st: `state` | the input state (the new message) |
 | 2nd: `config` | `{"configurable": {"thread_id": "..."}}` |
 
-> [!important] State is scoped to a thread, not global
+> [!IMPORTANT]
+> **State is scoped to a thread, not global**
 > Think of the checkpoint store as a **table keyed by `thread_id`**. All state for `thread_id="Jayanth"` is stored under "Jayanth"; messages from another thread never mix in. Invoke with `"Jayanth"` and only Jayanth's history is loaded.
 
 ```
@@ -197,7 +201,8 @@ graph.invoke({"messages": ["What is my name?"]}, config)
 
 Switch back to `"Jayanth"` and it still says "Your name is Jayanth." Each thread keeps its **own isolated history**.
 
-> [!tip] Thread ID = user ID
+> [!TIP]
+> **Thread ID = user ID**
 > In a real multi-user app, set `thread_id` to the **user's ID**. That guarantees each user only ever sees their own conversation — no cross-contamination between users. (For multiple conversations per user, combine user + conversation IDs.)
 
 ---
@@ -280,7 +285,8 @@ with MongoDBSaver.from_conn_string(MONGODB_URI) as checkpointer:
 
 ## 11. Common gotchas
 
-> [!warning] Checkpointing issues
+> [!WARNING]
+> **Checkpointing issues**
 
 | Symptom | Cause | Fix |
 |---|---|---|

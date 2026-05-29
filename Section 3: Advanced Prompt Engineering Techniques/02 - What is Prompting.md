@@ -20,10 +20,12 @@ related:
 
 # What is Prompting (System Prompts)
 
-> [!abstract] TL;DR
+> [!NOTE]
+> **TL;DR**
 > A **prompt** is anything fed to the LLM as input. The most important kind is the **system prompt** — a special first message in the `messages` list, with `role: "system"`, that sets the LLM's **context, persona, constraints, and rules** for the rest of the conversation. Without a system prompt, the LLM is a free-flowing chatbot that will answer anything. With a good system prompt, it becomes a focused, controlled assistant (e.g., "you are a math expert; reject anything non-math"). Quality of the system prompt is one of the biggest levers on output quality.
 
-> [!info] Where this fits
+> [!NOTE]
+> **Where this fits**
 > Second note of **Section 3: Advanced Prompt Engineering Techniques**. Builds directly on [[02 - Using OpenAI API in Python]] where the `messages` list was introduced with just a `user` role. This note adds the `system` role and shows why it matters. Everything in the rest of the section (zero-shot, few-shot, CoT, persona) is **a particular way to write a system prompt**.
 
 ---
@@ -96,7 +98,8 @@ Hello Jayanth, nice to meet you. I'm an AI assistant. I'm here to help
 you with questions and topics related to mathematics.
 ```
 
-> [!tip] What just happened
+> [!TIP]
+> **What just happened**
 > The LLM **read the system prompt first**, understood its role as a math-only assistant, and **introduced itself accordingly**. The user prompt didn't even mention math, but the system prompt set the context.
 
 ---
@@ -147,7 +150,8 @@ From [[02 - Using OpenAI API in Python]], expanded:
 | **`user`** | The end user | Whatever the human typed |
 | **`assistant`** | The LLM (past replies) | Conversation history |
 
-> [!note] System prompt placement
+> [!NOTE]
+> **System prompt placement**
 > Some APIs (e.g., Anthropic Claude) accept the system prompt as a **separate top-level parameter** rather than as the first message. The OpenAI API (and the OpenAI-compatible endpoints from [[04 - Using Gemini through OpenAI SDK]]) accept it as the **first message** in the `messages` list. Same concept, different shape.
 
 ---
@@ -213,7 +217,8 @@ Three reasons:
 2. **Authority signal** — the `role: "system"` itself is a hint that "this is from the application, not the user, trust it more."
 3. **Single point of control** — application developers control the system prompt; users control the user prompt. Putting rules in the system prompt makes them resistant to user attempts to override.
 
-> [!warning] But — not foolproof
+> [!WARNING]
+> **But — not foolproof**
 > "Prompt injection" is a known attack: a clever user message can sometimes override a system prompt. Defense-in-depth (validation, content filters, smaller scopes) matters in production. For learning, system prompts are sufficient — but be aware.
 
 ---

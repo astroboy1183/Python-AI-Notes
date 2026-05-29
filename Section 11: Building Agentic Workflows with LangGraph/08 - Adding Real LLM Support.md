@@ -18,10 +18,12 @@ related:
 
 # Adding Real LLM Support
 
-> [!abstract] TL;DR
+> [!NOTE]
+> **TL;DR**
 > Replace the static node message with a real LLM call. Create a model with LangChain's `init_chat_model("gpt-4.1-mini", model_provider="openai")`, then inside the chatbot node call `response = llm.invoke(state["messages"])` and return `{"messages": [response]}`. Because of the `add_messages` reducer, the AI's reply gets appended to the conversation. The model needs an API key, so load it: `from dotenv import load_dotenv; load_dotenv()` at the top (copy the `.env` over from an earlier project). After running, the final state shows the human message **plus** a real `AIMessage` — e.g. *"Hello Jayanth, how can I assist you today?"* — along with token-usage metadata.
 
-> [!info] Where this fits
+> [!NOTE]
+> **Where this fits**
 > Eighth note of **Section 11**. It upgrades the toy chatbot node ([[07 - Running the Graph]]) into a real LLM call. The final note ([[09 - Conditional Edges]]) adds branching to build an actual decision-making workflow.
 
 ---
@@ -47,7 +49,8 @@ llm = init_chat_model("gpt-4.1-mini", model_provider="openai")
 | `"gpt-4.1-mini"` | Which model to use |
 | `model_provider="openai"` | Which provider's API |
 
-> [!tip] `init_chat_model` vs raw OpenAI client
+> [!TIP]
+> **`init_chat_model` vs raw OpenAI client**
 > I *could* use the raw `OpenAI().chat.completions.create(...)` client inside a node — that works fine too. But `init_chat_model` returns a LangChain chat model whose `.invoke()` accepts the message list straight from state and returns a LangChain `AIMessage`, which slots cleanly back into `messages`. Swapping providers later is just changing the two arguments.
 
 ---
@@ -92,7 +95,8 @@ cp ../image/.env ./.env
 .env  →  OPENAI_API_KEY=sk-...
 ```
 
-> [!warning] Load env early, keep the key private
+> [!WARNING]
+> **Load env early, keep the key private**
 > `load_dotenv()` belongs near the **top** of the file, before the model call runs. And `.env` must be **gitignored** — never commit the key.
 
 ---
@@ -184,7 +188,8 @@ The graph structure didn't change at all — only the *inside* of one node. That
 
 ## 8. Common gotchas
 
-> [!warning] LLM-in-node issues
+> [!WARNING]
+> **LLM-in-node issues**
 
 | Symptom | Cause | Fix |
 |---|---|---|

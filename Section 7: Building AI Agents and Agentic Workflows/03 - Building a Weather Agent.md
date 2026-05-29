@@ -23,10 +23,12 @@ related:
 
 # Building a Weather Agent
 
-> [!abstract] TL;DR
+> [!NOTE]
+> **TL;DR**
 > First real agent: ask the LLM about the weather in any city, and it actually fetches the real-time answer instead of vague pre-training knowledge. Build the pieces from scratch — no LangChain, no high-level agent framework, just the [[07 - Automating Chain of Thought|CoT loop]] from Section 3 plus a new step type called `"tool"`. Add a `get_weather(city)` Python function backed by **wttr.in** (free public weather API). Extend the system prompt with a tools section + a tool example. Add a `"tool"` case to the dispatcher: when the LLM emits `{"step": "tool", "tool": "get_weather", "input": "Delhi"}`, the runner **executes the named function** and appends an `"observe"` message with the result. The LLM then continues until it emits `"output"`. Demo: *"What's the weather in Delhi, Bangalore, and Patiala?"* → agent autonomously calls `get_weather` three times → produces a unified reply.
 
-> [!info] Where this fits
+> [!NOTE]
+> **Where this fits**
 > Third note of **Section 7: Building AI Agents and Agentic Workflows**. The first **build** in the section. Takes everything from prior sections and produces a working agent. The next note ([[04 - Structured Outputs with Pydantic]]) hardens this with Pydantic. The one after ([[05 - Building a CLI Coding Assistant]]) replaces the weather tool with a `run_command` tool that vibe-codes apps.
 
 ---

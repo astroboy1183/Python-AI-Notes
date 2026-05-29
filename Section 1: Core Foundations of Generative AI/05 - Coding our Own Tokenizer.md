@@ -25,7 +25,8 @@ related:
 
 # Coding our Own Tokenizer
 
-> [!abstract] TL;DR
+> [!NOTE]
+> **TL;DR**
 > Hands-on note: build a working tokenizer in Python using OpenAI's open-source **`tiktoken`** library. Workflow:
 > 1. `python -m venv venv` → create an isolated virtual environment.
 > 2. `source venv/bin/activate` → activate it.
@@ -37,7 +38,8 @@ related:
 >
 > By the end, there's working code that round-trips `"hey there, my name is Jayanth"` through `tiktoken` and gets back the original string.
 
-> [!info] Where this fits
+> [!NOTE]
+> **Where this fits**
 > Fifth note of **Section 1: Core Foundations of Generative AI**. Builds on [[04 - What is a Token]] (the concept) by making it concrete: actual Python code that tokenizes and detokenizes text using the **same library OpenAI uses internally**. First hands-on code note in the course.
 
 ---
@@ -75,7 +77,8 @@ cd 01_tokenization
 Just an empty `main.py` to start.
 
 ### Create a Python virtual environment
-> [!example] Why a virtual environment?
+> [!NOTE]
+> **Why a virtual environment?**
 > A `venv` isolates this project's dependencies from system-wide Python. Without it, `pip install tiktoken` would install globally and could conflict with other projects. Always use `venv` (or another tool like `poetry`, `uv`, `pipenv`) for any non-trivial Python work.
 
 ```bash
@@ -110,7 +113,8 @@ Then freeze the dependency list:
 pip freeze > requirements.txt
 ```
 
-> [!tip] Why `pip freeze`?
+> [!TIP]
+> **Why `pip freeze`?**
 > `requirements.txt` documents the exact versions installed. Anyone (including future-you on another machine) can run `pip install -r requirements.txt` to reproduce the exact environment. **Always commit `requirements.txt` to git.**
 
 The resulting `requirements.txt` will list `tiktoken==<version>` and its transitive dependencies (`regex`, `requests`, etc.).
@@ -161,7 +165,7 @@ tokens: [25216, 1354, 11, 856, 1308, 382, 96270, 320]
 
 (Exact IDs depend on the model and library version.)
 
-> [!note]
+> [!NOTE]
 > Each integer is a single token. The full string `"hey there, my name is Jayanth"` collapses to a handful of tokens — far fewer than the character count.
 
 ---
@@ -182,7 +186,8 @@ Output:
 decoded: hey there, my name is Jayanth
 ```
 
-> [!tip] Round-trip property
+> [!TIP]
+> **Round-trip property**
 > `decode(encode(text)) == text` — always. Tokenization is **lossless**: every encoded string can be recovered exactly. Confirms that `tiktoken` is doing a proper invertible mapping.
 
 ---
@@ -254,7 +259,8 @@ When using the OpenAI API directly, tiktoken-style tokenization happens **server
 
 ## 8. Useful extras
 
-> [!example] Counting tokens for cost estimation
+> [!NOTE]
+> **Counting tokens for cost estimation**
 
 ```python
 import tiktoken
@@ -272,7 +278,8 @@ print(f"Tokens: {token_count}")
 print(f"Estimated input cost: ${estimated_cost:.6f}")
 ```
 
-> [!example] Using encoding directly
+> [!NOTE]
+> **Using encoding directly**
 
 ```python
 import tiktoken
@@ -284,7 +291,8 @@ encoder = tiktoken.get_encoding("o200k_base")  # for GPT-4o
 tokens = encoder.encode("hello world")
 ```
 
-> [!example] Inspecting individual tokens
+> [!NOTE]
+> **Inspecting individual tokens**
 
 ```python
 import tiktoken
@@ -326,7 +334,7 @@ Notice the **leading space** is part of most tokens (` there`, ` my`, etc.), and
 | Llama / Mistral / HuggingFace models | `transformers.AutoTokenizer.from_pretrained(...)` |
 | BERT, GPT-2 family | `transformers` library |
 
-> [!note]
+> [!NOTE]
 > For most multi-model work, the **`transformers`** library from Hugging Face is the lingua franca. It supports virtually any open-source model's tokenizer.
 
 ---

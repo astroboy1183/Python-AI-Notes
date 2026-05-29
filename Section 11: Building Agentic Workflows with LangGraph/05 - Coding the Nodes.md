@@ -18,10 +18,12 @@ related:
 
 # Coding the Nodes
 
-> [!abstract] TL;DR
+> [!NOTE]
+> **TL;DR**
 > A node is **just a function** that takes the current `state` and returns a (partial) state. Define `def chatbot(state: State)` that returns `{"messages": ["Hi, this is a message from the chatbot node"]}`. Because the state's `messages` key uses the `add_messages` reducer, whatever the node returns gets **appended** to the existing messages — it doesn't overwrite them. But the builder doesn't know about a function until I **register** it: `graph_builder.add_node("chatbot", chatbot)`. The first arg is the node's name (any string; best practice = match the function name), the second is the function. Add a second node (`sample_node`) the same way and the graph now has two nodes — ready to be wired with edges.
 
-> [!info] Where this fits
+> [!NOTE]
+> **Where this fits**
 > Fifth note of **Section 11**. The state and builder exist (from [[04 - Creating the State and Graph Builder]]); now I write the node functions and register them. [[06 - Adding Edges and Compiling the Graph]] connects them and compiles.
 
 ---
@@ -67,7 +69,8 @@ state AFTER the node (reducer appends):
     ]
 ```
 
-> [!important] The node returns only what it wants to add
+> [!IMPORTANT]
+> **The node returns only what it wants to add**
 > I don't reconstruct the whole `messages` list inside the node. I return **just the new message(s)**, and the `add_messages` reducer merges them onto the existing list. That's the entire point of the annotation from [[04 - Creating the State and Graph Builder]].
 
 ---
@@ -166,7 +169,8 @@ Every node follows the same contract: **state in, state-update out.** That unifo
 
 ## 7. Common gotchas
 
-> [!warning] Node issues
+> [!WARNING]
+> **Node issues**
 
 | Symptom | Cause | Fix |
 |---|---|---|

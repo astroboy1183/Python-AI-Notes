@@ -23,10 +23,12 @@ related:
 
 # Building the Retrieval (chat.py)
 
-> [!abstract] TL;DR
+> [!NOTE]
+> **TL;DR**
 > Final note of Section 8 — implement the **retrieval phase** as a separate `chat.py` script. Same embedding model as indexing (`text-embedding-3-large`). Connect to the existing Qdrant collection via **`QdrantVectorStore.from_existing_collection(...)`**. On each user query: call `vector_store.similarity_search(query)` → get top-K chunks → build a context string with **page numbers and source paths** → inject into a system prompt → call `client.chat.completions.create(model="gpt-4o", ...)` → return the reply. The LLM cites page numbers in its answer so users can verify. **End-to-end working chat-with-PDF system in ~50 lines.** Demo: ask *"Can you help me understand debugging in Node.js?"* → agent answers from the actual book + cites pages 23-24. Section 8 closes; Section 9 makes this async + scalable.
 
-> [!info] Where this fits
+> [!NOTE]
+> **Where this fits**
 > Eleventh and final lecture of **Section 8: Building Chat with PDF Project using RAG**. Closes out the section. Next: **Section 9 (Scalable RAG with Async Queues & Distributed Workers)** — production-grade version.
 
 ---
@@ -135,7 +137,8 @@ Each retrieved chunk gets formatted with:
 
 This formatted string becomes part of the system prompt.
 
-> [!tip] Why include page/source explicitly
+> [!TIP]
+> **Why include page/source explicitly**
 > The LLM doesn't read the `metadata` dict — it only sees text. To make page-number citations possible, the metadata must be **embedded into the prompt as text**. The format above is a simple, working convention.
 
 ---
@@ -183,7 +186,7 @@ print(f"🤖 {response.choices[0].message.content}")
 
 Standard OpenAI call from [[02 - Using OpenAI API in Python]] — nothing RAG-specific about this step. The retrieval has already prepared the system prompt; the LLM just consumes it.
 
-> [!note]
+> [!NOTE]
 > Any modern chat model works here — `gpt-4o`, `gpt-4o-mini`, Claude, etc. Pick based on cost/quality preference for the use case.
 
 ---

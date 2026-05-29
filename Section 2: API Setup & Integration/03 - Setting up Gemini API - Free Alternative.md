@@ -24,13 +24,16 @@ related:
 
 # Setting up Gemini API — Free Alternative
 
-> [!abstract] TL;DR
+> [!NOTE]
+> **TL;DR**
 > Google's **Gemini API** is a **free** alternative to OpenAI's paid API — useful when avoiding any out-of-pocket spend. Setup is faster than OpenAI's: visit **aistudio.google.com**, click "Get API key", generate a key (no billing setup, no credit card). In Python: `pip install google-genai` → `from google import genai` → `client = genai.Client(api_key=...)` → `client.models.generate_content(model="gemini-...", contents="...")`. Free as of now with no guarantees about the future. I'm using OpenAI as the primary API throughout these notes, but Gemini is a solid path for anyone unwilling to pay $5.
 
-> [!info] Where this fits
+> [!NOTE]
+> **Where this fits**
 > Third note of **Section 2: API Setup & Integration**. Parallel to [[01 - Setting up OpenAI Account]] + [[02 - Using OpenAI API in Python]] — same outcome (talk to an LLM from Python), different provider. The next note ([[04 - Using Gemini through OpenAI SDK]]) shows a clever trick: use the **same OpenAI client code** to call Gemini via a compatibility layer.
 
-> [!warning] "Free" disclaimer
+> [!WARNING]
+> **"Free" disclaimer**
 > Gemini's API has a generous free tier as of now — but **this can change**. Google can introduce billing, change rate limits, or restrict models at any time. Treat "free" as "free for now."
 
 ---
@@ -68,7 +71,8 @@ Crucial differences from OpenAI:
 | Generate API key | ✅ | ✅ |
 | Time to first key | ~3 mins (incl. payment) | ~30 seconds |
 
-> [!warning] Same security rules apply
+> [!WARNING]
+> **Same security rules apply**
 > Even though Gemini is free, the key is still **personal credentials**. Treat it the same way as the OpenAI key:
 > - Store in `.env`.
 > - Add `.env` to `.gitignore`.
@@ -86,7 +90,7 @@ pip install google-genai
 pip freeze > requirements.txt
 ```
 
-> [!note]
+> [!NOTE]
 > This is the new package (released 2024). The older `google-generativeai` package is being phased out. Use `google-genai` for any new code.
 
 Imports:
@@ -125,7 +129,8 @@ Output (illustrative):
 AI learns patterns from data to make intelligent decisions.
 ```
 
-> [!tip] Keep the key in `.env` instead
+> [!TIP]
+> **Keep the key in `.env` instead**
 > Hardcoding the key in source is fine for a 30-second test, but in real code:
 > ```python
 > import os
@@ -170,7 +175,8 @@ As of now:
 | `gemini-2.0-flash` | Fast | Good | Multimodal |
 | `gemini-2.0-flash-thinking-exp` | Slower | Reasoning | Experimental "thinking" model |
 
-> [!info] Long context superpower
+> [!NOTE]
+> **Long context superpower**
 > Gemini 1.5 Pro supports **up to 1 million tokens** of context — roughly 750k English words. Far beyond GPT-4o's 128k. Useful for entire codebases, long documents, or massive RAG inputs.
 
 ---
@@ -191,7 +197,8 @@ print(response.text)   # should remember "Jayanth"
 
 The `chat` object keeps the history server-side (or in the SDK's local state), so each `send_message` continues the conversation.
 
-> [!example] Equivalent with structured `contents`
+> [!NOTE]
+> **Equivalent with structured `contents`**
 
 ```python
 response = client.models.generate_content(
@@ -221,7 +228,8 @@ Gemini's free tier (as of now) typically includes:
 
 When usage exceeds free-tier limits, Google asks to enable billing → switches to **paid tier** with much higher limits and per-token pricing.
 
-> [!warning] Implicit cost
+> [!WARNING]
+> **Implicit cost**
 > Free tier means Google can **use your prompts/responses for training** their models by default. For sensitive data, enable billing or use Vertex AI (paid, doesn't train on your data).
 
 ---
@@ -257,7 +265,8 @@ The OpenAI API isn't free — each call charges money based on tokens used. Gemi
 
 ## 11. Common gotchas with Gemini
 
-> [!warning] First-time problems
+> [!WARNING]
+> **First-time problems**
 
 | Symptom | Likely cause | Fix |
 |---|---|---|

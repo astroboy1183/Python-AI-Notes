@@ -24,10 +24,12 @@ related:
 
 # Vector Embeddings
 
-> [!abstract] TL;DR
+> [!NOTE]
+> **TL;DR**
 > A **vector embedding** is a list of numbers that represents the **semantic meaning** of a token (or word, sentence, document). After tokenization turns `"dog"` into a number like `1729`, the embedding layer turns `1729` into a **high-dimensional vector** (e.g., 768 or 1536 numbers). The crucial property: **semantically similar things end up close together in that high-dimensional space.** `dog` and `cat` sit near each other (both animals). `Paris` and `India` sit near each other (both countries). And — most surprisingly — **directions** in the space encode **relationships**: the vector from `Paris` to `Eiffel Tower` is parallel to the vector from `India` to `India Gate`. This geometric structure is what lets the transformer "understand" meaning rather than just shuffle symbols.
 
-> [!info] Where this fits
+> [!NOTE]
+> **Where this fits**
 > Seventh note of **Section 1: Core Foundations of Generative AI**. From the architecture walkthrough in [[06 - Attention Is All You Need - Architecture Walkthrough]], this is the **input embeddings** box at the very start of the transformer. Tokens (numbers) become **vectors** (lists of numbers) here — vectors that carry meaning. Vector embeddings are also the foundation of **RAG** (retrieval-augmented generation), which the course covers later — so this is one of the most reusable concepts in the curriculum.
 
 ---
@@ -148,7 +150,8 @@ Specifically:
 
 Same trick works for "president of": vector from `Paris` to `President of France` is parallel to vector from `India` to `President of India`.
 
-> [!tip] The classic embedding analogy
+> [!TIP]
+> **The classic embedding analogy**
 > The famous Word2Vec result that made embeddings famous:
 > ```
 > vector("king") − vector("man") + vector("woman") ≈ vector("queen")
@@ -191,7 +194,8 @@ For tasks like RAG, semantic search, clustering:
 - Cohere, Voyage, Google all have similar embedding endpoints.
 - These are **specifically trained** to produce useful similarity scores, not just for next-token prediction.
 
-> [!example] Embedding model dimensions
+> [!NOTE]
+> **Embedding model dimensions**
 > Common embedding sizes:
 >
 > | Model | Embedding dim |
@@ -220,7 +224,7 @@ The 2D picture is a teaching aid. Real embedding spaces are:
 
 Why so many? More dimensions = more capacity to encode fine distinctions (gender, plurality, formality, language, topic, sentiment, ...).
 
-> [!note]
+> [!NOTE]
 > In a 2D plot, you can only show one tiny slice of the structure. The TensorFlow Embedding Projector (next section) lets us *visualize* high-dimensional embeddings by projecting them down to 3D — but the real action is in the original high dimensions.
 
 ---
@@ -235,7 +239,7 @@ A great hands-on visualizer:
 - Hover to see what word each point represents.
 - Search for a word and find its nearest neighbors.
 
-> [!tip]
+> [!TIP]
 > Spending 5 minutes clicking around the embedding projector builds more intuition about embeddings than reading any blog post. The clustering of synonyms, antonyms, related concepts is genuinely revelatory.
 
 ---
@@ -253,7 +257,8 @@ Embeddings show up in many places later in the course:
 | **Clustering / topic discovery** | Group documents whose embeddings cluster together. |
 | **Anomaly detection** | Embed inputs; flag outliers far from the typical cluster. |
 
-> [!info] Cross-link
+> [!NOTE]
+> **Cross-link**
 > Vector embeddings are what makes **episodic memory** work in agents — see [[04 - Episodic Memory in LLMs]] for how the same idea gets applied to "find similar past interactions."
 
 ---

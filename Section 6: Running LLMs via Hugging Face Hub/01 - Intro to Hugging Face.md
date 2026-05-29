@@ -23,10 +23,12 @@ related:
 
 # Intro to Hugging Face
 
-> [!abstract] TL;DR
+> [!NOTE]
+> **TL;DR**
 > **Hugging Face = GitHub for LLMs.** A central platform where the AI community **publishes, hosts, demos, and shares** open-source models, datasets, and interactive apps. Three core areas: **Models** (downloadable weights for Llama, Gemma, Mistral, Qwen, Stable Diffusion, etc.), **Spaces** (hosted interactive demos backed by free or paid GPUs — try a model in the browser without installing anything), and **Datasets** (training/evaluation data anyone can use). The **`transformers`** Python library is the standard way to download and run any model from the Hub. Ollama (Section 5) is essentially a curated, easier-to-install layer **on top of** the Hugging Face ecosystem. This section dives into using HF directly for more control.
 
-> [!info] Where this fits
+> [!NOTE]
+> **Where this fits**
 > First note of **Section 6: Running LLMs via Hugging Face Hub**. Section 5 used Ollama for the laptop-friendly path; Section 6 goes one layer deeper to the **broader open-source ecosystem** where every modern open model lives.
 
 ---
@@ -59,7 +61,8 @@ The role HF plays in the open-source AI world:
         Mistral, ...)
 ```
 
-> [!tip] The one-line mental model
+> [!TIP]
+> **The one-line mental model**
 > Hugging Face is basically the **GitHub of LLM models**. On GitHub we push source code (Python, TypeScript, etc.); on Hugging Face we push and pull **model weights** the same way.
 
 ---
@@ -86,7 +89,8 @@ So when researchers at Meta release Llama 3, or DeepSeek releases R1, or Mistral
 - **Fine-tune** the model on custom data.
 - **Push** their fine-tuned version back to the Hub.
 
-> [!note] One reason HF exists at all
+> [!NOTE]
+> **One reason HF exists at all**
 > GitHub doesn't handle multi-GB binary files well (model weights can be 1–500+ GB). HF was built around **Git LFS (Large File Storage)** specifically for this. Trying to host a 405B-parameter model on regular GitHub would be technically impossible.
 
 ---
@@ -124,10 +128,12 @@ Quick example: open the **Flux** image-to-image Space, upload an image, type "co
 | Demo for a paper | Reviewers can interact without setup |
 | Hackathon / prototype | Spin up an app in minutes |
 
-> [!tip] Why this is so useful
+> [!TIP]
+> **Why this is so useful**
 > Spaces let me try a model right there on HF's hosted GPUs — perfect for **testing, benchmarking, and evaluating** new models before committing to a local download or integration.
 
-> [!example] What's under the hood
+> [!NOTE]
+> **What's under the hood**
 > A Space is just a Git repository containing a small app (typically `app.py` for Gradio). HF runs it in a container with hardware spec the author selects:
 > - **CPU basic** (free): for lightweight Spaces.
 > - **CPU upgrade** (paid).
@@ -184,7 +190,8 @@ Quick comparison:
 | Inference speed | ⚠️ Depends on backend | ✅ Faster (Transformers, vLLM) |
 | Production deployment | ⚠️ Possible but Ollama isn't optimized | ✅ Designed for it |
 
-> [!tip] Mental model
+> [!TIP]
+> **Mental model**
 > Ollama = curated, easy, batteries-included. Hugging Face = raw, powerful, full-control. Use Ollama for laptop chat; use HF directly for fine-tuning, custom workflows, or any model not in Ollama's catalog.
 
 Even Ollama gets its model weights from Hugging Face under the hood — HF is the underlying source of truth for the open-source model ecosystem.

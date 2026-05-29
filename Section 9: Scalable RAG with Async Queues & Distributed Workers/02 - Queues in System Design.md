@@ -20,10 +20,12 @@ related:
 
 # Queues in System Design
 
-> [!abstract] TL;DR
+> [!NOTE]
+> **TL;DR**
 > A **queue** is a **FIFO (First-In, First-Out)** data structure: jobs enter at the back, processors take them from the front. In system design, queues sit between a **producer** (the FastAPI server accepting user requests) and one or more **consumers** (background workers running the actual work). Why this matters: the producer can stay **fast and responsive** while slow work happens behind the scenes. Without a queue, every long task blocks the request thread. With a queue, the server **pushes the job and returns immediately**; workers process at their own pace. This is the architecture behind nearly every modern web service that does anything beyond serving static pages.
 
-> [!info] Where this fits
+> [!NOTE]
+> **Where this fits**
 > Second lecture of **Section 9: Scalable RAG with Async Queues & Distributed Workers**. Pure concept — no code yet. The next lecture ([[03 - Setting up Valkey (Redis Alternative)]]) installs the technology that implements this queue.
 
 ---

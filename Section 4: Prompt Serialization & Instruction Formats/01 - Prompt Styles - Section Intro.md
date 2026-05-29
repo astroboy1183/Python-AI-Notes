@@ -21,13 +21,16 @@ related:
 
 # Prompt Styles — Section Intro
 
-> [!abstract] TL;DR
+> [!NOTE]
+> **TL;DR**
 > Prompt **styles** are different from prompt **types**. Section 3 covered *what* to put in a prompt (zero-shot, few-shot, CoT, persona). This section covers *how the prompt is wire-formatted* — the literal text/JSON structure used to feed instructions into the model. Three popular styles: **ChatML** (OpenAI, Gemini, Claude — the de facto standard), **Alpaca** (Llama / Meta-style models), and **Instruction / INST** (Llama 2). For 99% of real work, **ChatML is the only one needed**. This section is bonus context for understanding the broader ecosystem (especially when running local LLMs).
 
-> [!info] Where this fits
+> [!NOTE]
+> **Where this fits**
 > First note of **Section 4: Prompt Serialization & Instruction Formats**. Section 3 was about *what to say* (technique). This section is about *how to say it* (format). After this, **Section 5** (Local LLM Deployment) starts to matter — local LLMs may expect Alpaca or INST format, so knowing they exist is useful.
 
-> [!tip] Treat this section as bonus
+> [!TIP]
+> **Treat this section as bonus**
 > This isn't the only way to give instructions to an LLM — there are several. The point here is to recognize the formats when they show up, not to use them daily.
 
 ---

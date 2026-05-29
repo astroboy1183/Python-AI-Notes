@@ -17,10 +17,12 @@ related:
 
 # Running the Graph
 
-> [!abstract] TL;DR
+> [!NOTE]
+> **TL;DR**
 > Run a compiled graph with **`graph.invoke(initial_state)`**. The initial state for the chatbot is a single human message: `{"messages": ["Hi, my name is Jayanth"]}`. `invoke` returns the **final state**, which I print. Watching the prints reveals the state **accumulating** as it flows: the chatbot node sees one message (the human's), appends its own; the sample node then sees **two** messages and appends a third; the final state holds **all three** — original + chatbot + sample. This is the `add_messages` reducer doing its job at runtime: each node reads the current state, adds to it, and passes the grown state onward.
 
-> [!info] Where this fits
+> [!NOTE]
+> **Where this fits**
 > Seventh note of **Section 11**. The graph is built and compiled (from [[06 - Adding Edges and Compiling the Graph]]); now I invoke it and confirm the state lifecycle works. [[08 - Adding Real LLM Support]] swaps the static messages for a real LLM call.
 
 ---
@@ -137,7 +139,8 @@ The mechanics are now fully wired and verified. The only thing "fake" is that no
 
 ## 6. Common gotchas
 
-> [!warning] Invocation issues
+> [!WARNING]
+> **Invocation issues**
 
 | Symptom | Cause | Fix |
 |---|---|---|

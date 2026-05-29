@@ -20,10 +20,12 @@ related:
 
 # The Problem RAG Solves
 
-> [!abstract] TL;DR
+> [!NOTE]
+> **TL;DR**
 > Two intertwined problems agentic AI hits at every enterprise: **(1) LLMs don't know your private data** — they were trained on the public internet, not on your 1,000 internal PDFs / contracts / wiki pages, and **(2) you can't just stuff all your private data into the context window** — even GPT-4o's 128k tokens (≈ 96k English words) is dwarfed by a corpus of 50,000 documents, and even if it weren't, the cost-per-call would be punishing. RAG is the architectural answer: **store the data smartly, retrieve only the relevant fragments at query time, inject into a small context**. This note walks through the problem using a legal-firm example — the next notes introduce the solution.
 
-> [!info] Where this fits
+> [!NOTE]
+> **Where this fits**
 > Second lecture of **Section 8: Building Chat with PDF Project using RAG**. Sets up the constraints; the rest of the section is the solution.
 
 ---
@@ -120,7 +122,7 @@ A token ≈ 0.75 English words (see [[04 - What is a Token]]). So:
 
 Even Gemini's 1M-token window fits at most **~10,000 short pages** — and a legal firm with 50,000+ files blows past that easily. Even a 1M-token context can't ingest 50,000 files.
 
-> [!note]
+> [!NOTE]
 > A "1M context window" is sometimes loosely attributed to GPT-4o — that's actually Gemini 1.5 Pro's spec; GPT-4o is 128k. The point stands either way: even 1M tokens isn't enough for enterprise-scale corpora.
 
 ### B. The cost
@@ -143,7 +145,8 @@ Multiply by every employee, every conversation turn, every minor query — it's 
 
 Even if the data fit, **most of it is irrelevant** to any given query. Asking *"Tell me about case number 32"* doesn't need cases 1-31 and 33-1000 in the prompt. They're just noise. Worse: noise actively **degrades** LLM accuracy — the model gets distracted, hallucinates, picks up irrelevant tangents.
 
-> [!warning] The relevant 1% problem
+> [!WARNING]
+> **The relevant 1% problem**
 > For any given user query, maybe **1%** of the corpus is relevant. The other 99% is dead weight in the prompt. RAG's whole point is to find that 1% and only send it.
 
 ---

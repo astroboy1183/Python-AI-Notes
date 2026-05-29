@@ -21,13 +21,16 @@ related:
 
 # Docker Deep Dive
 
-> [!abstract] TL;DR
+> [!NOTE]
+> **TL;DR**
 > **Docker** is a container management tool that lets applications run in **isolated, portable, reproducible** environments. Instead of installing Ollama (and its dependencies, libraries, network configs, etc.) directly onto a machine, run it as a **container**: a self-contained bundle that includes the app and everything it needs. **Same `docker run` command works on Mac, Linux, Windows** — that's why the course picks Docker over a native Ollama install. Core commands: `docker pull <image>` (download), `docker run <image>` (start), `docker container ps` (list), `docker container rm <id>` (delete). This lecture covers Docker just enough to install Ollama in the next note; deep Docker expertise isn't required.
 
-> [!info] Where this fits
+> [!NOTE]
+> **Where this fits**
 > Second lecture of **Section 5: Local LLM Deployment & API Integration**. Pure infrastructure setup. The next lecture ([[03 - Running Ollama in Docker]]) puts these Docker skills to work running the Ollama LLM server.
 
-> [!warning] Not a Docker course
+> [!WARNING]
+> **Not a Docker course**
 > This is a Docker primer scoped to "what's needed for the next lecture." For deeper Docker mastery (Dockerfiles, multi-stage builds, Docker Compose, networks, swarms), use a dedicated Docker course or the official docs.
 
 ---
@@ -97,7 +100,8 @@ The recommended install path for personal machines:
 
 After installation, **Docker Desktop** runs in the background. The icon in the menu bar / system tray shows whether the engine is up.
 
-> [!note] Linux alternative
+> [!NOTE]
+> **Linux alternative**
 > On Linux, many people skip Docker Desktop and install **Docker Engine** directly (`docker-ce` / `docker-ce-cli` packages). Both work; Docker Desktop adds a GUI and a single-binary install path.
 
 ---
@@ -182,7 +186,8 @@ docker container rm 561abc123
 
 Removes the container (stopped containers can be removed; running ones need `-f`).
 
-> [!example] More flags worth knowing
+> [!NOTE]
+> **More flags worth knowing**
 
 | Flag | Purpose | Example |
 |---|---|---|
@@ -302,7 +307,8 @@ For pinned versions: `docker pull ollama/ollama:0.1.32`.
 
 ## 12. Common gotchas
 
-> [!warning] First-time Docker pain points
+> [!WARNING]
+> **First-time Docker pain points**
 
 | Symptom | Likely cause | Fix |
 |---|---|---|

@@ -1,19 +1,35 @@
-# LLM Memory — Lecture Notes
+# Full Stack AI with Python — Lecture Notes
 
-A six-part series of structured lecture notes on **memory in Large Language Models** and AI agents. Originally written in Obsidian Markdown — works great with any Obsidian vault (wiki-links + callouts), but reads fine on GitHub too.
+Structured, in-depth study notes covering **building AI / LLM applications end-to-end with Python** — from how LLMs work internally, through prompt engineering, local models, agents, RAG, and on to production patterns like async workers, LangGraph workflows, checkpointing, and memory layers.
 
-## 📚 The Series
+Written in Obsidian Markdown — they shine in any Obsidian vault (wiki-links + callouts) but read perfectly well on GitHub too (callouts use GitHub's native alert syntax).
 
-| # | Note | Topic |
-|---|---|---|
-| 00 | [Types of Memory in LLMs](./00%20-%20Types%20of%20Memory%20in%20LLMs.md) | The full taxonomy — overview of STM, LTM, and the three LTM sub-types |
-| 01 | [Short-Term Memory in LLMs](./01%20-%20Short-Term%20Memory%20in%20LLMs.md) | Session-scoped conversation history (the volatile one) |
-| 02 | [Long-Term Memory in LLMs](./02%20-%20Long-Term%20Memory%20in%20LLMs.md) | Persistent, user-scoped, DB-backed memory |
-| 03 | [Factual Memory in LLMs](./03%20-%20Factual%20Memory%20in%20LLMs.md) | LTM sub-type: stable user facts (always injected) |
-| 04 | [Episodic Memory in LLMs](./04%20-%20Episodic%20Memory%20in%20LLMs.md) | LTM sub-type: past interactions (on-demand via vector search) |
-| 05 | [Semantic Memory in LLMs](./05%20-%20Semantic%20Memory%20in%20LLMs.md) | LTM sub-type: general world knowledge (on-demand RAG) |
+> **85 notes across 13 sections** (3 more sections in progress). Each note is a detailed, self-contained write-up with diagrams, comparison tables, pseudocode, gotchas, and follow-up questions.
 
-## 🧠 The Big Picture
+## 📚 Sections
+
+| # | Section | Notes | What it covers |
+|---|---|:---:|---|
+| 1 | [Core Foundations of Generative AI](<./Section 1: Core Foundations of Generative AI>) | 9 | What an LLM is, tokens, embeddings, the Transformer, attention, positional encoding |
+| 2 | [API Setup & Integration](<./Section 2: API Setup & Integration>) | 4 | OpenAI + Gemini API setup, calling models from Python, the OpenAI-compatible SDK |
+| 3 | [Advanced Prompt Engineering Techniques](<./Section 3: Advanced Prompt Engineering Techniques>) | 8 | System prompts, zero/few-shot, structured output, chain-of-thought, personas |
+| 4 | [Prompt Serialization & Instruction Formats](<./Section 4: Prompt Serialization & Instruction Formats>) | 4 | Prompt styles — Alpaca, ChatML, INST |
+| 5 | [Local LLM Deployment & API Integration](<./Section 5: Local LLM Deployment & API Integration>) | 6 | Running LLMs locally with Docker, Ollama, Open WebUI; serving via FastAPI |
+| 6 | [Running LLMs via Hugging Face Hub](<./Section 6: Running LLMs via Hugging Face Hub>) | 5 | Hugging Face account, gated models, CLI login, the `transformers` package |
+| 7 | [Building AI Agents and Agentic Workflows](<./Section 7: Building AI Agents and Agentic Workflows>) | 5 | What agents are, tool calling, Pydantic structured outputs, a CLI coding assistant |
+| 8 | [Building Chat with PDF using RAG](<./Section 8: Building Chat with PDF Project using RAG (Retrieval-Augmented Generation)>) | 11 | Full RAG pipeline — indexing, retrieval, Qdrant, LangChain, PDF loading, chunking |
+| 9 | [Scalable RAG with Async Queues & Distributed Workers](<./Section 9: Scalable RAG with Async Queues & Distributed Workers>) | 9 | Queues, Valkey/Redis, RQ workers, FastAPI job submit/poll, parallel processing |
+| 10 | [Multi-Modal Agents](<./Section 10: Multi Modal Agents>) | 2 | Multi-modal AI, sending images to vision models |
+| 11 | [Building Agentic Workflows with LangGraph](<./Section 11: Building Agentic Workflows with LangGraph>) | 9 | Nodes, edges, state, the graph builder, LLM nodes, conditional edges |
+| 12 | [Checkpointing Workflows in LangGraph with MongoDB](<./Section 12: Checkpointing Workflows in LangGraph with MongoDB>) | 3 | State persistence, MongoDB checkpointer, per-thread/user scoping |
+| 13 | [The Memory Layer](<./Section 13: The Memory Layer - Building Short, Long, and Semantic Memory in AI Agents>) | 10 | Memory types (STM/LTM, factual/episodic/semantic) + a Mem0 + Qdrant build |
+| 14 | Graph Memory and Knowledge Graphs in AI Agents | — | *In progress* |
+| 15 | Conversational Agentic AI with Voice Agents & Chained Patterns | — | *In progress* |
+| 16 | Model Context Protocol (MCP) | — | *In progress* |
+
+## 🧠 Spotlight — The Memory Layer (Section 13)
+
+The memory series maps out how memory works in LLM-based agents:
 
 ```
                         LLM Memory
@@ -37,27 +53,31 @@ A six-part series of structured lecture notes on **memory in Large Language Mode
 | **Episodic** | Past interactions | Forever | Vector DB | When triggered |
 | **Semantic** | The world | Forever | Vector DB / RAG | When topic comes up |
 
-## 🛠️ Tools Referenced
+## 🛠️ Tools & Tech Referenced
 
-- [Mem0](https://mem0.ai) — Memory framework for LLM agents
-- [Qdrant](https://qdrant.tech) — Open-source vector database
-- Pinecone, Weaviate, Chroma, pgvector, Neo4j, MongoDB, Redis — alternative stores
+- **Models / APIs** — OpenAI, Google Gemini, Hugging Face `transformers`
+- **Local LLMs** — Docker, Ollama, Open WebUI
+- **Serving** — FastAPI, uvicorn
+- **Agents / Orchestration** — LangChain, LangGraph, Pydantic
+- **RAG & Memory** — [Qdrant](https://qdrant.tech), [Mem0](https://mem0.ai), embeddings
+- **Async / Infra** — RQ (Redis Queue), Valkey/Redis, MongoDB
+- *Alternatives mentioned* — Pinecone, Weaviate, Chroma, pgvector, Neo4j, Postgres
 
 ## 📖 How to Use These Notes
 
-- **In Obsidian**: clone this repo as a folder inside your vault. Wiki-links (`[[01 - Short-Term Memory in LLMs]]`) will resolve, and Obsidian callouts (`> [!tip]`) will render with styling.
-- **On GitHub**: the notes render as Markdown. Wiki-links won't be clickable but the structure, tables, and code blocks all work.
+- **In Obsidian** — clone this repo as a folder inside your vault. Wiki-links (`[[01 - Short-Term Memory in LLMs]]`) resolve by filename, and callouts render with styling.
+- **On GitHub** — notes render as Markdown. Callouts use GitHub's native alert syntax (`> [!NOTE]`, `> [!TIP]`, `> [!WARNING]`, `> [!IMPORTANT]`), so they show as proper colored boxes. Wiki-links aren't clickable here, but structure, tables, diagrams, and code blocks all work.
 
-## 📝 Format
+## 📝 Note Format
 
-Each note follows the same structure:
-- **YAML frontmatter** — title, tags, parent, related links
+Each note follows a consistent structure:
+- **YAML frontmatter** — title, date, section, tags, related links
 - **TL;DR** callout — one-paragraph summary
-- **Core idea, definitions, examples** — with tables, code blocks, ASCII diagrams
-- **Implementation patterns + pseudocode**
-- **Gotchas / best practices**
-- **Open questions** for further exploration
+- **Numbered sections** — core ideas, definitions, examples
+- **Comparison tables, ASCII diagrams, and pseudocode**
+- **Common gotchas / best practices**
+- **Main takeaways** and **open questions** for further exploration
 
 ## License
 
-Notes are shared for educational use. Feel free to adapt for your own learning.
+Notes are shared for educational use. Feel free to adapt them for your own learning.

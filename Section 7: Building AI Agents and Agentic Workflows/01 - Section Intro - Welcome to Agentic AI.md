@@ -19,10 +19,12 @@ related:
 
 # Section Intro — Welcome to Agentic AI
 
-> [!abstract] TL;DR
+> [!NOTE]
+> **TL;DR**
 > The course's biggest pivot — moving from **"LLM as text predictor"** to **"LLM as agent that takes actions in the world."** Agentic AI = an LLM connected to tools (functions, APIs, databases, file systems, browsers, code interpreters) so it can not just reply but actually **do things**: book flights, modify files, query databases, send emails. A favorite section, because **all major businesses are moving toward agentic AI** — it's where real-world business value materializes. This section converts an LLM into an agent step-by-step through three hands-on builds: a weather agent (with tool calling), a structured-output upgrade (Pydantic for reliability), and a CLI coding assistant (vibe-coded apps).
 
-> [!info] Where this fits
+> [!NOTE]
+> **Where this fits**
 > First lecture of **Section 7: Building AI Agents and Agentic Workflows**. The course has covered everything needed: model APIs (Section 2), prompts (Section 3), structured I/O (Section 3), prompt styles (Section 4), local models (Section 5), Hugging Face (Section 6). Now those pieces combine into agents. After Section 7, the course moves into **RAG** (Section 8–9), **multimodal** agents (Section 10), and **LangGraph** orchestration (Section 11+).
 
 ---
@@ -82,7 +84,8 @@ Section 7 doesn't introduce **new** concepts — it **combines** previously-intr
 | [[02 - What is Prompting\|System prompts]] | Agent identity, allowed tools, behavior rules all live in the system prompt |
 | [[02 - Using OpenAI API in Python\|OpenAI API]] | The underlying LLM call |
 
-> [!tip] What makes Section 7 click
+> [!TIP]
+> **What makes Section 7 click**
 > If [[07 - Automating Chain of Thought]] was the "**loop pattern**" and [[05 - Structured Output with Few-Shot Prompting]] was the "**JSON output**" — Section 7 is what happens when those two combine: **structured output where one of the JSON fields means 'go run this tool and tell me the result'**.
 
 ---

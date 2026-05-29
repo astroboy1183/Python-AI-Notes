@@ -23,10 +23,12 @@ related:
 
 # Accessing Gated Models
 
-> [!abstract] TL;DR
+> [!NOTE]
+> **TL;DR**
 > Not every model on Hugging Face is freely downloadable. **Gated models** require **explicitly accepting the model's license** through the HF web UI before access is granted. The big ones: **Google Gemma (all sizes)**, **Meta Llama 3 / 3.1**, **Mistral's "Large" series** — anything from a major lab that wants to track usage or enforce acceptable-use policies. Process: visit the model page → click **Accept License** → fill in name/affiliation if asked → wait for automatic approval (usually seconds, sometimes hours). After acceptance, the same HF token used by the CLI ([[04 - Hugging Face CLI Setup and Login]]) and `transformers` library can download the gated model. The concrete example here is **Gemma 3** from Google.
 
-> [!info] Where this fits
+> [!NOTE]
+> **Where this fits**
 > Third note of **Section 6: Running LLMs via Hugging Face Hub**. The gate has to be cleared before the actual model can be downloaded and run. The next two notes cover the CLI ([[04 - Hugging Face CLI Setup and Login]]) and the `transformers` library ([[05 - Using the Transformers Package]]) — both of which need authenticated access.
 
 ---
@@ -39,7 +41,8 @@ Some models are **publicly visible** (you can see the model card, read the descr
 
 After approval, the model behaves exactly like an open one for the approved user.
 
-> [!note] In plain terms
+> [!NOTE]
+> **In plain terms**
 > A gated model is one where the model page is visible to everyone, but the **weights themselves** are locked behind a license acknowledgment. Some models are fully open; others require explicit permission before they can be downloaded.
 
 ---
@@ -85,7 +88,8 @@ Common license families:
 | **Stable Diffusion 1.5** | Ungated | OpenRAIL |
 | **Stable Diffusion 3** | Gated | Stability AI terms |
 
-> [!tip] Pattern recognition
+> [!TIP]
+> **Pattern recognition**
 > **Models from the big labs (Google, Meta, Anthropic, Stability AI) are usually gated.** Models from upstart companies (Mistral, DeepSeek, Alibaba) and Microsoft are usually ungated. Smaller community fine-tunes are almost always ungated.
 
 ---
@@ -143,7 +147,8 @@ user: jayanth
 
 Any **HF access token** generated under this account can now download those models. Tokens generated **before** the acceptance also gain access automatically.
 
-> [!warning] Access is per-account, not per-token
+> [!WARNING]
+> **Access is per-account, not per-token**
 > Multiple tokens under one account share the same approved-models set. But two **different accounts** must each accept the license separately.
 
 ---
@@ -175,7 +180,8 @@ Some scenarios:
 
 After this step, the account should have at least **one Gemma 3 variant approved**. That model becomes the target for [[05 - Using the Transformers Package]].
 
-> [!example] Specific model to accept
+> [!NOTE]
+> **Specific model to accept**
 > Going with **`google/gemma-3-4b-it`**. Any Gemma 3 instruction-tuned variant works:
 > - `google/gemma-3-1b-it` — smallest, fastest.
 > - `google/gemma-3-4b-it` — middle ground (the one I'll use).
@@ -203,7 +209,8 @@ All work with the same `transformers` library calls — drop-in alternative to G
 
 ## 10. Common gotchas
 
-> [!warning] Issues to watch for
+> [!WARNING]
+> **Issues to watch for**
 
 | Symptom | Cause | Fix |
 |---|---|---|

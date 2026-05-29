@@ -25,10 +25,12 @@ related: []
 
 # What is an LLM?
 
-> [!abstract] TL;DR
+> [!NOTE]
+> **TL;DR**
 > **LLM = Large Language Model.** A statistical model trained on massive amounts of human text (the open web, books, code, social media) that learns to do two things really well: **understand natural language input** and **generate natural language output**. Everything modern in AI — ChatGPT, Gemini, Claude, agentic AI, RAG, prompt engineering, AI agents — is built on top of LLMs as the foundational layer. This first note stays definitional; the internals (tokens, embeddings, attention, transformers) are covered in later notes of this section.
 
-> [!info] Where this fits
+> [!NOTE]
+> **Where this fits**
 > First note of **Section 1: Core Foundations of Generative AI**. The section progression:
 > 1. **What an LLM is** (this note — the *what*)
 > 2. **How LLMs work internally** (the *how* — tokens, embeddings, generation)
@@ -52,7 +54,8 @@ related: []
 
 One-sentence framing: **an LLM is a very large statistical text-prediction system that accepts plain language as input.**
 
-> [!example] What "large" really means
+> [!NOTE]
+> **What "large" really means**
 > Scale comparison (parameter counts as of mid-2020s):
 >
 > | Era | Representative model | Parameters | Year |
@@ -87,7 +90,8 @@ Given that interpretation, it produces a response:
 - The translated, more polite email.
 - A child-friendly explanation of entanglement.
 
-> [!tip] Mental model
+> [!TIP]
+> **Mental model**
 > An LLM is a **probability machine**. Given a prompt, it predicts *"what's the most likely next word?"* — then the most likely word after that, and so on. The fact that this simple objective produces coherent, useful answers is one of the genuine surprises of the deep-learning era.
 
 ---
@@ -114,10 +118,11 @@ The point: **it feels like chatting with a person**. There's no command syntax t
 | **GPT** | The underlying LLM family (Generative Pre-trained Transformer) | GPT-3.5, GPT-4, GPT-4o, etc. |
 | **OpenAI** | The company that builds, trains, and operates GPT | `openai.com` |
 
-> [!note]
+> [!NOTE]
 > **GPT is the model. ChatGPT is the product wrapped around the model.** Same intelligence is accessible via the OpenAI API (no chat UI) — just a different surface.
 
-> [!example] What GPT actually stands for
+> [!NOTE]
+> **What GPT actually stands for**
 > - **G** = *Generative* → generates new text (doesn't just classify existing text).
 > - **P** = *Pre-trained* → first trained on huge generic data, then fine-tuned for specific tasks.
 > - **T** = *Transformer* → the neural-network architecture from the 2017 *Attention Is All You Need* paper.
@@ -141,7 +146,8 @@ OpenAI (and every other frontier lab) trains these models on essentially **whole
 
 ### Two stages of training
 
-> [!example] The modern training pipeline
+> [!NOTE]
+> **The modern training pipeline**
 > Real LLM training has at least two stages:
 >
 > 1. **Pre-training** — feed the model billions of tokens; train it to predict the next token. Produces a "base model" that knows language patterns but is unfocused.
@@ -166,7 +172,8 @@ The "big three" households names are OpenAI, Google, and Anthropic. Fuller lands
 | **xAI** | Grok | Grok-1, Grok-2 | Open-weights (Grok-1) |
 | **DeepSeek** | DeepSeek | DeepSeek-V3, DeepSeek-R1 | Open-weights, strong reasoning |
 
-> [!tip] Axes of difference
+> [!TIP]
+> **Axes of difference**
 > All these LLMs share the same core job — *understand language, generate language* — but differ across:
 > - **Training data** they were exposed to
 > - **Architecture details** (size, attention variants, mixture-of-experts, etc.)
@@ -213,7 +220,8 @@ Prompt: "Translate this email into French and make it more polite."
 LLM:    <translated, polite version>
 ```
 
-> [!tip] The paradigm shift
+> [!TIP]
+> **The paradigm shift**
 > Before LLMs: humans learned the machine's language (SQL, Python, regex, ML frameworks).
 > After LLMs: the machine learned human language (English, code-switching, ambiguity, intent).
 >
@@ -234,7 +242,8 @@ Worth flagging early — these misunderstandings cause real bugs in projects:
 | "Bigger is always better." | Not always — task fit, latency, cost, and alignment matter more than raw parameter count. |
 | "All LLMs are the same." | They differ wildly in capability, style, cost, context size, and modality. |
 
-> [!warning] Hallucinations
+> [!WARNING]
+> **Hallucinations**
 > An LLM will confidently invent plausible-but-false answers — fake citations, made-up APIs, wrong dates. This is a **fundamental property** of the architecture, not a bug to be patched. Reliable systems on top of LLMs require designing around this.
 
 ---
@@ -266,7 +275,7 @@ Worth flagging early — these misunderstandings cause real bugs in projects:
 └──────────────────────────────────────────────────────────────┘
 ```
 
-> [!note]
+> [!NOTE]
 > **Training is rare and expensive** (millions to hundreds of millions of dollars, weeks of GPU time on thousands of GPUs).
 > **Inference is the daily-use cost** (a few cents per query at most).
 > End-users only ever interact with **Phase 2**.
@@ -293,7 +302,8 @@ Tracing where LLMs came from:
 | 2023 | GPT-4, Claude, Llama 2, Gemini | Multiple frontier players |
 | 2024–2026 | Reasoning models (o1, o3), agentic AI, MCP, long context | The era this course covers |
 
-> [!info] The "Attention Is All You Need" paper
+> [!NOTE]
+> **The "Attention Is All You Need" paper**
 > Single 2017 paper (15 pages, 8 authors, Google Brain + UToronto) introduced the **transformer architecture** that powers literally every modern LLM. Covered in detail later in this section. For now, the headline: **2017 = the year LLMs as we know them became possible.**
 
 ---

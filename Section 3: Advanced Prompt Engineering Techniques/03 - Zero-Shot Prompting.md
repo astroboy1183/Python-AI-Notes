@@ -20,10 +20,12 @@ related:
 
 # Zero-Shot Prompting
 
-> [!abstract] TL;DR
+> [!NOTE]
+> **TL;DR**
 > **Zero-shot prompting** = giving the LLM **direct instructions with no examples**. Just tell it what to do in natural language and trust the pre-trained model to figure out the rest. Simplest prompting pattern, lowest token cost, fastest to write. Works surprisingly well for well-defined tasks ("translate to French", "summarize", "extract dates"). Breaks down when the task is ambiguous, format-sensitive, or requires demonstrations of nuance. Worked example: a coding-only assistant named **Alexa** that refuses non-coding questions — built with one system prompt, zero examples.
 
-> [!info] Where this fits
+> [!NOTE]
+> **Where this fits**
 > Third note of **Section 3: Advanced Prompt Engineering Techniques**. The simplest of the prompting patterns. Sets the baseline — every subsequent pattern (few-shot, structured output, CoT, persona) adds something on top.
 
 ---
@@ -124,7 +126,8 @@ Modern LLMs are pre-trained on **trillions of tokens** of text. They've seen:
 
 So when a system prompt says *"only answer coding questions, otherwise say sorry"*, the model doesn't need to be **shown** what that means — it generalizes from its training.
 
-> [!example] When zero-shot is enough
+> [!NOTE]
+> **When zero-shot is enough**
 > Zero-shot is typically sufficient for tasks that are:
 > - **Well-defined in plain English** ("translate to X", "summarize", "extract entities").
 > - **Common in training data** ("write a Python function for X", "answer this trivia").
@@ -163,7 +166,8 @@ For any of these, **adding examples** (few-shot, [[04 - Few-Shot Prompting]]) is
 | **Output quality** | Variable | Usually higher |
 | **Best for** | Common tasks, prototyping | Specialized tasks, production accuracy |
 
-> [!tip] Practical advice
+> [!TIP]
+> **Practical advice**
 > **Start with zero-shot.** If the output is good enough for the use case, stop there. Only add examples (few-shot) when zero-shot doesn't meet quality requirements. Over-engineering prompts costs tokens, money, and maintenance.
 
 ---
@@ -189,7 +193,8 @@ You are a writing assistant for software engineers.
 
 The better one is **still zero-shot** (no examples), but **specific enough** that the model doesn't have to guess.
 
-> [!warning] Don't confuse "zero-shot" with "thin prompt"
+> [!WARNING]
+> **Don't confuse "zero-shot" with "thin prompt"**
 > Zero-shot just means **no examples**. The instructions themselves can (and usually should) be detailed and specific.
 
 ---
@@ -206,7 +211,8 @@ The better one is **still zero-shot** (no examples), but **specific enough** tha
 
 These all stay technically zero-shot (no demonstrations), but add **structure** to the instructions.
 
-> [!note] "Think step by step" magic
+> [!NOTE]
+> **"Think step by step" magic**
 > A famous finding: simply adding the phrase **"Let's think step by step"** to a zero-shot prompt can dramatically improve accuracy on math/logic tasks. This is called **zero-shot CoT** (Kojima et al., 2022). The model uses its own internal reasoning capacity better when prompted to. Section 6 deep-dives this idea further.
 
 ---

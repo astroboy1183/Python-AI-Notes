@@ -21,10 +21,12 @@ related:
 
 # Section Intro — Why Async
 
-> [!abstract] TL;DR
+> [!NOTE]
+> **TL;DR**
 > Section 8's RAG works — but only as a **synchronous script**. In a real product, that pattern breaks: every user request **blocks the server** while indexing or retrieval runs (10s of seconds), so one busy user makes everyone else wait. This section converts the synchronous pipeline into an **async, queue-driven architecture**: requests get pushed into a **Redis-backed queue (RQ + Valkey)**, returned immediately with a job ID, and processed by **background workers**. Server stays responsive. Workers scale horizontally — three workers = three concurrent jobs. The end result: production-shaped RAG infrastructure. The principle generalizes: **any slow operation behind a web server should be queued, not inline.**
 
-> [!info] Where this fits
+> [!NOTE]
+> **Where this fits**
 > First lecture of **Section 9: Scalable RAG with Async Queues & Distributed Workers**. The same RAG pipeline from [[Section 8]], re-architected for production. After Section 9, the chat-with-PDF system can handle real concurrent traffic.
 
 ---

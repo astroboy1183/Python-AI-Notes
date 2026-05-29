@@ -28,13 +28,16 @@ related:
 
 # Attention Is All You Need — Architecture Walkthrough
 
-> [!abstract] TL;DR
+> [!NOTE]
+> **TL;DR**
 > A high-level tour through the transformer architecture diagram from Google's 2017 *Attention Is All You Need* paper. The flow on the **input (encoder) side**: input → **input embeddings** → **positional encoding** → **multi-head attention** → forwarded to output side. The flow on the **output (decoder) side**: previous output → **output embeddings** → **positional encoding** → **masked multi-head attention** → combined with encoder output → **linear** → **softmax** → next-token probability distribution. There's also a critical line to draw: **deep ML math is for researchers building foundation models, not for developers building applications**. This course leans developer; the architecture overview is **optional bonus context** — useful for intuition, not required to build agents.
 
-> [!info] Where this fits
+> [!NOTE]
+> **Where this fits**
 > Sixth note of **Section 1: Core Foundations of Generative AI**. The previous notes covered: what an LLM is, the GPT acronym, what a transformer does at a high level (predict next token), what tokens are, and how to tokenize in Python. This note is the **architecture walkthrough** — the boxes inside the transformer. Most of the individual boxes get their own deep-dive notes next (vector embeddings, positional encoding, multi-head attention).
 
-> [!warning] This note is "bonus content"
+> [!WARNING]
+> **This note is "bonus content"**
 > The deep math/architecture details are for **ML researchers** building foundation models, not for **application developers** building agents. The rest of the course (agents, RAG, memory, MCP, LangGraph) won't require these internals. This walkthrough is a "nice to have for intuition" — not a prerequisite for anything later.
 
 ---
@@ -135,7 +138,8 @@ Without the mask during training, the model could trivially "cheat" by copying t
 
 In modern GPT-style models (decoder-only architectures), this masked attention is the **only** attention in the model — there's no separate encoder.
 
-> [!example] Encoder-decoder vs decoder-only
+> [!NOTE]
+> **Encoder-decoder vs decoder-only**
 > The original 2017 transformer (the one in the diagram) is **encoder-decoder**. It was designed for translation: encode the English sentence, decode it into French.
 >
 > Modern **GPT-style** LLMs are **decoder-only** — they skip the encoder entirely. The "input" and the "output so far" are concatenated and fed through the same masked-attention stack. Simpler architecture, scales beautifully.
@@ -240,7 +244,8 @@ This course is for developers. Agentic AI, agentic workflows, agents themselves 
 - Not understanding every detail of self-attention won't block any later note.
 - Honest framing about scope.
 
-> [!tip] My read on this
+> [!TIP]
+> **My read on this**
 > Even on the developer track, having **intuition** about how the model works under the hood is genuinely useful — it helps with debugging weird LLM behavior, designing better prompts, and understanding cost/latency trade-offs. So the bonus content is worth absorbing at a "mental model" level even without the math.
 
 ---

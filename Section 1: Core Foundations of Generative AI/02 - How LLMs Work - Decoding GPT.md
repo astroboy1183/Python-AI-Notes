@@ -24,7 +24,8 @@ related:
 
 # How LLMs Work — Decoding GPT
 
-> [!abstract] TL;DR
+> [!NOTE]
+> **TL;DR**
 > An LLM looks like a black box: input goes in, output comes out. The technical terms for what goes in and out are **input tokens** and **output tokens**. The black box itself, for OpenAI's models, is called **GPT** — which stands for **Generative, Pre-trained, Transformer**. Each word matters:
 > - **Generative** = generates new text (contrast with Google's search, which only retrieves).
 > - **Pre-trained** = generation is grounded in data the model was trained on beforehand.
@@ -32,7 +33,8 @@ related:
 >
 > The clever insight: every modern LLM (Gemini, Claude, Mistral, etc.) is technically a "generative pre-trained transformer" — but only OpenAI trademarked the literal name. Like naming a car brand "Car" or a shoe brand "Shoe."
 
-> [!info] Where this fits
+> [!NOTE]
+> **Where this fits**
 > Second note of **Section 1: Core Foundations of Generative AI**. The previous note [[01 - What is an LLM]] covered the *definition* of an LLM. This one starts unpacking *what's inside the black box* — the terminology (tokens) and the acronym (GPT). The next note goes into the **transformer architecture** itself (from the 2017 Google paper).
 
 ---
@@ -74,10 +76,12 @@ Two technical terms used throughout the rest of the course:
 └──────────┘
 ```
 
-> [!note] What's a "token"?
+> [!NOTE]
+> **What's a "token"?**
 > Conceptually, a token is a chunk of text — sometimes a whole word, sometimes a part of a word, sometimes punctuation. The full mechanics (why models work on tokens instead of characters or words) is covered in a later note on **tokenization**. For now, treat "tokens" as "pieces of text the model reads/writes."
 
-> [!example] Token examples
+> [!NOTE]
+> **Token examples**
 > A rough sense of how text becomes tokens (using a typical BPE tokenizer):
 > - `"hi"` → 1 token
 > - `"What is 2 + 2?"` → 6 tokens
@@ -147,7 +151,8 @@ That phrase — *"cute Jayanth"* — doesn't exist anywhere on the internet. It'
 
 It's not searching for something, it's actually generating on the spot.
 
-> [!tip] Key insight
+> [!TIP]
+> **Key insight**
 > Search retrieves. **Generation creates.** The output doesn't have to exist anywhere before — the model produces it fresh. That's the difference between Google and an LLM.
 
 ---
@@ -181,7 +186,8 @@ Both are **generators with prior knowledge** — that's "pre-trained" in a sente
 - The model has a knowledge **cutoff** — events after that date weren't in the training data.
 - "Pre-trained" is what makes the generations **useful and grounded**, not just plausible-sounding noise.
 
-> [!example] What "pre-training" looks like technically
+> [!NOTE]
+> **What "pre-training" looks like technically**
 > Pre-training is a process where:
 > 1. The model is fed billions to trillions of tokens of text.
 > 2. For each chunk, it's asked: *"given these N tokens, what's the most likely next token?"*
@@ -215,7 +221,8 @@ The transformer is the **noun**. Generative and pre-trained are **modifiers**.
 ### What IS a transformer?
 A specific neural-network architecture introduced in a 2017 paper by Google researchers — *"Attention Is All You Need."* The full mechanics (self-attention, encoder/decoder layers, positional encodings) are covered in dedicated upcoming notes in this section.
 
-> [!info] Coming next
+> [!NOTE]
+> **Coming next**
 > The next note deep-dives into the transformer architecture from Google's white paper. For now, the headline: **transformer = the kind of neural network all modern LLMs use.**
 
 ---
@@ -245,7 +252,8 @@ That's exactly what OpenAI did:
 
 The shoe-brand variant of the analogy: for shoes, there's Adidas, Puma — what if someone opened a new shoe brand and named it *Shoes*?
 
-> [!tip] The point in one line
+> [!TIP]
+> **The point in one line**
 > Gemini is a GPT. Claude is a GPT. Mistral is a GPT. OpenAI's GPT is also a GPT — but they were the only ones who just **named it that**.
 
 This is part marketing, part technical honesty. The name says exactly what the product is.

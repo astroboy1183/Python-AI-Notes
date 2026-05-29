@@ -21,10 +21,12 @@ related:
 
 # What are AI Agents
 
-> [!abstract] TL;DR
+> [!NOTE]
+> **TL;DR**
 > An **AI agent** = an LLM **plus the ability to take actions** through tools. Conceptual setup: traditional software has microservices (auth, orders, payments, shipping) accessed by humans — and **human customer-support agents** sit between users and those services to take actions on the user's behalf (cancel orders, check shipping, etc.). The question agentic AI asks: *can an LLM replace those human support agents?* Default answer is no — an LLM by itself is "a dumb piece of code that takes text in and gives text out," with no access to anything. The fix: give the LLM **tools** (API access, DB access, function-call ability) so it can do the same actions as the human agent. **The brain analogy**: an LLM is a brain in a box — fully capable of thinking but can't *do* anything. Give it arms, legs, and senses (tools) → it becomes an agent.
 
-> [!info] Where this fits
+> [!NOTE]
+> **Where this fits**
 > Second lecture of **Section 7: Building AI Agents and Agentic Workflows**. Pure conceptual setup. The next lecture ([[03 - Building a Weather Agent]]) builds the first real agent. This note's analogies are the mental model for everything that follows.
 
 ---
@@ -259,7 +261,8 @@ The "agentic" part is **autonomy in tool selection**:
 
 The application code just **executes** the tool calls and feeds the results back. It doesn't decide what to call. That's a key distinction from a regular API client where the developer writes the call.
 
-> [!tip] The mindset shift
+> [!TIP]
+> **The mindset shift**
 > Writing an agent ≠ writing a workflow. A workflow is "run step 1, then step 2, then step 3." An agent is "give the LLM the tools, the goal, and the loop, and let it figure out the steps."
 
 ---

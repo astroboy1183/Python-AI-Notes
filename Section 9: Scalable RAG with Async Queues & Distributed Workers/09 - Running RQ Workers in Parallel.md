@@ -21,10 +21,12 @@ related:
 
 # Running RQ Workers in Parallel
 
-> [!abstract] TL;DR
+> [!NOTE]
+> **TL;DR**
 > Final note in this section. Start RQ workers from the terminal — `rq worker` (run from project root, with venv activated). Each worker process **pulls jobs from Valkey one at a time** and runs them. Spawn **multiple workers in separate terminals** for parallelism: 3 worker processes = up to 3 concurrent jobs. Subtle macOS quirk: workers fail on macOS due to a fork+OpenAI client interaction — fix with `export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES` before `rq worker`. With workers running, the chat-with-PDF system works **end-to-end async**: submit query → get job ID → workers process in background → poll → get answer. Section 9 closes with a demo of horizontal scaling: submit three queries at once and watch three workers process them in parallel.
 
-> [!info] Where this fits
+> [!NOTE]
+> **Where this fits**
 > Final note of **Section 9: Scalable RAG with Async Queues & Distributed Workers**. Closes the section. After this, the chat-with-PDF system is production-shaped. Next section pivots to **multi-modal agents**.
 
 ---
@@ -93,7 +95,8 @@ rq worker
 
 This is a macOS-specific issue. On Linux, the workaround isn't needed.
 
-> [!example] Why this happens
+> [!NOTE]
+> **Why this happens**
 > macOS Objective-C runtime is unhappy when initialized in a forked process. The OpenAI Python client uses HTTPS via `httpx`, which depends on system TLS — and that touches Objective-C-initialized libraries. Fork without re-initializing → crash.
 >
 > The env var tells the runtime: "don't enforce fork safety checks." It's a workaround, not a fix. For production, **use `--workers-pool eventlet`** or run workers in **Docker on Linux**.

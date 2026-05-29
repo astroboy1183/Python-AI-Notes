@@ -24,10 +24,12 @@ related:
 
 # Using the Transformers Package
 
-> [!abstract] TL;DR
+> [!NOTE]
+> **TL;DR**
 > Hugging Face's **`transformers`** Python library is the universal entry point to **any** Hub model. Install: `pip install transformers torch` (PyTorch is the most common backend). The simplest interface is the **`pipeline()`** function — pass `model=<repo_id>` and call it with ChatML-format `messages`. The library auto-handles tokenization, model loading, device placement (CPU/GPU/MPS), and decoding. First call downloads model weights (4 GB+ for Gemma 3) and caches them in `~/.cache/huggingface/hub/` — subsequent runs reuse the cache. **Heads-up**: running medium-sized models on CPU is **slow and heats the laptop fast** — on my machine I had to kill the inference run before it finished to keep the laptop from cooking.
 
-> [!info] Where this fits
+> [!NOTE]
+> **Where this fits**
 > Fifth and final note of **Section 6: Running LLMs via Hugging Face Hub**. With auth in place ([[04 - Hugging Face CLI Setup and Login]]) and a gated model approved ([[03 - Accessing Gated Models]]), this step **actually downloads and runs** the model. Closes out Section 6. Next: **Section 7** — building AI agents with the foundations now in place.
 
 ---
@@ -66,7 +68,8 @@ Two packages:
 
 The `transformers` install will also pull in supporting packages like NumPy on the way. After it's done, `pip freeze > requirements.txt` to lock the environment.
 
-> [!note] `torch` is heavy
+> [!NOTE]
+> **`torch` is heavy**
 > PyTorch is large (~800 MB download). On CPU-only setups it installs the CPU build; for GPU setups it pulls the CUDA-enabled build (~2 GB). Patience required on the first install.
 
 ---
@@ -107,7 +110,8 @@ print(result)
 
 That's it. Six lines for a working LLM call.
 
-> [!note] What's going on in those six lines
+> [!NOTE]
+> **What's going on in those six lines**
 > `pipeline(...)` is essentially saying "I want to use this model" (the same one approved earlier via [[03 - Accessing Gated Models]]). The `messages` list is again the **ChatML** format — `{"role": "user", "content": "..."}` — the same pattern used everywhere else in the course.
 
 ---
@@ -198,7 +202,8 @@ The key takeaway: the first run downloads the model; from the next run onwards i
 | **Use Apple MPS** | On M-series Macs: `device="mps"` |
 | **Use HF Inference API** | Paid alternative — HF runs the model on their hardware |
 
-> [!tip] For a hands-on demo without overheating
+> [!TIP]
+> **For a hands-on demo without overheating**
 > The simplest fix: pick a **1B-parameter** model like `microsoft/Phi-3-mini-4k-instruct` or `Qwen/Qwen2.5-1.5B-Instruct`. Both run reasonably fast on CPU and don't melt laptops.
 
 ---
@@ -228,7 +233,8 @@ huggingface-cli delete-cache
 
 Interactive prompt to delete specific repos.
 
-> [!warning] Models add up fast
+> [!WARNING]
+> **Models add up fast**
 > A few mid-size models can eat 50+ GB of disk. **Quantized variants** (GGUF) take less, but still: regular cache cleanup is wise.
 
 ---

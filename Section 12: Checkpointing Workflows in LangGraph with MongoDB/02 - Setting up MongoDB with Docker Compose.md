@@ -19,17 +19,20 @@ related:
 
 # Setting up MongoDB with Docker Compose
 
-> [!abstract] TL;DR
+> [!NOTE]
+> **TL;DR**
 > Checkpointing needs a database to hold the state. A **checkpoint** is a *snapshot of the graph state saved at each super-step*, stored in a persistent store — here, **MongoDB**. Stand it up with a tiny `docker-compose.yml`: one `mongodb` service on the `mongo` image, port `27017:27017`, env vars for the root username/password (`admin`/`admin` for local dev), and a named volume so data survives container restarts. Bring it up with `docker compose up -d`, wait for the (fairly large) image to pull, then confirm with `docker ps` or Docker Desktop that a `mongo` container is running on `27017`. With Mongo live, the next note plugs it into LangGraph as a checkpointer.
 
-> [!info] Where this fits
+> [!NOTE]
+> **Where this fits**
 > Second note of **Section 12**. It provisions the storage motivated by [[01 - The State Persistence Problem]]. [[03 - Implementing Checkpointing with MongoDBSaver]] connects the graph to it.
 
 ---
 
 ## 1. What a checkpoint actually is
 
-> [!note] Definition
+> [!NOTE]
+> **Definition**
 > A **checkpoint** is a **snapshot of the graph state** saved at a particular point in time (each "super-step" of execution), represented as a *state snapshot*. The thing that writes these snapshots to storage is a **checkpointer**.
 
 So persisting state = repeatedly saving checkpoints to a database. I need a database first — MongoDB.
@@ -81,10 +84,12 @@ volumes:
 | `volumes: mongodb_data:/data/db` | Persist Mongo's data dir to a named volume |
 | top-level `volumes:` | Declares the `mongodb_data` volume referenced above |
 
-> [!warning] `admin/admin` is for local dev only
+> [!WARNING]
+> **`admin/admin` is for local dev only**
 > Hardcoded root credentials like `admin/admin` are fine on my own machine for learning, but **never** for anything exposed or production. Real deployments use strong, secret-managed credentials.
 
-> [!tip] Why the named volume matters
+> [!TIP]
+> **Why the named volume matters**
 > Without `volumes`, MongoDB's data lives only inside the container's writable layer — destroy the container and the data (and all my checkpoints) vanish. The named volume `mongodb_data` keeps the data on the host, so it survives `docker compose down` / restarts. Persisting state is the whole point — losing it on a container restart would defeat the exercise.
 
 ---
@@ -143,7 +148,8 @@ Anything the LangGraph app writes through `localhost:27017` lands in Mongo, and 
 
 ## 7. Common gotchas
 
-> [!warning] MongoDB setup issues
+> [!WARNING]
+> **MongoDB setup issues**
 
 | Symptom | Cause | Fix |
 |---|---|---|

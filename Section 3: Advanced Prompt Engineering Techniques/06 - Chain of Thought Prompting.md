@@ -25,13 +25,16 @@ related:
 
 # Chain of Thought Prompting
 
-> [!abstract] TL;DR
+> [!NOTE]
+> **TL;DR**
 > **Chain of Thought (CoT)** prompting tells the LLM to **think step by step before answering**, rather than emitting the final answer directly. The model first produces a **plan** (often multiple planning steps), then the **output**. Mimics human reasoning: rather than blurt out an answer, decompose → plan → solve → verify → finalize. This is the prompting style behind **OpenAI's o1 / o3 models** and **DeepSeek R1** — they're essentially CoT-trained from the ground up. Implementation pattern: declare a JSON schema with `step` ∈ {"start", "plan", "output"} and `content`, then **loop** — each call produces one step, append to history, call again, until `step == "output"`. Output quality jumps dramatically for math, code, and complex reasoning. Personal favorite of mine.
 
-> [!info] Where this fits
+> [!NOTE]
+> **Where this fits**
 > Sixth note of **Section 3: Advanced Prompt Engineering Techniques**. Combines [[04 - Few-Shot Prompting]] (the examples that teach the pattern) + [[05 - Structured Output with Few-Shot Prompting]] (the JSON schema for each step). The next note ([[07 - Automating Chain of Thought]]) wraps this in a clean loop. Foundation for all the **agent** work later in the course.
 
-> [!tip] Why this matters so much
+> [!TIP]
+> **Why this matters so much**
 > If you've ever used DeepSeek or OpenAI's o3 — those are built on chain of thought prompting. They think before they act. This is a personal favorite and one of the most important patterns in the entire section.
 
 ---
@@ -114,7 +117,8 @@ A: {"step": "plan", "content": "Great, we have solved it and are left with 3.5 a
 A: {"step": "output", "content": "3.5"}
 ```
 
-> [!tip] What the example teaches
+> [!TIP]
+> **What the example teaches**
 > The model learns from this single example:
 > - **One step per response** (don't dump everything at once).
 > - **Step types**: `start` echoes the question, `plan` thinks, `output` is the final answer.
@@ -215,7 +219,8 @@ OpenAI's o-series and DeepSeek's R1 essentially **build CoT into the model itsel
 | When to use | Want control + visibility | Want best accuracy, willing to pay |
 | Customization | Full control over schema | Limited (model decides reasoning style) |
 
-> [!info] The lesson
+> [!NOTE]
+> **The lesson**
 > Even with reasoning models available, **CoT prompting in plain models is still useful**:
 > - Visibility into reasoning (debugging, audit, UI).
 > - Cheaper than reasoning models.
@@ -267,7 +272,8 @@ CoT isn't free:
 | **Latency** | Each step is a separate API call → N× round-trip time. |
 | **Cost** | Higher per-question due to both token volume and call count. |
 
-> [!tip] Mitigations
+> [!TIP]
+> **Mitigations**
 > - Use **prompt caching** so the long system prompt isn't reprocessed each step.
 > - Use **streaming** to give the user "thinking" feedback in real time.
 > - Use a **cheaper model** (`gpt-4o-mini`) for routine planning steps; bigger model only for the final output.

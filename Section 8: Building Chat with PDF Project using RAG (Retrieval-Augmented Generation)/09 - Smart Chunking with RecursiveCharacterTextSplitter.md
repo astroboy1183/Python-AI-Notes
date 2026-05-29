@@ -22,10 +22,12 @@ related:
 
 # Smart Chunking with RecursiveCharacterTextSplitter
 
-> [!abstract] TL;DR
+> [!NOTE]
+> **TL;DR**
 > Take the page-by-page `Document`s from [[08 - Loading PDFs with PyPDFLoader]] and split them into smaller, embeddable chunks. Use **`RecursiveCharacterTextSplitter`** from `langchain_text_splitters` — `splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=400); chunks = splitter.split_documents(docs)`. The "**recursive**" part: tries splitting on natural boundaries first (`\n\n`, then `\n`, then `. `, then ` `), only falling back to mid-word splits if necessary. **`chunk_overlap`** is the key parameter — including ~20-40% of the previous chunk's tail at the start of each chunk preserves context across boundaries. Without overlap, a sentence split exactly at a chunk boundary loses its meaning. Defaults used here: chunk_size=1000, chunk_overlap=400. After this note, the corpus is ready for embedding.
 
-> [!info] Where this fits
+> [!NOTE]
+> **Where this fits**
 > Ninth lecture of **Section 8: Building Chat with PDF Project using RAG**. Second step of the indexing pipeline. The next note ([[10 - Creating Vector Embeddings and Storing in Qdrant]]) converts these chunks to vectors and stores them in Qdrant.
 
 ---
@@ -159,7 +161,7 @@ Maximum characters per chunk.
 | 2000-5000 | Risk of crowding multiple topics into one chunk |
 | 5000+ | Approaching embedding model limits |
 
-> [!tip]
+> [!TIP]
 > Start with `chunk_size=1000`. Adjust based on:
 > - If retrieval **misses things**: try smaller chunks for finer granularity.
 > - If retrieval is **too narrow** (loses context): try larger chunks.
@@ -175,7 +177,8 @@ Characters shared between adjacent chunks.
 | 200-400 | Strong continuity (my choice here) |
 | 400+ | Lots of duplication; storage bloat |
 
-> [!tip] Rule of thumb
+> [!TIP]
+> **Rule of thumb**
 > Overlap should be **20-40% of chunk_size**. Using 400 / 1000 = 40% — on the higher end, which is fine for prose-heavy text where context matters more.
 
 ---
@@ -211,7 +214,8 @@ print(chunks[0])
 
 The metadata is **inherited from the source page**. So even after chunking, every chunk knows which page it came from — crucial for citations later.
 
-> [!note] When one page splits into multiple chunks
+> [!NOTE]
+> **When one page splits into multiple chunks**
 > All resulting chunks share `metadata['page'] = N`. So if the LLM cites "page 5", that's traceable to the original page 5 of the PDF — regardless of how the chunking happened.
 
 ---
@@ -296,7 +300,8 @@ Almost halfway through the indexing pipeline.
 
 ## 13. Common gotchas
 
-> [!warning] Chunking issues
+> [!WARNING]
+> **Chunking issues**
 
 | Symptom | Cause | Fix |
 |---|---|---|

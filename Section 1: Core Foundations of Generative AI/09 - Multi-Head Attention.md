@@ -26,13 +26,16 @@ related:
 
 # Multi-Head Attention
 
-> [!abstract] TL;DR
+> [!NOTE]
+> **TL;DR**
 > **Self-attention** lets the token vectors "talk to each other" — every token can look at every other token in the sequence and update its own meaning based on context. That's why `bank` next to `river` ends up with a different vector than `bank` next to `ICICI`. **Multi-head attention** runs several self-attention computations in parallel ("heads"), each focused on a different aspect — like one head tracking grammar, another tracking entity references, another tracking topic. Combining them produces richer context-aware representations. After attention, the data flows through **feed-forward** (a regular neural net), then the **linear** layer produces a vocab-sized score vector, and finally **softmax** turns those scores into a **probability distribution** over the next token. The token with the highest probability is the prediction.
 
-> [!info] Where this fits
+> [!NOTE]
+> **Where this fits**
 > Ninth and final architecture note of **Section 1: Core Foundations of Generative AI**. This wraps up the transformer walkthrough started in [[06 - Attention Is All You Need - Architecture Walkthrough]]. After this note, the course pivots away from internals to **application development** (APIs, prompts, agents).
 
-> [!warning] Still bonus content
+> [!WARNING]
+> **Still bonus content**
 > Like [[06 - Attention Is All You Need - Architecture Walkthrough]], this note is **optional / bonus** for the developer track. Useful for intuition, not required for building agents downstream.
 
 ---
@@ -108,7 +111,8 @@ For each token, the model:
 
 The result: every token's vector gets enriched by all the other tokens, weighted by relevance.
 
-> [!example] The actual math
+> [!NOTE]
+> **The actual math**
 > For each token `i` with query vector `Q_i`, and the matrices of all queries `Q`, all keys `K`, and all values `V`:
 >
 > ```
@@ -170,7 +174,8 @@ The same idea applies to language: multi-head attention lets the model track gra
                               └─────────────────────┘
 ```
 
-> [!example] How many heads?
+> [!NOTE]
+> **How many heads?**
 > Common head counts:
 > - Original transformer paper: **8 heads**.
 > - GPT-2 (small): 12 heads.
@@ -246,7 +251,8 @@ The simplest strategy ("greedy") just picks the token with the highest probabili
 
 The `temperature` and `top_p` parameters that show up in OpenAI's API control this step.
 
-> [!tip] How softmax can be tuned
+> [!TIP]
+> **How softmax can be tuned**
 > The softmax can be tuned — sharpened down or flattened up. That tuning is what temperature does. **Temperature < 1** sharpens the distribution (more deterministic). **Temperature > 1** flattens it (more random / creative).
 
 ---

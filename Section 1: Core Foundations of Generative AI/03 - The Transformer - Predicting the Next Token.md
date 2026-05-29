@@ -22,10 +22,12 @@ related:
 
 # The Transformer — Predicting the Next Token
 
-> [!abstract] TL;DR
+> [!NOTE]
+> **TL;DR**
 > A **transformer** is a neural-network architecture introduced by Google in the 2017 paper *Attention Is All You Need* — the actual "brain" behind every modern LLM (GPT, Gemini, Claude, Llama, etc.). Google's original use case was **sequence-to-sequence translation** (e.g., English → French in Google Translate). OpenAI's GPT is a special flavor of transformer with a deceptively simple job: **given a sequence of input tokens, predict the next single token**. That's it. Everything that looks like a coherent multi-sentence reply is built by **looping** that single prediction over and over, appending each predicted token to the input and re-running. Because every reply word requires another full forward pass through a huge neural network, this loop is why LLMs are **GPU-intensive**.
 
-> [!info] Where this fits
+> [!NOTE]
+> **Where this fits**
 > Third note of **Section 1: Core Foundations of Generative AI**. The previous notes covered the LLM definition ([[01 - What is an LLM]]) and the GPT acronym ([[02 - How LLMs Work - Decoding GPT]]). This one zooms into the **T** of GPT — the transformer itself — and explains its core operation. The deep architecture walkthrough (input embeddings, positional encoding, multi-head attention, softmax, etc.) comes in upcoming notes.
 
 ---
@@ -83,7 +85,8 @@ That's the entire job description. Not a whole sentence. Not a paragraph. **One 
 
 That's all the transformer is *technically* responsible for, per forward pass.
 
-> [!tip] The deceptively simple truth
+> [!TIP]
+> **The deceptively simple truth**
 > Behind every multi-paragraph LLM response is a model that, by itself, can only do **one thing**: predict one next token. Coherent essays come from *looping* this prediction thousands of times.
 
 ---
@@ -156,7 +159,8 @@ Same principle as before: **one token per pass**, accumulating the full response
 
 An obvious question: **isn't running the model 50+ times per response overkill?**
 
-> [!warning] Compute cost
+> [!WARNING]
+> **Compute cost**
 > Generating a single 50-token reply means running the transformer's full forward pass **~50 separate times**. Each pass involves hundreds of billions of multiply-add operations across the model's parameters.
 
 That's why:
@@ -167,7 +171,8 @@ That's why:
 
 This isn't cheap. The transformer is a machine-learning model that has to be run over and over — the prediction loop never stops until the end-of-sequence token. Even for a short response like *"hey there"*, that's five to six full forward passes through a multi-billion-parameter network. A lot of compute goes into producing even a tiny reply.
 
-> [!example] Autoregressive vs other generation modes
+> [!NOTE]
+> **Autoregressive vs other generation modes**
 > The way GPT works (loop one-token-at-a-time, feeding output back as input) is technically called **autoregressive generation**. Other generation patterns exist:
 > - **Non-autoregressive** (e.g., BERT-style masked language models) — predict missing tokens in parallel, but don't generate fluent long-form text well.
 > - **Diffusion text models** (research area) — generate the full sequence at once via iterative denoising.
@@ -187,7 +192,7 @@ This isn't cheap. The transformer is a machine-learning model that has to be run
 | **Output style** | Whole target sentence | One token, then loop |
 | **Example product** | Google Translate | ChatGPT, GPT-4, GPT-4o |
 
-> [!note]
+> [!NOTE]
 > Both are "transformers" — they share the same fundamental architectural ideas (attention, positional encoding, feed-forward layers). The difference is what they're trained to do and how the output side is structured.
 
 ---

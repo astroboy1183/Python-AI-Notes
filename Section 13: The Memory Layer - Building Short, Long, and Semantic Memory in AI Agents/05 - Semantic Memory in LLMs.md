@@ -25,10 +25,12 @@ related:
 
 # Semantic Memory in LLMs
 
-> [!abstract] TL;DR
+> [!NOTE]
+> **TL;DR**
 > **Semantic memory** is the **third (and final) sub-type of [[02 - Long-Term Memory in LLMs|Long-Term Memory]]**. It stores **general world knowledge** — facts about reality, not about the user, not about past events. Things like *"Paris is the capital of France"* or curated domain templates. Retrieved **on demand** when the conversation needs that knowledge. Usually not the first memory layer to worry about in early agent designs.
 
-> [!info] Where this fits
+> [!NOTE]
+> **Where this fits**
 > Semantic memory is the third LTM sub-type, alongside [[03 - Factual Memory in LLMs]] (about the user) and [[04 - Episodic Memory in LLMs]] (past interactions). See [[00 - Types of Memory in LLMs]] for the full taxonomy.
 
 ---
@@ -68,7 +70,7 @@ Semantic memory is:
 | **Definitions** | "A vector database stores embeddings for similarity search." |
 | **Patterns / heuristics** | "When debugging null errors, always check inputs first." |
 
-> [!note]
+> [!NOTE]
 > All of these are **not about the user** and **not tied to a specific event** in the user's life. They're just **timeless, general truths** or **reusable patterns**.
 
 ---
@@ -81,7 +83,8 @@ Extending the previous analogies:
 - [[04 - Episodic Memory in LLMs|Episodic]] = the **diary** of moments shared with them.
 - **Semantic** = the **library / encyclopedia** anyone could look up — generic knowledge.
 
-> [!tip] Mental model
+> [!TIP]
+> **Mental model**
 > Semantic memory is the **library** the agent walks over to whenever the conversation needs a generic fact or template. Not personal — reference material.
 
 ---
@@ -103,7 +106,8 @@ So **only what's relevant** to the current question gets retrieved.
 
 A subtle but important point.
 
-> [!warning] Important nuance
+> [!WARNING]
+> **Important nuance**
 > The LLM already "knows" Paris is the capital of France **from its training data**. So why store it in semantic memory?
 
 Semantic memory becomes worthwhile when:
@@ -185,7 +189,8 @@ def handle_user_message(user_id, user_msg, message_history):
     return llm.chat(messages=message_history)
 ```
 
-> [!note] Key difference from episodic
+> [!NOTE]
+> **Key difference from episodic**
 > Semantic memory is **not scoped by `user_id`**. It's a shared knowledge base across all users.
 
 ---
@@ -198,7 +203,8 @@ def handle_user_message(user_id, user_msg, message_history):
 | **Episodic** | Past interactions with the user | Per-user | **On demand** | Large, growing | Vector DB |
 | **Semantic** | The world / domain | **Shared (no user)** | **On demand** | Large, curated | Vector DB / RAG |
 
-> [!tip] One-liners
+> [!TIP]
+> **One-liners**
 > - **Factual** = who the user **is** → always loaded.
 > - **Episodic** = what happened **with** the user → recalled when triggered.
 > - **Semantic** = what is **true** in the world → fetched when topic appears.
@@ -217,14 +223,15 @@ Reasons:
   - **Authoritative or up-to-date** info is needed.
   - The agent's answers need to be **constrained** to a known knowledge base.
 
-> [!info]
+> [!NOTE]
 > Build order in early agents: **factual** first, then **episodic**. Add **semantic** only when curated knowledge worth retrieving exists.
 
 ---
 
 ## 12. Gotchas & best practices
 
-> [!warning] Watch out for these
+> [!WARNING]
+> **Watch out for these**
 
 - **Don't duplicate pretrained knowledge** unless authoritative / fresher sources are needed.
 - **Source attribution** — track where each semantic fact came from; useful for trust + audit.

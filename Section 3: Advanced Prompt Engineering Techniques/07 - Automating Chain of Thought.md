@@ -23,10 +23,12 @@ related:
 
 # Automating Chain of Thought
 
-> [!abstract] TL;DR
+> [!NOTE]
+> **TL;DR**
 > The manual CoT process from [[06 - Chain of Thought Prompting]] (call → copy reply → paste back → call → repeat) gets wrapped in a clean loop. Build a **`message_history` list** seeded with the system prompt + user input, then `while True: call the LLM → parse JSON → append the response → dispatch on `step` → break if `output``. Each `plan` step prints a "thinking" indicator (🧠); each `start` prints a fire (🔥); the final `output` prints the answer and breaks the loop. Result: a tiny agent that **thinks visibly out loud, step by step, automatically**, until it produces a final answer. This is the foundation pattern for **every reasoning agent** later in the course.
 
-> [!info] Where this fits
+> [!NOTE]
+> **Where this fits**
 > Seventh note of **Section 3: Advanced Prompt Engineering Techniques**. Implements the automation that [[06 - Chain of Thought Prompting]] hinted at. The pattern here — *seed history → loop → dispatch on parsed JSON → append → continue* — is essentially the **ReAct / agent loop** that powers Section 7's AI agents work.
 
 ---
@@ -227,7 +229,8 @@ This is **exactly the agent loop pattern** introduced in Section 7. The differen
 - CoT: steps are just **thinking**.
 - Agent: some steps are **tool calls** (search the web, call a function, query a DB).
 
-> [!tip] What to remember
+> [!TIP]
+> **What to remember**
 > If [[06 - Chain of Thought Prompting]] showed *what CoT looks like*, this note shows *how to run it*. Once the loop pattern clicks, the leap to building agents is small.
 
 ---
@@ -249,7 +252,8 @@ message_history = [
 
 Every turn, the **entire history** is re-sent. The LLM is stateless ([[01 - What is an LLM]]), so the application owns the state.
 
-> [!warning] Watch out for context overflow
+> [!WARNING]
+> **Watch out for context overflow**
 > If the model takes 50 plan steps, the history grows. Eventually it hits the context window limit (e.g., 128k tokens for GPT-4o) and the call fails. Mitigations:
 > - **Summarize old plan steps** periodically.
 > - **Cap max steps** (e.g., `for _ in range(20)`).
@@ -299,7 +303,8 @@ Save `message_history` to disk between sessions so the agent can resume conversa
 ### Multi-turn (re-prompt)
 After `output`, loop back to `input()` so the user can ask follow-up questions while the model retains the planning history.
 
-> [!example] Adding multi-turn
+> [!NOTE]
+> **Adding multi-turn**
 
 ```python
 while True:

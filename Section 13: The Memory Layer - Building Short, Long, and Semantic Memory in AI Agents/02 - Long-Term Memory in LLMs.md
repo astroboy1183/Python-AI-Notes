@@ -26,10 +26,12 @@ related:
 
 # Long-Term Memory in LLMs (LTM)
 
-> [!abstract] TL;DR
+> [!NOTE]
+> **TL;DR**
 > **Long-Term Memory (LTM)** is information about the **user** that is stored in an external database and **persists forever** — across sessions, devices, and time. Unlike STM (which is session-scoped), LTM is **user-scoped**. The big challenge: LTM **keeps growing**, and dumping it all into the LLM's context window isn't viable. That's why LTM is further split into **factual**, **episodic**, and **semantic** memory — each with different retrieval rules.
 
-> [!info] Where this fits
+> [!NOTE]
+> **Where this fits**
 > LTM is the **persistent counterpart** to [[01 - Short-Term Memory in LLMs]]. Together they form the two halves of the [[00 - Types of Memory in LLMs]] taxonomy.
 
 ---
@@ -65,7 +67,8 @@ Notice:
 - The agent **doesn't ask the name** — pulled from LTM.
 - The agent **does ask the order number** — that's session-specific (STM).
 
-> [!tip] The key insight
+> [!TIP]
+> **The key insight**
 > LTM lets the agent **personalize** by carrying user-level facts across sessions. Without LTM, every visit feels like the first time.
 
 ---
@@ -136,7 +139,8 @@ The flow:
 
 ### The pattern is similar to RAG
 
-> [!example] Mental model
+> [!NOTE]
+> **Mental model**
 > The pattern mirrors **RAG (Retrieval-Augmented Generation)**:
 > 1. Fetch relevant info from a DB beforehand.
 > 2. Inject it as system prompt / context.
@@ -160,7 +164,8 @@ The catch:
 - **Signal-to-noise** — irrelevant facts confuse the model.
 - **Performance** — too much context degrades reasoning quality.
 
-> [!warning] The retrieval problem
+> [!WARNING]
+> **The retrieval problem**
 > All of LTM can't be injected. Choices have to be made:
 > - What gets retrieved **always**?
 > - What gets retrieved **on demand** (only when relevant)?
@@ -183,7 +188,7 @@ Each gets its own dedicated note:
 - [[04 - Episodic Memory in LLMs]]
 - [[05 - Semantic Memory in LLMs]]
 
-> [!info]
+> [!NOTE]
 > These sub-types aren't arbitrary — they come from cognitive science (Tulving's work) and map to different **retrieval strategies** in production AI systems.
 
 ---
@@ -262,7 +267,8 @@ def end_session(user_id, message_history):
 
 ## 11. Gotchas & best practices
 
-> [!warning] Common pitfalls
+> [!WARNING]
+> **Common pitfalls**
 
 - **Don't store everything** — be selective; not every chat detail belongs in LTM.
 - **Mind the context window** — retrieve only what's needed, not all 4,000 memories.

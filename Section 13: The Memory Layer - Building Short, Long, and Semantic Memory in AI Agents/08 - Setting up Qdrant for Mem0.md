@@ -19,10 +19,12 @@ related:
 
 # Setting up Qdrant for Mem0
 
-> [!abstract] TL;DR
+> [!NOTE]
+> **TL;DR**
 > Mem0's config points at Qdrant on `localhost:6333`, so Qdrant has to be running. This is the same Qdrant-in-Docker setup from the RAG section — reuse the `docker-compose.yml`, drop it in the memory-agent folder, and `docker compose up -d`. That spins up Qdrant on **6333**. Open the dashboard at `http://localhost:6333/dashboard` to confirm it's live — right now it's **empty** (no collections, no memories), which is exactly right before any memories are added. With Qdrant up, the next note actually writes and reads memories through it.
 
-> [!info] Where this fits
+> [!NOTE]
+> **Where this fits**
 > Eighth note of **Section 13**. It provisions the vector store the Mem0 config in [[07 - Configuring the Mem0 Memory Client]] expects. [[09 - Building a Memory-Aware Assistant]] then fills it with memories.
 
 ---
@@ -70,7 +72,8 @@ volumes:
 | `ports: "6333:6333"` | Expose Qdrant's REST/dashboard port |
 | `volumes: qdrant_data` | Persist stored vectors across restarts |
 
-> [!tip] Same pattern as every other service in this course
+> [!TIP]
+> **Same pattern as every other service in this course**
 > Provisioning infra is consistently: a small `docker-compose.yml`, `docker compose up -d`, then verify. Qdrant here, Valkey in the async-RAG section, MongoDB in the checkpointing section — same muscle memory.
 
 ---
@@ -109,7 +112,8 @@ Seeing it empty is useful — in the next note I'll add a memory, refresh, and w
 
 ## 5. Common gotchas
 
-> [!warning] Qdrant setup issues
+> [!WARNING]
+> **Qdrant setup issues**
 
 | Symptom | Cause | Fix |
 |---|---|---|

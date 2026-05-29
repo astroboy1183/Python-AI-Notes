@@ -23,10 +23,12 @@ related:
 
 # Instruction (INST) Prompting
 
-> [!abstract] TL;DR
+> [!NOTE]
+> **TL;DR**
 > **Instruction (INST) prompting** is the prompt format used by **Meta's Llama 2 chat models** (and adopted by Mistral Instruct and others). User instructions are wrapped in `[INST] ... [/INST]` tags. System prompts go inside `<<SYS>> ... <</SYS>>` tags within the first INST block. Sequence boundaries use `<s>` and `</s>` tokens. Compact, model-trained-on-it natively, but **not designed for hosted chat APIs** — it's a raw-prompt format for direct-token-feeding into local Llama 2-style models. Like Alpaca, mostly relevant when running raw local LLMs or fine-tuning open models. Not used by ChatGPT, Gemini, or Claude.
 
-> [!info] Where this fits
+> [!NOTE]
+> **Where this fits**
 > Final note of **Section 4: Prompt Serialization & Instruction Formats**. The third style covered after [[02 - Alpaca Prompting]] and [[03 - ChatML Prompting]]. Closes out Section 4. After this, **Section 5: Local LLM Deployment & API Integration** starts — where knowing this format actually matters in practice (some local Llama 2 setups need raw INST prompts).
 
 ---
@@ -74,7 +76,7 @@ What is the time now? [/INST]
 | `<<SYS>>` | Start of system prompt (only inside the first `[INST]` block) |
 | `<</SYS>>` | End of system prompt |
 
-> [!note]
+> [!NOTE]
 > The system prompt only appears in the **first** `[INST]` block of the conversation. Subsequent turns omit `<<SYS>>...<</SYS>>`.
 
 ### Multi-turn
@@ -90,7 +92,8 @@ Use `my_list[::-1]` or `reversed(my_list)`.</s><s>[INST] Which one is faster? [/
 
 Each user turn gets wrapped in `<s>[INST] ... [/INST]`. The model's previous reply ends with `</s>` before the next turn begins.
 
-> [!note] How to read the structure
+> [!NOTE]
+> **How to read the structure**
 > Everything sits inside these brace-style tags: `<s>` marks the beginning of the text, `<<SYS>>...<</SYS>>` holds the system prompt, the user input goes inside `[INST]...[/INST]`, and the assistant's reply continues after the closing `[/INST]`.
 
 ---
@@ -204,7 +207,8 @@ No `<<SYS>>` — Mistral's recommended pattern is to **prepend** the system prom
 What is the time now? [/INST]
 ```
 
-> [!warning] Don't mix Llama 2 and Mistral formats
+> [!WARNING]
+> **Don't mix Llama 2 and Mistral formats**
 > Both use `[INST]` tags, but the system-prompt handling differs. A Llama 2-style `<<SYS>>` block fed to Mistral may degrade quality (and vice versa).
 
 ---

@@ -21,10 +21,12 @@ related:
 
 # Section Intro — Why Prompts Matter
 
-> [!abstract] TL;DR
+> [!NOTE]
+> **TL;DR**
 > Prompting is **the single highest-leverage skill** on the agentic-AI track. With the same underlying LLM, a well-engineered prompt can produce **10× to 20× better** output quality and accuracy than a naive one. This section covers the prompt patterns used in real systems: **zero-shot**, **few-shot**, **chain of thought (CoT)**, **persona-based**, and how to **structure** responses (JSON output). This is one of the most important sections in the entire course and worth coding along with throughout.
 
-> [!info] Where this fits
+> [!NOTE]
+> **Where this fits**
 > First note of **Section 3: Advanced Prompt Engineering Techniques**. Sections 1 and 2 covered "what is an LLM" and "how to call one from Python." This section is the bridge to **using LLMs effectively** — without good prompts, the rest of the course (agents, RAG, memory, MCP) won't produce useful output.
 
 ---
@@ -39,7 +41,8 @@ The same GPT-4o (or Gemini, or Claude) can produce:
 
 There's no model upgrade in between — only the prompt changes.
 
-> [!tip] The leverage point
+> [!TIP]
+> **The leverage point**
 > Most "the LLM gave a bad answer" problems are actually **prompting problems**, not model problems. Better prompts beat bigger models surprisingly often.
 
 ---
@@ -115,7 +118,8 @@ Agents (Section 7+) work by **LLMs that take actions, call tools, and decide nex
 
 Without solid prompt engineering, agents either don't act, act wrong, or loop forever. So everything in Sections 7–16 of the course rests on this one.
 
-> [!tip] Why this section matters most
+> [!TIP]
+> **Why this section matters most**
 > This is the section to pay extra attention to and code along with — agentic AI work later in the course depends on having these prompting patterns internalized.
 
 ---

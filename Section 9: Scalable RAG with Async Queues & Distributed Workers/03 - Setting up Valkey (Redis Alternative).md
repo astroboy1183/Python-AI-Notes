@@ -20,10 +20,12 @@ related:
 
 # Setting up Valkey (Redis Alternative)
 
-> [!abstract] TL;DR
+> [!NOTE]
+> **TL;DR**
 > Spin up a **Valkey** server via Docker Compose to act as the broker for **RQ (Redis Queue)**. Why Valkey instead of Redis: **Redis changed its open-source license** in 2024 — Valkey is the **drop-in BSD-licensed fork** maintained by the Linux Foundation and major cloud providers. Same wire protocol, same Python clients, zero code change. Add a second service block to the project's `docker-compose.yml` with the `valkey/valkey` image exposing port **6379**. After `docker compose up -d`, two services run in parallel: **Qdrant** (port 6333, vector DB) and **Valkey** (port 6379, queue broker). The infrastructure side of Section 9 is now in place.
 
-> [!info] Where this fits
+> [!NOTE]
+> **Where this fits**
 > Third lecture of **Section 9: Scalable RAG with Async Queues & Distributed Workers**. Infrastructure setup. The next lecture ([[04 - Installing RQ and Building the Queue Client]]) installs the Python client and connects to this Valkey instance.
 
 ---
@@ -112,7 +114,8 @@ Two services declared:
 
 Port **6379** is Redis's canonical port — Valkey inherits it.
 
-> [!tip] Production hardening
+> [!TIP]
+> **Production hardening**
 > For real use, add a volume mount so data persists:
 > ```yaml
 >   valkey:
@@ -243,7 +246,8 @@ Two databases (one for vectors, one for queues). Python code talks to both.
 
 ## 10. Common gotchas
 
-> [!warning] Issues to watch
+> [!WARNING]
+> **Issues to watch**
 
 | Symptom | Cause | Fix |
 |---|---|---|

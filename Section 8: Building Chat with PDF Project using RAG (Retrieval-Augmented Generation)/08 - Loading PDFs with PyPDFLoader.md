@@ -22,10 +22,12 @@ related:
 
 # Loading PDFs with PyPDFLoader
 
-> [!abstract] TL;DR
+> [!NOTE]
+> **TL;DR**
 > First concrete indexing step: read a PDF into Python as page-by-page `Document` objects. Use **`PyPDFLoader`** from `langchain_community.document_loaders` — `loader = PyPDFLoader(pdf_path); docs = loader.load()`. Returns a list where **each element is one page** with `page_content` (the page's text) and `metadata` (source file, page number). Resolve the PDF path safely with **`pathlib`** — `Path(__file__).parent / "nodejs.pdf"`. PDF used here: a 104-page Node.js book downloaded from the internet. After this note, the corpus is in memory as a list of 104 `Document` objects ready for chunking.
 
-> [!info] Where this fits
+> [!NOTE]
+> **Where this fits**
 > Eighth lecture of **Section 8: Building Chat with PDF Project using RAG**. First step of the indexing pipeline. The next note ([[09 - Smart Chunking with RecursiveCharacterTextSplitter]]) splits these documents into smaller chunks suitable for embedding.
 
 ---
@@ -96,7 +98,8 @@ rag/
 
 The PDF: 104 pages of text-heavy content. Suitable for RAG experiments.
 
-> [!tip] PDF choice matters
+> [!TIP]
+> **PDF choice matters**
 > Text-heavy PDFs (books, articles) work great. PDFs that are **mostly scanned images** (some old documents) need OCR first — `PyPDFLoader` returns blank pages for them. For real production, detect and OCR image-heavy pages.
 
 ---
@@ -248,7 +251,7 @@ LangChain has multiple PDF loaders if `PyPDFLoader` doesn't work:
 
 All return the same `Document[]` shape — interchangeable in downstream code.
 
-> [!tip]
+> [!TIP]
 > When in doubt, **PyPDFLoader first** — it's the default for a reason. Only swap if the output looks wrong.
 
 ---
@@ -272,7 +275,8 @@ Loading is the easy part. Real engineering starts with chunking next.
 
 ## 12. Common gotchas
 
-> [!warning] First-time issues
+> [!WARNING]
+> **First-time issues**
 
 | Symptom | Cause | Fix |
 |---|---|---|

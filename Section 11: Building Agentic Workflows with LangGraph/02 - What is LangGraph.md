@@ -19,10 +19,12 @@ related:
 
 # What is LangGraph
 
-> [!abstract] TL;DR
+> [!NOTE]
+> **TL;DR**
 > Real agents aren't a single LLM call — they're **multi-step workflows**: take user input → plan → maybe call a tool (web search) → loop the result back → finalize → maybe judge the answer with another LLM → retry if bad → end. Drawn as a **flowchart**, that's clear and obvious. Coded by hand in Python, it collapses into **nested `if/else` and `while` loops** that get messy and unmaintainable the moment I add one more step. **LangGraph** is a framework that lets me express that same flowchart **as a graph in code** — organize logic into nodes and edges, run it, debug it, and share it — so I never have to write the spaghetti. Its tagline captures the goal: *balance agent control with agency.*
 
-> [!info] Where this fits
+> [!NOTE]
+> **Where this fits**
 > Second note of **Section 11**. It makes the case *for* LangGraph by showing the pain of hand-coding a branching workflow. [[03 - Installing LangGraph & Core Concepts]] then introduces the actual building blocks (nodes, edges, state).
 
 ---
@@ -89,7 +91,8 @@ Ask for this flowchart "just in Python" and the result is:
 - Nested `if/else` for "need a tool?", "is the answer good?", "should I retry?".
 - Back-and-forth jumps that don't map cleanly to structured code.
 
-> [!warning] It rots fast
+> [!WARNING]
+> **It rots fast**
 > Add **one more node** to the workflow and the hand-written version gains more nested conditionals and loop bookkeeping. Soon the code is a tangle — hard to read, hard to debug, hard to extend. The control flow no longer resembles the flowchart at all.
 
 ```python
@@ -114,7 +117,8 @@ The bug surface is huge: which variables carry state across iterations, where ex
 
 ## 4. What LangGraph is
 
-> [!note] Definition
+> [!NOTE]
+> **Definition**
 > **LangGraph** is a framework that lets me organize agent logic into a **graph structure** — build the workflow, run it, debug it, and share it — instead of writing nested `if/else`/`while` loops.
 
 In other words: the flowchart I drew in §2 becomes the actual program. Its design goal, in LangChain's words, is to **"balance agent control with agency"** — give the LLM room to decide (agency) while keeping the overall flow explicit and controllable (control).

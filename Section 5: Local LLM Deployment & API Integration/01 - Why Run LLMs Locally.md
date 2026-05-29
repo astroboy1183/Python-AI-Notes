@@ -28,10 +28,12 @@ related:
 
 # Why Run LLMs Locally
 
-> [!abstract] TL;DR
+> [!NOTE]
+> **TL;DR**
 > Sections 2 and 3 used **hosted, proprietary APIs** — OpenAI's GPT and Google's Gemini. Those models are closed source, run on someone else's servers, and **charge per token**. Section 5 introduces an alternative: **open-source LLMs** (DeepSeek, Qwen, Gemma, Llama, Mistral) running **locally** on your own hardware. Trade-off: needs **good CPU/GPU**, but data **stays on your machine**, and inference is **free** after the hardware investment. The vehicle: **Ollama** running in **Docker**. Combined with [[04 - Using Gemini through OpenAI SDK|the OpenAI-compat layer]], local models become drop-in replacements for hosted APIs — exactly what enterprises use for privacy-sensitive workloads.
 
-> [!info] Where this fits
+> [!NOTE]
+> **Where this fits**
 > First lecture of **Section 5: Local LLM Deployment & API Integration**. The section bridges from "cloud APIs" (Sections 2–4) to "your own server." The setup learned here will also matter for: (a) enterprise data-privacy projects, (b) edge / on-device deployments, (c) keeping experimentation costs at zero.
 
 ---
@@ -52,7 +54,8 @@ related:
 | **Update cycle** | Provider pushes updates | You manage versions |
 | **Best for** | Speed of getting started, top-tier quality | Privacy, cost control, customization |
 
-> [!note] The core distinction
+> [!NOTE]
+> **The core distinction**
 > Models like ChatGPT, GPT-4o, GPT-4o mini, and Gemini are closed-source proprietary models — owned by their respective companies and not publicly available. Using them means going through their paid APIs. In contrast, a huge number of open-source models exist that can be downloaded and run on a personal machine, offline and for free.
 
 ---
@@ -70,7 +73,8 @@ The biggest one. Large companies dealing with:
 
 …**can't legally or contractually send that data to OpenAI or Google**. Running an open-source model locally keeps data inside the company's network.
 
-> [!info] The enterprise scenario
+> [!NOTE]
+> **The enterprise scenario**
 > A large company that wants to leverage AI but cannot share its data with a third-party API like Gemini or OpenAI can download one of the open-source models and run it on its own hardware. The hardware cost is real, but the data stays inside the company's environment.
 
 ### Reason 2 — Cost control
@@ -98,7 +102,8 @@ The biggest one. Large companies dealing with:
 
 ## 3. The cost — hardware
 
-> [!warning] Local LLMs are **not** cheap-on-machine
+> [!WARNING]
+> **Local LLMs are **not** cheap-on-machine**
 > Running a model eats a lot of CPU and GPU — a decent amount of hardware is required.
 
 Rough hardware tiers:
@@ -112,7 +117,8 @@ Rough hardware tiers:
 
 For learning, **light/mid tier** is plenty. `gemma:2b` (~2 GB on disk) runs comfortably on a regular laptop.
 
-> [!tip] Quantization makes things smaller
+> [!TIP]
+> **Quantization makes things smaller**
 > Modern local runtimes (Ollama, llama.cpp) ship **quantized** versions of models — 4-bit or 8-bit representations that drastically reduce memory needs at a small quality cost. A "70B model in 4-bit" might fit on a single 24 GB GPU.
 
 ---
@@ -203,7 +209,8 @@ Full treatment in [[02 - Docker Deep Dive]].
 
 This section's payoff isn't just "now I can run LLMs offline." It's the **architectural insight**:
 
-> [!tip] The big idea
+> [!TIP]
+> **The big idea**
 > Local Ollama, hosted OpenAI, hosted Gemini — they all expose **OpenAI-compatible chat endpoints**. The `base_url` trick from [[04 - Using Gemini through OpenAI SDK]] means the **same application code** can target any of them. Switching from `gpt-4o` (cloud, paid) to `gemma:2b` (local, free) is a config change.
 
 The notes in this section build toward an **API layer** ([[06 - Connecting FastAPI to Ollama]]) that exposes local models the same way OpenAI exposes hosted ones — making local LLMs **production-ready**.

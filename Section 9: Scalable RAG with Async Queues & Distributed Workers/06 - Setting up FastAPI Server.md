@@ -21,10 +21,12 @@ related:
 
 # Setting up FastAPI Server
 
-> [!abstract] TL;DR
+> [!NOTE]
+> **TL;DR**
 > Standard FastAPI scaffold from [[05 - FastAPI Setup|Section 5]] — but split into two files instead of one: **`server.py`** (declares the FastAPI app + routes) and **`main.py`** (entry point that loads `.env` and starts uvicorn). Why split: cleaner separation between "how the app is configured to run" (main.py) and "what the app does" (server.py). `python main.py` becomes the launch command. Server binds to `0.0.0.0:8000` so external clients can reach it. **`load_dotenv()` must run before any imports that need `OPENAI_API_KEY`** — a subtle ordering issue that bites if you don't get it right (covered in the chat-route note). After this, an empty FastAPI server runs at `localhost:8000`, ready for routes.
 
-> [!info] Where this fits
+> [!NOTE]
+> **Where this fits**
 > Sixth lecture of **Section 9: Scalable RAG with Async Queues & Distributed Workers**. Builds the producer side. The next two lectures add the actual routes ([[07 - The Chat Route - Enqueueing Jobs]] and [[08 - The Get Result Route - Fetching Job Status]]).
 
 ---
@@ -113,7 +115,8 @@ if __name__ == "__main__":
 | `port=8000` | Standard FastAPI port |
 | `if __name__ == "__main__"` | Only run when invoked directly |
 
-> [!tip] Why `0.0.0.0` instead of `127.0.0.1`
+> [!TIP]
+> **Why `0.0.0.0` instead of `127.0.0.1`**
 > - `127.0.0.1` / `localhost` — only reachable from the same machine.
 > - `0.0.0.0` — reachable from any network interface (Docker, other machines on LAN).
 >
@@ -244,7 +247,8 @@ Currently shows just the root route. Once chat + result routes are added, they'l
 
 ## 11. Common gotchas
 
-> [!warning] FastAPI server issues
+> [!WARNING]
+> **FastAPI server issues**
 
 | Symptom | Cause | Fix |
 |---|---|---|

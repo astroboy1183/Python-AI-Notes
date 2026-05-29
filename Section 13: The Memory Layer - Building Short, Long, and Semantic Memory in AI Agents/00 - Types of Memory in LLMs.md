@@ -20,10 +20,12 @@ related: []
 
 # Types of Memory in LLMs
 
-> [!abstract] Overview
+> [!NOTE]
+> **Overview**
 > Memory is what lets an LLM (or AI agent) **remember context, learn about the user, and stay coherent across interactions**. Without memory, every conversation starts from zero. This note breaks down the **two broad categories** (short-term and long-term) and the **three sub-types** of long-term memory (factual, episodic, semantic), with examples, analogies, and how they show up in real LLM systems.
 
-> [!info] Why this matters
+> [!NOTE]
+> **Why this matters**
 > LLMs by themselves are **stateless** — the model doesn't "remember" anything after a response is generated. Memory systems are **built on top** of the LLM (via context windows, databases, vector stores, etc.) to create the illusion (and reality) of continuity. Picking *which* type of memory to use for *which* problem is core to designing good AI agents.
 
 ---
@@ -84,7 +86,8 @@ While the project is being built, the model **remembers** Python, SQLite, and un
 - **Conversation buffer** in frameworks like LangChain / LlamaIndex.
 - **Scratchpad / thought log** in agentic systems (ReAct loops, planning agents).
 
-> [!warning] STM gotchas
+> [!WARNING]
+> **STM gotchas**
 > - Once the context window fills up, **older messages get truncated** — the model "forgets" earlier parts of the same session.
 > - STM is **not the same** as the model's training data — training is baked-in knowledge; STM is runtime context.
 
@@ -126,7 +129,8 @@ LTM further breaks down into **three distinct flavors**, each serving a differen
 
 ### 4.1 Factual memory
 
-> [!example] Definition
+> [!NOTE]
+> **Definition**
 > Stores **concrete facts about the user** — the "profile data" of who they are.
 
 - **What it stores**: name, age, location, job, preferences, allergies, language, timezone.
@@ -147,7 +151,8 @@ LTM further breaks down into **three distinct flavors**, each serving a differen
 
 ### 4.2 Episodic memory
 
-> [!example] Definition
+> [!NOTE]
+> **Definition**
 > Stores the **history of past interactions** — what happened with the user, how the user talks, recurring patterns.
 
 - **What it stores**: previous conversations, decisions, tone, communication style, feedback the user has given.
@@ -161,14 +166,15 @@ LTM further breaks down into **three distinct flavors**, each serving a differen
 
 **Use case:** *"Last time the user mentioned LangChain felt verbose — here's a more concise alternative."*
 
-> [!tip]
+> [!TIP]
 > Episodic memory is what makes an agent feel **personal** rather than generic. It's the difference between "How can I help?" and "Last time we left off debugging the auth bug — want to pick up there?"
 
 ---
 
 ### 4.3 Semantic memory
 
-> [!example] Definition
+> [!NOTE]
+> **Definition**
 > Stores **general world knowledge** — facts about reality that are **not specific to the user**.
 
 - **What it stores**: real-world facts, definitions, domain knowledge.
@@ -182,7 +188,8 @@ LTM further breaks down into **three distinct flavors**, each serving a differen
 
 **Use case:** Reference knowledge the agent pulls from when answering domain questions — separate from the LLM's pre-trained knowledge.
 
-> [!note] Semantic vs. LLM training data
+> [!NOTE]
+> **Semantic vs. LLM training data**
 > The LLM already "knows" Delhi is the capital of India from training. **Semantic memory** is useful when curated, up-to-date, or domain-specific facts are needed — facts the model can rely on instead of (or in addition to) its training.
 
 ---
@@ -209,7 +216,7 @@ Cognitive science actually inspired these categories. How they map to human memo
 | Episodic | Autobiographical memory (life events) |
 | Semantic | General knowledge (facts learned in school) |
 
-> [!info]
+> [!NOTE]
 > Not a coincidence — the LLM memory taxonomy borrows directly from psychology, particularly **Endel Tulving's** distinction between **episodic** and **semantic** memory (1972).
 
 ---

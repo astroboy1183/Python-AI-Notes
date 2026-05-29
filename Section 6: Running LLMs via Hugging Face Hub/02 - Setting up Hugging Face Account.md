@@ -18,10 +18,12 @@ related:
 
 # Setting up Hugging Face Account
 
-> [!abstract] TL;DR
+> [!NOTE]
+> **TL;DR**
 > Quick setup chore — sign up at **huggingface.co**, solve the captcha, choose username + full name, confirm via email. Account is free for all basic use (browsing models, downloading open weights, light Spaces usage). Paid tiers exist for **PRO** (better Spaces, faster inference) and **Enterprise** (compliance, private models). A free account is sufficient for everything in this section. After login, the account unlocks: pulling models that require authentication ([[03 - Accessing Gated Models]]), generating API tokens ([[04 - Hugging Face CLI Setup and Login]]), pushing models, creating Spaces.
 
-> [!info] Where this fits
+> [!NOTE]
+> **Where this fits**
 > Second note of **Section 6: Running LLMs via Hugging Face Hub**. Pure account-setup chore. The interesting work starts in [[03 - Accessing Gated Models]].
 
 ---
@@ -143,7 +145,8 @@ HF supports **TOTP-based 2FA** (Settings → Account → Two-factor authenticati
 
 ## 8. Common gotchas
 
-> [!warning] First-time sign-up issues
+> [!WARNING]
+> **First-time sign-up issues**
 
 | Symptom | Cause | Fix |
 |---|---|---|

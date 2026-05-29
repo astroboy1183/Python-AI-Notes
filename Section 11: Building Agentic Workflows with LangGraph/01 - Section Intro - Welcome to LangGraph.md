@@ -17,10 +17,12 @@ related:
 
 # Section Intro — Welcome to LangGraph
 
-> [!abstract] TL;DR
+> [!NOTE]
+> **TL;DR**
 > This section is about **LangGraph** — a framework for building agentic workflows as **graphs** instead of tangled `if/else` and `while` loops. It's one of the most widely-used tools in the production AI-agent world, and companies run it at scale. The promise: workflows that are **cleaner, more maintainable, easier to debug, and easier to share**. By the end of the section I should understand what LangGraph is, the problem it solves, and how to implement a real multi-step agentic workflow with it.
 
-> [!info] Where this fits
+> [!NOTE]
+> **Where this fits**
 > First note of **Section 11: Building Agentic Workflows with LangGraph**. It frames the whole section. The actual "what is it / why does it exist" deep-dive starts in [[02 - What is LangGraph]], and the hands-on build runs from [[03 - Installing LangGraph & Core Concepts]] onward.
 
 ---

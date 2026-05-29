@@ -20,10 +20,12 @@ related:
 
 # Installing LangGraph & Core Concepts
 
-> [!abstract] TL;DR
+> [!NOTE]
+> **TL;DR**
 > Install with `pip install -U langgraph` (assuming LangChain is already present), then freeze into `requirements.txt`. LangGraph offers **prebuilt agents** — e.g. `from langgraph.prebuilt import create_react_agent`, hand it a model + tools + prompt — but the real power is building graphs from three primitives: **Nodes** (just functions, each doing one task), **Edges** (the connections defining flow between nodes), and **State** (a single piece of data that flows through the graph). When I `invoke` a graph, I pass an **initial state** in; it travels node-to-node, each node **reads and returns an updated state**, and I get the **final state** back. That read-modify-return-state loop is the heart of LangGraph.
 
-> [!info] Where this fits
+> [!NOTE]
+> **Where this fits**
 > Third note of **Section 11**. It installs LangGraph and lays out the vocabulary (nodes / edges / state) that the rest of the section builds on. The hands-on construction starts in [[04 - Creating the State and Graph Builder]].
 
 ---
@@ -42,7 +44,8 @@ pip freeze > requirements.txt
 
 Now LangGraph is locked into the project's dependency list.
 
-> [!tip] LangGraph builds on LangChain
+> [!TIP]
+> **LangGraph builds on LangChain**
 > LangGraph isn't a replacement for LangChain — it sits on top of it. The chat-model utilities, message types (`HumanMessage`, `AIMessage`), and tool abstractions all come from LangChain; LangGraph adds the **graph orchestration** layer.
 
 ---
@@ -149,7 +152,8 @@ Step by step:
 4. The updated state flows to the **next node** — which sees the change.
 5. When the graph finishes, I get the **final updated state** back.
 
-> [!important] Nodes communicate only through state
+> [!IMPORTANT]
+> **Nodes communicate only through state**
 > Nodes don't pass arguments to each other directly. The **only channel** between nodes is the state object. A node reads the current state, modifies it, returns it — and the next node picks up from there. Get the state design right and the whole graph falls into place.
 
 ---

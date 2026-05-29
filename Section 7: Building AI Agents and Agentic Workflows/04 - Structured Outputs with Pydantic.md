@@ -22,10 +22,12 @@ related:
 
 # Structured Outputs with Pydantic
 
-> [!abstract] TL;DR
+> [!NOTE]
+> **TL;DR**
 > The weather agent in [[03 - Building a Weather Agent]] has one **huge bug**: it relies on `json.loads()` of free-form text. If the LLM ever produces invalid JSON, the dispatcher crashes. Fix it with **OpenAI's Structured Outputs feature + Pydantic**. Define a Pydantic `BaseModel` describing the agent's reply shape (step, content, tool, input). Switch the API call from `client.chat.completions.create(...)` to `client.beta.chat.completions.parse(...)` and pass the Pydantic class as `response_format`. The model now **guarantees** a JSON object matching the schema — invalid output becomes impossible. Access the result via `response.choices[0].message.parsed` as a typed Pydantic object: `parsed.step`, `parsed.tool`, `parsed.input` — fully typed, with IDE autocomplete, and no `json.loads` anywhere.
 
-> [!info] Where this fits
+> [!NOTE]
+> **Where this fits**
 > Fourth note of **Section 7: Building AI Agents and Agentic Workflows**. Pure reliability upgrade to the weather agent from [[03 - Building a Weather Agent]]. The architecture, tools, and dispatch logic stay the same — only the response-parsing layer changes. After this, [[05 - Building a CLI Coding Assistant]] applies the same agent pattern to file/system tools.
 
 ---
@@ -119,7 +121,8 @@ Key points:
 | `description="..."` | **Used by OpenAI** to guide the model — what each field is for |
 | `BaseModel` | Base class that handles validation, serialization, JSON schema generation |
 
-> [!tip] Why the description matters
+> [!TIP]
+> **Why the description matters**
 > When this Pydantic model is passed to OpenAI's API, it's auto-converted to a **JSON Schema**, and the `description` fields are sent to the model as **schema hints**. The model reads which fields it can output, their types, and their descriptions, then uses that to decide what to put in each field. Descriptive `description=` values = better-behaved agents.
 
 ---
@@ -150,7 +153,8 @@ parsed: AgentStep = response.choices[0].message.parsed
 | `json.loads(...)` needed | Not needed |
 | `parsed.get("step")` (could be None) | `parsed.step` (typed `str`) |
 
-> [!note] `parsed` AND `content` both exist
+> [!NOTE]
+> **`parsed` AND `content` both exist**
 > The response still has `.message.content` (the raw JSON string), but `.message.parsed` is the **already-validated Pydantic instance**. Use `parsed`.
 
 ---
@@ -300,7 +304,8 @@ When OpenAI receives a request with `response_format=AgentStep`:
 
 The "constrained decoding" step is implemented server-side by OpenAI — it's not a post-hoc validation. Invalid output is **mathematically impossible**.
 
-> [!info] Constrained decoding
+> [!NOTE]
+> **Constrained decoding**
 > The technique behind structured outputs is called **constrained sampling** or **grammar-constrained generation**. At every token step, the runtime computes the set of next-tokens that could still lead to schema-valid output, masks the rest, then samples from the allowed set. Used by:
 > - OpenAI Structured Outputs (server-side).
 > - **Outlines** library (open-source).
@@ -374,7 +379,8 @@ The **only reason** to skip structured outputs for new code is model compatibili
 
 ## 12. Common gotchas
 
-> [!warning] First-time issues
+> [!WARNING]
+> **First-time issues**
 
 | Symptom | Cause | Fix |
 |---|---|---|

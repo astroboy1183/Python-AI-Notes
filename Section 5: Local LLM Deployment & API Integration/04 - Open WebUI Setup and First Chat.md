@@ -21,10 +21,12 @@ related:
 
 # Open WebUI Setup and First Chat
 
-> [!abstract] TL;DR
+> [!NOTE]
+> **TL;DR**
 > **Open WebUI** is a ChatGPT-like web interface that talks to the Ollama server running in the background. Pull and run as another Docker container, **exposed on port 3000**, mapped internally to port 8080. Open WebUI **auto-detects** Ollama at `localhost:11434` and connects automatically. On first run: create an admin account, then **pull a model from the Models settings** — **`gemma:2b`** is a good starting choice (a ~2 GB Google model). After download, send the first prompt — the laptop's CPU spikes to **140-200%+** during inference, the unmistakable sign that local inference is genuinely happening. The chat experience mimics ChatGPT but everything runs **offline** on the host.
 
-> [!info] Where this fits
+> [!NOTE]
+> **Where this fits**
 > Fourth lecture of **Section 5: Local LLM Deployment & API Integration**. With Ollama running ([[03 - Running Ollama in Docker]]), this lecture adds the UI layer for manual testing. After this, [[05 - FastAPI Setup]] and [[06 - Connecting FastAPI to Ollama]] expose the model programmatically as a REST API.
 
 ---
@@ -106,7 +108,8 @@ On first visit, Open WebUI requires creating an **admin account**:
 | Email | (any — even a fake one works for local-only deployments) |
 | Password | (something memorable) |
 
-> [!warning] First account = admin
+> [!WARNING]
+> **First account = admin**
 > The **first** account created on a fresh Open WebUI install gets **admin privileges**. Subsequent accounts are regular users (and admins can promote/demote from the admin panel).
 
 For a personal localhost install with no exposed network, account security is more about habit than necessity — but using a real password is still a good idea.
@@ -208,7 +211,8 @@ The reply appears word-by-word (streaming). The CPU spikes dramatically during g
 
 CPU usage going from 0% → 140-200%+ during a reply is the unmistakable signal that **inference is happening locally**, not in the cloud.
 
-> [!note] CPU > 100%?
+> [!NOTE]
+> **CPU > 100%?**
 > On multi-core systems, top reports the **sum across cores**. A 4-core machine showing 200% means roughly 2 cores fully busy. 295% means ~3 cores busy. Normal for LLM inference.
 
 ---
@@ -247,7 +251,8 @@ Everything is in place. The next lectures expose this same model to **applicatio
 
 ## 13. Common gotchas
 
-> [!warning] Things to watch for
+> [!WARNING]
+> **Things to watch for**
 
 | Symptom | Likely cause | Fix |
 |---|---|---|

@@ -22,10 +22,12 @@ related:
 
 # Alpaca Prompting
 
-> [!abstract] TL;DR
+> [!NOTE]
+> **TL;DR**
 > **Alpaca prompting** is a plain-text format with three named sections separated by `###` headers: **`### Instruction:`**, **`### Input:`**, **`### Response:`**. The model is fed everything up to and including `### Response:` and is expected to **complete the text from there**. Born from Stanford's **Alpaca** project (2023) which used this format to fine-tune Llama into an instruction-following model on a $600 budget. Still used by many Llama-derived open-source fine-tunes. Simpler than ChatML, doesn't natively support multi-turn conversations, weak separation between "what to do" and "what to do it on."
 
-> [!info] Where this fits
+> [!NOTE]
+> **Where this fits**
 > Second note of **Section 4: Prompt Serialization & Instruction Formats**. The first of three prompt styles. Worth knowing for context — many Hugging Face open models reference this format, and most pre-2024 LLM tutorials assumed it. Not used by frontier hosted APIs (which use ChatML — see [[03 - ChatML Prompting]]).
 
 ---
@@ -203,7 +205,8 @@ User: Ok then. Tell me a fact about Bangalore.
 
 But this is **awkward** — the `### Input:` becomes a transcript blob. ChatML's role-tagged messages handle this naturally.
 
-> [!warning] Don't actually do this if it's avoidable
+> [!WARNING]
+> **Don't actually do this if it's avoidable**
 > If multi-turn conversation is needed, switch to ChatML. Alpaca multi-turn is a workaround, not a strength.
 
 ---

@@ -21,10 +21,12 @@ related:
 
 # The Get Result Route — Fetching Job Status
 
-> [!abstract] TL;DR
+> [!NOTE]
+> **TL;DR**
 > Add **`GET /job_status?job_id=<uuid>`** that the client polls to check progress and eventually retrieve the LLM's answer. Body: `job = queue.fetch_job(job_id); return {"result": job.return_value}`. While the job is still queued or running, **`return_value` is `None`** — the client keeps polling. Once a worker completes the job, the return value becomes available. This **completes the two-route async API contract**: `POST /chat` submits → `GET /job_status` polls. Submitting multiple jobs (debugging in JS, arrow functions in JS) and polling them all returns `null` because no workers are running yet — the final piece is started in [[09 - Running RQ Workers in Parallel]].
 
-> [!info] Where this fits
+> [!NOTE]
+> **Where this fits**
 > Eighth note of **Section 9: Scalable RAG with Async Queues & Distributed Workers**. Completes the API surface. The final note ([[09 - Running RQ Workers in Parallel]]) actually starts workers, demonstrating the end-to-end flow.
 
 ---
@@ -83,7 +85,8 @@ job = queue.fetch_job(job_id)
 
 For the polling client, only "finished" matters. Other states all look like `null` in the response.
 
-> [!tip] Production refinement
+> [!TIP]
+> **Production refinement**
 > A more informative response includes the **state** explicitly:
 > ```python
 > return {
@@ -226,7 +229,8 @@ Polling interval is a trade-off:
 - **Too slow** (10s) → user perceives delay.
 - **1-2 seconds** → reasonable for chat-style UX.
 
-> [!tip] Better than polling — WebSockets / SSE
+> [!TIP]
+> **Better than polling — WebSockets / SSE**
 > For production, push-based options beat polling:
 > - **WebSockets** — bidirectional, persistent connection.
 > - **Server-Sent Events (SSE)** — server pushes to client.
@@ -249,7 +253,8 @@ The next (and last) note in this section fixes this by **starting `rq worker`** 
 
 ## 9. Common gotchas
 
-> [!warning] Job status route issues
+> [!WARNING]
+> **Job status route issues**
 
 | Symptom | Cause | Fix |
 |---|---|---|

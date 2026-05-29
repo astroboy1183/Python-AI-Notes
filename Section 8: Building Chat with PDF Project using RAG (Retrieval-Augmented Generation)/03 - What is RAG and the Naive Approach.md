@@ -20,10 +20,12 @@ related:
 
 # What is RAG and the Naive Approach
 
-> [!abstract] TL;DR
+> [!NOTE]
+> **TL;DR**
 > **RAG = Retrieval-Augmented Generation** — an AI architecture that *augments* an LLM with **external knowledge sources** the model wasn't trained on. The "augmentation" part is **retrieval**: pull only the most relevant pieces from a large corpus, then *generate* a reply using those pieces as context. The naive version (covered here): **dump everything into the system prompt**. It works for a single small PDF, but breaks immediately at scale because of context-window limits and token cost. The naive approach is still a useful baseline to understand — it makes clear *exactly which* engineering improvements the proper two-phase architecture introduces.
 
-> [!info] Where this fits
+> [!NOTE]
+> **Where this fits**
 > Third lecture of **Section 8: Building Chat with PDF Project using RAG**. The naive approach is a stepping stone — the next notes replace each of its shortcomings with proper indexing ([[04 - The Indexing Phase]]) and retrieval ([[05 - The Retrieval Phase]]) phases.
 
 ---
@@ -106,7 +108,8 @@ Strictly speaking, the naive system **is** a RAG system. It's a particularly ine
 
 The "retrieval" step is just **degenerate** — it retrieves the entire corpus every time. Everything else is the same.
 
-> [!tip] Mental framing
+> [!TIP]
+> **Mental framing**
 > Proper RAG is the naive approach **with a smarter retrieval step**. That's it. The rest of the engineering (vector DBs, embeddings, chunking) is all in service of "retrieve only what's relevant."
 
 ---
@@ -147,7 +150,8 @@ LLMs perform worse with very long contexts:
 - Irrelevant material **distracts** the model — it may incorporate noise into the answer.
 - Total quality degrades as context length increases past a few thousand tokens.
 
-> [!warning] Even when the data fits, the answer often gets worse
+> [!WARNING]
+> **Even when the data fits, the answer often gets worse**
 > Adding more context isn't automatically better. Past a few thousand tokens of context, accuracy on specific queries usually **decreases** — the model is overwhelmed.
 
 ---
@@ -213,7 +217,8 @@ The next two notes unpack each phase.
 
 ## 9. Common confusions
 
-> [!warning] Things that confuse people about RAG
+> [!WARNING]
+> **Things that confuse people about RAG**
 
 | Misconception | Reality |
 |---|---|

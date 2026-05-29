@@ -24,10 +24,12 @@ related:
 
 # ChatML Prompting
 
-> [!abstract] TL;DR
+> [!NOTE]
+> **TL;DR**
 > **ChatML** = the **chat-completions message format**: a Python list of dictionaries, each with `role` (one of `system` / `user` / `assistant`) and `content` (string). Created by OpenAI for GPT-3.5 / GPT-4 and now the **de facto standard** across the LLM ecosystem — OpenAI, Gemini (via the OpenAI-compat endpoint), Claude (with minor variations), and most LLM gateways/proxies all speak ChatML. Cleanly handles multi-turn conversations, structured roles, and tool calls. **The only style that really matters in 99% of agentic-AI work.** Already used in [[02 - Using OpenAI API in Python]] and every code example in Section 3.
 
-> [!info] Where this fits
+> [!NOTE]
+> **Where this fits**
 > Third note of **Section 4: Prompt Serialization & Instruction Formats**. The format every code example so far already uses. This note formalizes what's been implicit.
 
 ---
@@ -54,7 +56,8 @@ Every entry has exactly two fields:
 
 That's the whole format. Simple.
 
-> [!note] How the roles map
+> [!NOTE]
+> **How the roles map**
 > Each message is an object with a `role` and a `content`. If `role` is `system`, `content` is the system prompt. If `role` is `user`, `content` is what the human typed. If `role` is `assistant`, `content` is a previous model reply — fed back in so the model has context for the next set of tokens.
 
 ---
@@ -87,7 +90,8 @@ Hi! How can I help?<|im_end|>
 
 Each turn is wrapped in `<|im_start|>...<|im_end|>` markers (these are **special tokens** in the tokenizer — see [[04 - What is a Token]]). The role appears as a plain token after `<|im_start|>`.
 
-> [!note] Why this matters
+> [!NOTE]
+> **Why this matters**
 > The OpenAI client SDK **handles this serialization automatically**. As an application developer, only the Python dict list is exposed. But it explains *why* the `role` field is needed — it's literally what the model sees in its tokens.
 
 ---
@@ -229,7 +233,8 @@ The result: writing code against the ChatML message format unlocks the **entire 
 
 ## 10. Common gotchas
 
-> [!warning] Things to watch for
+> [!WARNING]
+> **Things to watch for**
 
 | Gotcha | Detail |
 |---|---|

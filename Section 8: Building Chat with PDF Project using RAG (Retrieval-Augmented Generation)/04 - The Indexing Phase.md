@@ -22,10 +22,12 @@ related:
 
 # The Indexing Phase
 
-> [!abstract] TL;DR
+> [!NOTE]
+> **TL;DR**
 > The **indexing phase** is the offline, batch step where the entire corpus is pre-processed into a searchable form. Four sub-steps: (1) **load** the documents, (2) **chunk** them into smaller pieces (paragraph-level, page-level, or fixed character size — engineering decision), (3) **embed** each chunk into a vector using an embedding model (OpenAI's `text-embedding-3-large` or similar), and (4) **store** the vectors + original text + metadata in a **vector database** (Pinecone, Qdrant, Weaviate, Chroma, pgvector, etc.). Runs once when data arrives or updates; the cost is amortized across all future queries. By the end, every chunk of the corpus is **semantically searchable** in milliseconds.
 
-> [!info] Where this fits
+> [!NOTE]
+> **Where this fits**
 > Fourth lecture of **Section 8: Building Chat with PDF Project using RAG**. The first of the two phases. The next note ([[05 - The Retrieval Phase]]) covers how this index is **used** at query time. Notes 6-10 implement this phase in code.
 
 ---
@@ -143,7 +145,8 @@ Trade-offs:
 - **Smaller chunks** = more precise retrieval, but lose surrounding context.
 - **More overlap** = better continuity, but more storage and embedding cost.
 
-> [!tip] Practical starting point
+> [!TIP]
+> **Practical starting point**
 > `chunk_size=1000, chunk_overlap=200` — covered explicitly later in the section.
 
 ---

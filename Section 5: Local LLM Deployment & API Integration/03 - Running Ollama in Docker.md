@@ -21,10 +21,12 @@ related:
 
 # Running Ollama in Docker
 
-> [!abstract] TL;DR
+> [!NOTE]
+> **TL;DR**
 > Pull the official `ollama/ollama` image from Docker Hub and run it as a detached container with **port 11434 mapped** (where the Ollama API listens) and a **named volume** for model storage (so downloaded models survive container restarts). The full command: `docker run -d -v ollama:/root/.ollama -p 11434:11434 --name ollama ollama/ollama`. **Common gotcha**: running without `-p 11434:11434` leaves the container "up" but unreachable from the host. Once running, Ollama exposes a REST API on `localhost:11434` ready for the Open WebUI ([[04 - Open WebUI Setup and First Chat]]) and the Python SDK ([[06 - Connecting FastAPI to Ollama]]) to connect.
 
-> [!info] Where this fits
+> [!NOTE]
+> **Where this fits**
 > Third lecture of **Section 5: Local LLM Deployment & API Integration**. The actual installation step for the local-LLM stack. By the end, an Ollama server is running on `localhost:11434` — ready but with no models downloaded yet. The next lecture sets up the chat UI and pulls the first model.
 
 ---
@@ -79,7 +81,8 @@ docker run ollama/ollama
 
 The fix: **always include the `-p` flag**. The official command from the Docker Hub docs already has it.
 
-> [!warning] The lesson
+> [!WARNING]
+> **The lesson**
 > A container being "up" doesn't mean its services are reachable. **Port mapping is required for anything outside the container to talk to it.**
 
 ---
@@ -141,7 +144,7 @@ docker rm -f ollama          # force remove (even if running)
 docker run -d -v ollama:/root/.ollama -p 11434:11434 --name ollama ollama/ollama
 ```
 
-> [!note]
+> [!NOTE]
 > Because the named volume `ollama` persists across container removal, **downloaded models survive** even if the container is destroyed and recreated.
 
 ---
@@ -200,7 +203,8 @@ docker run -d --gpus all \
 
 The `--gpus all` flag passes the host's GPUs into the container. Requires the [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html) installed on the host.
 
-> [!warning] Apple Silicon (M1/M2/M3 Macs)
+> [!WARNING]
+> **Apple Silicon (M1/M2/M3 Macs)**
 > Docker Desktop on Apple Silicon **does not expose the GPU** to Linux containers. So Ollama in Docker on a Mac runs on CPU only. To use the Apple Neural Engine, install Ollama natively (`brew install ollama` or the Mac installer) instead of via Docker.
 >
 > Trade-off: native install gives GPU acceleration on Mac but loses cross-platform parity.
@@ -242,7 +246,8 @@ The Open WebUI ([[04 - Open WebUI Setup and First Chat]]) uses the same operatio
 
 ## 11. Common gotchas
 
-> [!warning] Things that go wrong on first run
+> [!WARNING]
+> **Things that go wrong on first run**
 
 | Symptom | Cause | Fix |
 |---|---|---|

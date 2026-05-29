@@ -23,10 +23,12 @@ related:
 
 # Hugging Face CLI Setup and Login
 
-> [!abstract] TL;DR
+> [!NOTE]
+> **TL;DR**
 > Install the **Hugging Face CLI** (the official command-line tool for the Hub), then **log in** with an **access token** generated from the HF web UI. Two install paths: `pip install -U "huggingface_hub[cli]"` (works everywhere) or `brew install huggingface-cli` (the macOS shortcut I used). Login command: **`huggingface-cli login`** → paste a token created at *Settings → Access Tokens → New token* with at least **Read** permission. Once logged in, the token is cached at `~/.cache/huggingface/token` and **every HF-aware tool on the machine** (`transformers`, `datasets`, `huggingface_hub`, etc.) auto-uses it — no env vars needed.
 
-> [!info] Where this fits
+> [!NOTE]
+> **Where this fits**
 > Fourth note of **Section 6: Running LLMs via Hugging Face Hub**. With an HF account ([[02 - Setting up Hugging Face Account]]) and an accepted gated model ([[03 - Accessing Gated Models]]), this step sets up the **local authentication** so the `transformers` library can download authenticated models. Next: [[05 - Using the Transformers Package]] uses this auth to actually run the model.
 
 ---
@@ -92,7 +94,8 @@ Tokens are HF's API credentials — similar to OpenAI's `sk-...` keys ([[01 - Se
 5. Click **Create token**.
 6. **Copy the token immediately** — HF only shows it once.
 
-> [!warning] Token security
+> [!WARNING]
+> **Token security**
 > Treat tokens like passwords:
 > - Don't commit to git (use `.env` or the HF cache).
 > - Don't paste in screenshots / videos.
@@ -147,7 +150,8 @@ Every HF library checks this path automatically:
 - `datasets` — for downloading datasets.
 - `huggingface_hub` — for everything else.
 
-> [!tip] Multi-user setups
+> [!TIP]
+> **Multi-user setups**
 > The cache is per-user. On shared machines, each user must run `huggingface-cli login` separately. To override the cache location: `export HF_HOME=/custom/path`.
 
 ---
@@ -202,7 +206,8 @@ Useful for:
 - Docker containers (set the env var at runtime).
 - Avoiding storing tokens in plain text in the home dir.
 
-> [!note] Order of precedence
+> [!NOTE]
+> **Order of precedence**
 > The HF libraries check (in order):
 > 1. `HF_TOKEN` env var.
 > 2. Token passed explicitly to function calls.
@@ -229,7 +234,8 @@ Rotate tokens periodically (every 6 months or after suspected compromise). Revok
 
 ## 9. Common gotchas
 
-> [!warning] CLI / login issues
+> [!WARNING]
+> **CLI / login issues**
 
 | Symptom | Likely cause | Fix |
 |---|---|---|

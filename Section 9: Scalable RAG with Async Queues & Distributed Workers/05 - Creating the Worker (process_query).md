@@ -21,10 +21,12 @@ related:
 
 # Creating the Worker (process_query)
 
-> [!abstract] TL;DR
+> [!NOTE]
+> **TL;DR**
 > Define `process_query(query: str) -> str` in `queues/worker.py` — the function that **workers run for each enqueued job**. Body is the **same retrieval logic from [[11 - Building the Retrieval (chat.py)|Section 8's chat.py]]**, but refactored into a function (no `while True`, no `input()`, just take a query argument and return a string). Reuses the existing Qdrant vector store + OpenAI client setup. Once defined, the chat route enqueues this function: `queue.enqueue(process_query, user_query)`. The worker (started in a separate process) picks up the job, calls `process_query(...)`, and stashes the return value in Valkey for the polling route to fetch. **The "consumer" in the producer-consumer pattern.**
 
-> [!info] Where this fits
+> [!NOTE]
+> **Where this fits**
 > Fifth lecture of **Section 9: Scalable RAG with Async Queues & Distributed Workers**. Defines the work that gets done. The next lectures set up the **producer** side (FastAPI + chat route) that enqueues calls to this function.
 
 ---
@@ -61,7 +63,8 @@ The worker version:
 
 Everything else — embedding model, vector store connection, system prompt, LLM call — is identical.
 
-> [!tip] Why this is clean
+> [!TIP]
+> **Why this is clean**
 > The RAG logic was already a **pure function**: query → response. Section 8's chat loop was incidental I/O wrapping it. Refactoring is just **extracting the function** that was always there.
 
 ---
@@ -156,7 +159,8 @@ This matters because:
 
 This is the standard "expensive init outside, cheap call inside" pattern for hot paths.
 
-> [!warning] But this has a subtlety
+> [!WARNING]
+> **But this has a subtlety**
 > The module imports `OpenAI()` and `OpenAIEmbeddings(...)` at import time, both of which read `OPENAI_API_KEY` from the environment. If the worker process doesn't have the env loaded **before** importing `worker.py`, the constructors fail.
 >
 > This bug shows up later in [[09 - Running RQ Workers in Parallel]] — the fix is `load_dotenv()` at the top of `worker.py`:
@@ -262,7 +266,8 @@ The **consumer side is defined**, but no workers are running yet. The next notes
 
 ## 11. Common gotchas
 
-> [!warning] Worker function issues
+> [!WARNING]
+> **Worker function issues**
 
 | Symptom | Cause | Fix |
 |---|---|---|

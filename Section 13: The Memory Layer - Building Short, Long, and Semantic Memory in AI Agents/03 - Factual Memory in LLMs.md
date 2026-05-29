@@ -22,10 +22,12 @@ related:
 
 # Factual Memory in LLMs
 
-> [!abstract] TL;DR
+> [!NOTE]
+> **TL;DR**
 > **Factual memory** is the **first sub-type of [[02 - Long-Term Memory in LLMs|Long-Term Memory]]**. It stores **stable facts about the user** — name, age, location, preferences. It's **small**, **slow-changing**, and **always injected into the context** of every session. The "profile card" the agent never forgets.
 
-> [!info] Where this fits
+> [!NOTE]
+> **Where this fits**
 > Factual memory is one of three LTM sub-types, alongside [[04 - Episodic Memory in LLMs]] (past interactions) and [[05 - Semantic Memory in LLMs]] (world knowledge). See [[00 - Types of Memory in LLMs]] for the full taxonomy.
 
 ---
@@ -65,7 +67,8 @@ Factual memory is:
 | **Style** | Communication style (formal / casual / technical) |
 | **Domain context** | "Works in finance", "Studies AI", "Vegan" |
 
-> [!example] Concrete factual-memory entry
+> [!NOTE]
+> **Concrete factual-memory entry**
 > ```json
 > {
 >   "name": "Jayanth",
@@ -96,7 +99,8 @@ Those persistent, **summary-level facts** about a person? **That's factual memor
 
 The forgotten conversations? Those belong in **episodic memory** (covered next).
 
-> [!tip] Mental model
+> [!TIP]
+> **Mental model**
 > Factual memory = the **profile card** held in mind — a small, stable set of facts. Episodic memory = the **album of moments** with that person.
 
 ---
@@ -155,7 +159,7 @@ def build_system_prompt(user_id):
     """
 ```
 
-> [!note]
+> [!NOTE]
 > Compared with episodic/semantic memory — those require **semantic search** to pick *which* memories to retrieve. Factual is simple: **fetch them all, always.**
 
 ---
@@ -168,7 +172,7 @@ Because it's so small, factual memory:
 - **Doesn't need ranking** — every fact is relevant.
 - **Is easy to update** — overwrite the field; no embeddings to recompute.
 
-> [!tip]
+> [!TIP]
 > When starting to add memory to an AI agent, **factual memory is the easiest win** — minimal infra, maximum personalization impact.
 
 ---
@@ -210,7 +214,8 @@ Output format preference = factual memory.
 
 ## 10. Gotchas & best practices
 
-> [!warning] Watch out for these
+> [!WARNING]
+> **Watch out for these**
 
 - **Don't overstuff** — factual memory should stay small. Long histories belong in episodic.
 - **Versioning** — if a fact changes (user moves cities), update with timestamp; don't keep both.

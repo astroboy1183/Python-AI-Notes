@@ -20,10 +20,12 @@ related:
 
 # Few-Shot Prompting
 
-> [!abstract] TL;DR
+> [!NOTE]
+> **TL;DR**
 > **Few-shot prompting** = zero-shot instructions **plus a handful of concrete input/output examples** embedded in the prompt. The model learns the task pattern from the examples and applies it to new inputs. Dramatically improves accuracy over zero-shot for specialized, format-sensitive, or nuanced tasks. Real-world few-shot prompts often use **50–60 examples** for production accuracy. Cost: more tokens per call. Benefit: ~5–50× accuracy improvement on the right kinds of tasks. Upgrading the coding-only Alexa assistant with examples makes the model refuse non-coding questions much more reliably.
 
-> [!info] Where this fits
+> [!NOTE]
+> **Where this fits**
 > Fourth note of **Section 3: Advanced Prompt Engineering Techniques**. Direct evolution of [[03 - Zero-Shot Prompting]]: same skeleton, plus examples baked into the system prompt. The next note ([[05 - Structured Output with Few-Shot Prompting]]) shows how the examples can also lock down the **output format**, not just behavior.
 
 ---
@@ -126,7 +128,8 @@ Sorry, I can only help with coding-related questions.
 
 Compared to plain zero-shot (where the same model sometimes still answered the math question), the example made the refusal pattern **explicit** and the model followed it reliably.
 
-> [!tip] Why this works
+> [!TIP]
+> **Why this works**
 > The math question matches the first example almost exactly. The model sees the pattern "math question → polite refusal" and copies it.
 
 ---
@@ -186,7 +189,8 @@ Cons:
 - More verbose code.
 - Harder to manage as one bag of state.
 
-> [!tip] Practical recommendation
+> [!TIP]
+> **Practical recommendation**
 > For prototyping: **Style A** (everything in the system prompt). For production: try both — sometimes Style B gives noticeably better adherence.
 
 ---
@@ -211,7 +215,8 @@ A reasonable progression:
 - Iterate: add examples for **failure modes** observed in testing.
 - Production: typically **10–60 examples**, sometimes more.
 
-> [!warning] Diminishing returns
+> [!WARNING]
+> **Diminishing returns**
 > Going from 0 → 5 examples is often a huge accuracy jump. From 5 → 20 is smaller. From 20 → 50 smaller still. Past ~50, gains usually flatten — and may even reverse if examples become noisy or contradict each other.
 
 ---
@@ -227,7 +232,8 @@ A reasonable progression:
 | **Consistent format** | If outputs vary in format across examples, the model gets confused. |
 | **Concise** | Each example costs tokens; trim filler. |
 
-> [!tip] Source of examples
+> [!TIP]
+> **Source of examples**
 > The best examples often come from **actual usage**:
 > - Past user conversations.
 > - Past support tickets.
@@ -263,14 +269,16 @@ For very simple tasks (translation, summarization), few-shot often **doesn't hel
 | Few-shot (20 examples) | 2k–8k | Often +20–50% | $$$ |
 | Few-shot (50+ examples) | 8k–30k | Diminishing returns | $$$$ |
 
-> [!note] Prompt caching reduces this cost
+> [!NOTE]
+> **Prompt caching reduces this cost**
 > OpenAI now supports **prompt caching** — repeated system prompts (including long few-shot examples) are processed once and cached. Subsequent calls only pay full price for the new user message. This makes long few-shot prompts much more cost-effective in production.
 
 ---
 
 ## 10. Anti-patterns
 
-> [!warning] Common mistakes
+> [!WARNING]
+> **Common mistakes**
 
 | Mistake | Fix |
 |---|---|

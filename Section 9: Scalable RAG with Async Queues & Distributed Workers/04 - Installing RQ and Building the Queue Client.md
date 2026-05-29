@@ -19,10 +19,12 @@ related:
 
 # Installing RQ and Building the Queue Client
 
-> [!abstract] TL;DR
+> [!NOTE]
+> **TL;DR**
 > Install **`rq`** — Redis Queue, a minimal Python job-queue library — with `pip install rq`. Lay out the project folder structure with `client/` (connection setup) and `queues/` (worker functions). Create `client/rq_client.py` that constructs the queue: `queue = Queue(connection=Redis(host="localhost", port=6379))`. This `queue` object exposes `.enqueue(...)` to submit jobs (used by the FastAPI server) and `.fetch_job(...)` to look up results. The Valkey container from [[03 - Setting up Valkey (Redis Alternative)]] is the backing store — no extra configuration needed because Valkey speaks Redis protocol. End state: a queue handle is ready, but nothing's been enqueued yet.
 
-> [!info] Where this fits
+> [!NOTE]
+> **Where this fits**
 > Fourth lecture of **Section 9: Scalable RAG with Async Queues & Distributed Workers**. Hands-on coding starts here. Next ([[05 - Creating the Worker (process_query)]]) defines the worker function that consumes from this queue.
 
 ---
@@ -268,7 +270,8 @@ Not wired in for this section, but extremely useful for debugging production set
 
 ## 12. Common gotchas
 
-> [!warning] First-time RQ + Valkey issues
+> [!WARNING]
+> **First-time RQ + Valkey issues**
 
 | Symptom | Cause | Fix |
 |---|---|---|

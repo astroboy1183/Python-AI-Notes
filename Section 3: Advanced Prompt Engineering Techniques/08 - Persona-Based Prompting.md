@@ -21,10 +21,12 @@ related:
 
 # Persona-Based Prompting
 
-> [!abstract] TL;DR
+> [!NOTE]
+> **TL;DR**
 > **Persona-based prompting** = build a system prompt that makes the LLM **mimic a specific person**. Background facts + tone examples turn a generic assistant into a believable clone of someone — useful for AI tutors that "sound like" their teacher, personal-style chatbots, character bots in games, or AI versions of public figures. The recipe: (1) explicit biographical context about the person, (2) **lots of real-life examples** of how they actually talk — 100-150 examples from chat history, social posts, comments, etc., (3) optional rules for tone and refusal. Heavily relies on the [[04 - Few-Shot Prompting|few-shot]] pattern — examples > description for capturing a voice. With enough good examples, the LLM produces eerily on-brand replies.
 
-> [!info] Where this fits
+> [!NOTE]
+> **Where this fits**
 > Eighth and final note of **Section 3: Advanced Prompt Engineering Techniques**. Closes out the section. Combines lessons from [[02 - What is Prompting]] (system prompts), [[04 - Few-Shot Prompting]] (the 100+ examples rule), and a touch of personality engineering. After this, **Section 4** moves into **prompt serialization** (saving / loading / templating prompts).
 
 ---
@@ -49,7 +51,8 @@ The goal isn't "play a role" generically (e.g., "be a teacher") — it's "be **t
 | **Practice tools** | Chat with an AI version of someone you actually know (a friend) for fun |
 | **Historical figures** | Educational tools where you "talk to" Einstein, Lincoln, etc. |
 
-> [!tip] The framing
+> [!TIP]
+> **The framing**
 > This pattern is used when the goal is to **clone someone** — make the AI talk in their specific tone, not just play a generic role.
 
 ---
@@ -160,7 +163,8 @@ Realistic sources:
 | **Blog posts / articles** | Long-form writing voice |
 | **Transcripts of talks** | Spoken-word patterns |
 
-> [!warning] Consent matters
+> [!WARNING]
+> **Consent matters**
 > Cloning **someone else's** voice without consent is ethically dicey — and possibly illegal depending on jurisdiction. Stick to:
 > - Yourself.
 > - Public figures with publicly-published content.
@@ -274,7 +278,8 @@ In practice, the most ambitious AI products (Character.AI, Replika, etc.) layer 
 
 ## 10. Anti-patterns
 
-> [!warning] Persona prompt mistakes
+> [!WARNING]
+> **Persona prompt mistakes**
 
 | Mistake | Fix |
 |---|---|
@@ -298,7 +303,8 @@ How to know if the persona prompt is "good"?
 4. **Refusal handling** — does the persona refuse out-of-bounds topics in character?
 5. **Vocabulary check** — do signature words/phrases show up naturally?
 
-> [!tip] The "would they say this?" test
+> [!TIP]
+> **The "would they say this?" test**
 > The cleanest gut-check: read every AI reply aloud, asking "would this person actually say this exact thing?" If the answer is consistently yes, the persona is dialed in.
 
 ---

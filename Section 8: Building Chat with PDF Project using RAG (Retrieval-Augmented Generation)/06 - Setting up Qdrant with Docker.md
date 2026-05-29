@@ -21,10 +21,12 @@ related:
 
 # Setting up Qdrant with Docker
 
-> [!abstract] TL;DR
+> [!NOTE]
+> **TL;DR**
 > First infrastructure step of the implementation: spin up a local **Qdrant** vector database via **Docker Compose**. Brief tour of the vector-DB landscape (Pinecone, Weaviate, Chroma, pgvector, Qdrant) and why this section picks **Qdrant** — open source, lightweight, fast, easy local setup. Create a `docker-compose.yml` declaring one service (`vector-db`) using the `qdrant/qdrant` image and exposing port **6333**. Bring it up with `docker compose up -d`. The Qdrant web UI becomes available at `localhost:6333/dashboard` showing collections, segments, and stored vectors. From here, the indexing code ([[10 - Creating Vector Embeddings and Storing in Qdrant]]) and retrieval code ([[11 - Building the Retrieval (chat.py)]]) connect to this database.
 
-> [!info] Where this fits
+> [!NOTE]
+> **Where this fits**
 > Sixth lecture of **Section 8: Building Chat with PDF Project using RAG**. First hands-on step. The next four notes use LangChain to populate this database from a PDF. Note 11 queries it for retrieval.
 
 ---
@@ -260,7 +262,8 @@ This pattern shows up in both [[10 - Creating Vector Embeddings and Storing in Q
 
 ## 10. Common gotchas
 
-> [!warning] First-time setup issues
+> [!WARNING]
+> **First-time setup issues**
 
 | Symptom | Cause | Fix |
 |---|---|---|

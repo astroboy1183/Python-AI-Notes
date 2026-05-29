@@ -20,10 +20,12 @@ related:
 
 # Building a Memory-Aware Assistant
 
-> [!abstract] TL;DR
+> [!NOTE]
+> **TL;DR**
 > Put it all together into an assistant that remembers across turns **without** stuffing the full chat history into the prompt. Two halves: **(1) Write** — after each exchange, `memory.add([{user msg}, {assistant msg}], user_id="jayanth")`; Mem0 uses its LLM to extract durable facts and stores them in Qdrant. **(2) Read** — *before* answering, `memory.search(query, user_id="jayanth")`, pull `["results"]`, format the relevant memories into a **system prompt**, and prepend it. The magic: I only ever send the *current* question plus the *relevant* memories — not the whole conversation — yet the bot knows my name, that I like pizza, etc. Mem0 even handles **contradictions** (say "I like ice cream", then "I don't" → it updates/deletes the old memory). Memories are scoped by **`user_id`**, so users never see each other's facts. Two bugs to dodge: pass `user_id` to `search` too, and read results from `search(...)["results"]`.
 
-> [!info] Where this fits
+> [!NOTE]
+> **Where this fits**
 > Ninth note of **Section 13** and the capstone of the hands-on memory build. Uses the client from [[07 - Configuring the Mem0 Memory Client]] and the Qdrant from [[08 - Setting up Qdrant for Mem0]]. It's the concrete payoff of the **semantic/factual memory** theory in [[03 - Factual Memory in LLMs]] and [[05 - Semantic Memory in LLMs]].
 
 ---
@@ -89,7 +91,8 @@ print("Memory has been saved")
 
 `memory.add(...)` automatically **extracts semantic/factual memories** from the messages and stores them. I don't tell it *what* to remember — its LLM (gpt-4.1 from the config) decides.
 
-> [!important] `user_id` scopes the memory
+> [!IMPORTANT]
+> **`user_id` scopes the memory**
 > Just like a LangGraph `thread_id`, every `add` needs a **`user_id`**. Memories are stored *per user* — facts for `"jayanth"` live under "jayanth" and never bleed into another user's recall.
 
 ### Watching it land in Qdrant
@@ -133,7 +136,8 @@ A striking behaviour: tell it *"I like to have ice cream at night"* → Qdrant g
 "actually I don't like it"    → memory: (old one removed / replaced)
 ```
 
-> [!tip] This is why an LLM does the extraction
+> [!TIP]
+> **This is why an LLM does the extraction**
 > Naive storage would keep both contradictory statements. Because gpt-4.1 *reasons* about the new info against the old, it can **update or delete** stale memories — the kind of consolidation a real memory system needs.
 
 ---
@@ -147,7 +151,8 @@ add()  ✅  facts go into Qdrant
 search() ❌  nothing pulls them back into the prompt
 ```
 
-> [!warning] Saving is only half the loop
+> [!WARNING]
+> **Saving is only half the loop**
 > Memory is useless if it's never retrieved. The assistant needs a **retrieval layer** before the LLM call — search for relevant memories and inject them.
 
 ---
@@ -164,7 +169,8 @@ memories = search_result["results"]
 - `search(query, user_id)` returns **only relevant** memories — not all of them. It embeds the query and does a similarity search in Qdrant.
 - The results live under the **`["results"]`** key.
 
-> [!warning] Two bugs that bite here
+> [!WARNING]
+> **Two bugs that bite here**
 > **Bug 1 — missing `user_id` in `search`.** `search` needs the **same `user_id`** as `add`, or it errors / finds nothing. Easy to forget since `add` already had it.
 > **Bug 2 — `["results"]`.** `search(...)` returns a dict; the memories are inside `search_result["results"]`, not the top-level object. Iterating the raw return value fails.
 
@@ -314,7 +320,8 @@ Retrieve → answer → store. The "brain" is Mem0; the storage is Qdrant; only 
 
 ## 13. Common gotchas
 
-> [!warning] Memory-assistant issues
+> [!WARNING]
+> **Memory-assistant issues**
 
 | Symptom | Cause | Fix |
 |---|---|---|

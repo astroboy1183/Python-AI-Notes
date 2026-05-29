@@ -21,10 +21,12 @@ related:
 
 # The Chat Route — Enqueueing Jobs
 
-> [!abstract] TL;DR
+> [!NOTE]
+> **TL;DR**
 > Add a **`POST /chat`** route to `server.py` that accepts a `query` parameter, calls **`queue.enqueue(process_query, query)`**, and returns **immediately** with `{ "status": "queued", "job_id": "<uuid>" }`. The user sees an instant response — the server never blocks waiting for retrieval. Workers (started later) will pick up the job and run `process_query`. This is the **producer side** of the producer-consumer architecture. Two key insights: (1) the server is **completely free** between requests, and (2) the job ID is the **contract** between submission and result-fetching. Subtle bug to watch for: `load_dotenv()` must be the **first thing** in `server.py` (before any imports that need API keys at module-import time).
 
-> [!info] Where this fits
+> [!NOTE]
+> **Where this fits**
 > Seventh lecture of **Section 9: Scalable RAG with Async Queues & Distributed Workers**. The producer side is now complete. The next lecture ([[08 - The Get Result Route - Fetching Job Status]]) adds the consumer-facing polling route.
 
 ---
@@ -62,7 +64,8 @@ Two new imports:
 - `queue` — the RQ queue from [[04 - Installing RQ and Building the Queue Client]].
 - `process_query` — the worker function from [[05 - Creating the Worker (process_query)]].
 
-> [!warning] Import order matters
+> [!WARNING]
+> **Import order matters**
 > Both `queue` (which connects to Valkey) and `process_query` (whose module connects to OpenAI / Qdrant) need their dependencies at **import time**. If `OPENAI_API_KEY` isn't loaded yet, `worker.py`'s module-level `OpenAI()` call fails.
 >
 > Fix: `load_dotenv()` at the **top** of `server.py`:
@@ -121,7 +124,8 @@ Behind the scenes:
 
 The function **has not run yet** when `enqueue` returns. It's just sitting in Valkey, waiting for a worker.
 
-> [!important] What you get back is a ticket, not a result
+> [!IMPORTANT]
+> **What you get back is a ticket, not a result**
 > `process_query` may take 10, 20, 30 seconds. The return value of `enqueue` is **not the answer** — it's the **job ID**. You've effectively said "get in line." The actual result is fetched later via the result route.
 
 ---
@@ -282,7 +286,8 @@ For learning, `Body(...)` is fine. For real APIs, Pydantic is the standard.
 
 ## 12. Common gotchas
 
-> [!warning] Chat route issues
+> [!WARNING]
+> **Chat route issues**
 
 | Symptom | Cause | Fix |
 |---|---|---|

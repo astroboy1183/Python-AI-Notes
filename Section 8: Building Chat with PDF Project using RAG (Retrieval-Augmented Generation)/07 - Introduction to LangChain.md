@@ -22,10 +22,12 @@ related:
 
 # Introduction to LangChain
 
-> [!abstract] TL;DR
+> [!NOTE]
+> **TL;DR**
 > **LangChain** is a Python library that provides **pre-built utilities** for common AI plumbing tasks: loading documents (PDFs, web pages, Slack, Notion), splitting text into chunks, calling embedding models, talking to vector databases, and orchestrating LLM calls. Without LangChain, every RAG pipeline reimplements the same boilerplate. With it: `pip install` the right packages, import a few classes, and the plumbing is done. **Modular by design** — install only what's needed (`langchain-community` for general utilities, `langchain-text-splitters`, `langchain-openai`, `langchain-qdrant`, etc.). The section uses LangChain for PDF loading, chunking, embeddings, and vector-store integration. Same job could be done from scratch — LangChain saves ~80% of the boilerplate.
 
-> [!info] Where this fits
+> [!NOTE]
+> **Where this fits**
 > Seventh lecture of **Section 8: Building Chat with PDF Project using RAG**. Introduces the library used in notes 8-11 to actually implement the RAG pipeline. From here forward, every step uses a LangChain helper.
 
 ---
@@ -80,7 +82,8 @@ LangChain has split from one giant package into many small ones:
 | `langchain-text-splitters` | Text chunking utilities |
 | `langchain-experimental` | Newer / experimental features |
 
-> [!tip] Why modular?
+> [!TIP]
+> **Why modular?**
 > The old monolithic `langchain` package pulled in **everything** as transitive dependencies — even features you didn't use. The modular split means: install only what's needed → smaller installs, fewer dependency conflicts.
 
 ---
@@ -104,7 +107,8 @@ pip freeze > requirements.txt
 
 The first two packages get installed in [[08 - Loading PDFs with PyPDFLoader]] (`langchain-community` is needed for `PyPDFLoader`, `pypdf` is the underlying PDF reader). Subsequent notes add the rest as needed.
 
-> [!note] Tip
+> [!NOTE]
+> **Tip**
 > A safer one-liner that handles all four at once:
 > ```bash
 > pip install langchain-community pypdf langchain-text-splitters langchain-openai langchain-qdrant
@@ -164,7 +168,8 @@ Alternatives some teams prefer:
 
 For learning RAG, **LangChain is fine**. For production, evaluate based on team taste and requirements.
 
-> [!warning] Don't conflate "Section uses LangChain" with "must always use LangChain"
+> [!WARNING]
+> **Don't conflate "Section uses LangChain" with "must always use LangChain"**
 > This section uses LangChain because it's the most-documented approach and the easiest to learn with. Real production setups often replace LangChain with thinner wrappers once requirements stabilize.
 
 ---

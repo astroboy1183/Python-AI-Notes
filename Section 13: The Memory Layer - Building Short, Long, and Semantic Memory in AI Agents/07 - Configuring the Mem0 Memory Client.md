@@ -19,10 +19,12 @@ related:
 
 # Configuring the Mem0 Memory Client
 
-> [!abstract] TL;DR
+> [!NOTE]
+> **TL;DR**
 > Build an explicit Mem0 config — a dict with **three** blocks plus a version. **`embedder`**: OpenAI, `text-embedding-3-small`, with the API key (read from the env). **`llm`**: OpenAI, `gpt-4.1`, used to *extract* facts/memories from conversations. **`vector_store`**: Qdrant at `localhost:6333`. Set `version: "v1.1"`. Then create the client with `memory = Memory.from_config(config)`. That single client object is what I'll use to `add` and `search` memories. The split is the key insight: an **embedding model** turns text into vectors, an **LLM** decides *what* is worth remembering, and a **vector store** holds the results.
 
-> [!info] Where this fits
+> [!NOTE]
+> **Where this fits**
 > Seventh note of **Section 13**. It builds the Mem0 client configured for Qdrant (installed in [[06 - Setting up Mem0 with Python]]). [[08 - Setting up Qdrant for Mem0]] stands up the Qdrant container the config points at.
 
 ---
@@ -100,7 +102,8 @@ Which model **extracts memories** (facts) from a conversation:
 
 Same provider/config shape as the embedder — the only difference is `model: "gpt-4.1"`.
 
-> [!important] Two different models, two different jobs
+> [!IMPORTANT]
+> **Two different models, two different jobs**
 > The **embedder** (`text-embedding-3-small`) converts text into vectors for similarity search. The **LLM** (`gpt-4.1`) *reads* a conversation and decides which facts are worth remembering (e.g. "the user's name is Jayanth", "likes pizza"). They're not interchangeable — embeddings measure similarity; the LLM does the reasoning about *what* to store.
 
 ---
@@ -187,7 +190,8 @@ On retrieval the flow reverses: a query is embedded and matched against the stor
 
 ## 8. Common gotchas
 
-> [!warning] Config issues
+> [!WARNING]
+> **Config issues**
 
 | Symptom | Cause | Fix |
 |---|---|---|

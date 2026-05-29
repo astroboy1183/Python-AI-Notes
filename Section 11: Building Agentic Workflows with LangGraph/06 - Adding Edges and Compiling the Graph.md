@@ -18,10 +18,12 @@ related:
 
 # Adding Edges and Compiling the Graph
 
-> [!abstract] TL;DR
+> [!NOTE]
+> **TL;DR**
 > Edges define **execution order**. Import the two special markers `START` and `END` from `langgraph.graph` — they tell the graph where to begin and where to stop. Then wire the flow with `graph_builder.add_edge(...)`: `add_edge(START, "chatbot")`, `add_edge("chatbot", "sample_node")`, `add_edge("sample_node", END)`. That's three edges forming `START → chatbot → sample_node → END`. Finally, **compile** the builder into a runnable graph: `graph = graph_builder.compile()`. The compiled `graph` is the object I invoke (next note). Add a `print` in each node to watch the state flow through in order.
 
-> [!info] Where this fits
+> [!NOTE]
+> **Where this fits**
 > Sixth note of **Section 11**. Nodes exist (from [[05 - Coding the Nodes]]); now I connect them with edges and compile. [[07 - Running the Graph]] invokes the compiled graph and watches the state accumulate.
 
 ---
@@ -110,7 +112,8 @@ graph_builder  ──compile()──►  graph   (runnable, invokable)
 
 `compile()` validates the structure (e.g. reachable from START, leads to END) and returns the **runnable graph** object. That `graph` is what I `invoke` in the next note.
 
-> [!tip] Compile is also where validation happens
+> [!TIP]
+> **Compile is also where validation happens**
 > If an edge points at a node that doesn't exist, or the graph can't reach END, errors surface at `compile()` time — before I ever run it. It's a useful structural sanity check.
 
 ---
@@ -171,7 +174,8 @@ A simple linear graph — exactly the kind of picture LangGraph makes the code m
 
 ## 8. Common gotchas
 
-> [!warning] Edge / compile issues
+> [!WARNING]
+> **Edge / compile issues**
 
 | Symptom | Cause | Fix |
 |---|---|---|

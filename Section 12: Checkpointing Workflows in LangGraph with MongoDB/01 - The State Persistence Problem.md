@@ -19,10 +19,12 @@ related:
 
 # The State Persistence Problem
 
-> [!abstract] TL;DR
+> [!NOTE]
+> **TL;DR**
 > The LangGraph chatbot from Section 11 has a hidden flaw: its **state lives only in memory**. While a graph is being invoked, every node sees the up-to-date state — but the moment `invoke` finishes, **that state is gone**. Re-run the app and it starts from a blank slate. Demo: tell it "my name is Jayanth" → it replies "Hello Jayanth"; but run it again asking "what is my name?" → "I don't know your name." Each run is a fresh, empty state with just the one new message. For a real assistant I need the conversation to **survive across runs (and days)**. The fix is **checkpointing** — persisting the graph's state to a database so it can be reloaded later. That's what this whole section is about.
 
-> [!info] Where this fits
+> [!NOTE]
+> **Where this fits**
 > First note of **Section 12: Checkpointing Workflows in LangGraph with MongoDB**. It diagnoses the problem; [[02 - Setting up MongoDB with Docker Compose]] sets up the storage, and [[03 - Implementing Checkpointing with MongoDBSaver]] wires it in.
 
 ---
@@ -97,7 +99,8 @@ It has no idea. Why? Because run 2 is a **completely fresh state** that starts f
 
 A real chatbot/assistant must remember across sessions. If I close the app and come back **tomorrow**, it should still know who I am and what we discussed. In-memory state can't do that — it dies with the process.
 
-> [!warning] No persistence = no memory
+> [!WARNING]
+> **No persistence = no memory**
 > Without a way to store state, every run is a stranger meeting me for the first time. Multi-turn conversations that span app restarts are impossible.
 
 This is exactly the kind of "memory layer" problem explored conceptually back in Section 13 — here it shows up concretely inside LangGraph, and the solution is mechanical: persist the state.
@@ -106,7 +109,8 @@ This is exactly the kind of "memory layer" problem explored conceptually back in
 
 ## 5. The solution: checkpointing
 
-> [!note] The idea
+> [!NOTE]
+> **The idea**
 > **Checkpointing** = saving the graph's state to a **persistent store** (a database) so it can be reloaded on the next run. The conversation survives across invocations, restarts, and days.
 
 ```

@@ -24,13 +24,16 @@ related:
 
 # Setting up OpenAI Account
 
-> [!abstract] TL;DR
+> [!NOTE]
+> **TL;DR**
 > Before any Python code can call GPT, the account groundwork needs to be done at **platform.openai.com**. Sign in with Google (or email), land on the **Dashboard**, then visit four key areas: **Playground** (try prompts visually), **Usage** (track token spend), **API keys** (the credentials code will use), and **Billing → Add credits** (mandatory: minimum **$5** to use the API). Once topped up and an API key is generated, the credential gets pasted into project code (typically via an environment variable). Based on my own experimentation, **$5 is more than enough for the whole course**.
 
-> [!info] Where this fits
+> [!NOTE]
+> **Where this fits**
 > First note of **Section 2: API Setup & Integration** — the section's whole purpose is going from "LLM theory" (everything in Section 1) to **actually calling a real LLM from code**. This note covers the account / billing / credentials side. The next note ([[02 - Using OpenAI API in Python]]) puts those credentials to work.
 
-> [!warning] Cost — heads-up
+> [!WARNING]
+> **Cost — heads-up**
 > The OpenAI API is **not free**. Every call costs money (per-token pricing), and the minimum top-up is **$5**. I've used about a few cents across many experiments — but it's still real money. If avoiding any payment is required, Gemini's API is free (covered in [[03 - Setting up Gemini API - Free Alternative]]).
 
 ---
@@ -76,7 +79,7 @@ The Playground is a graphical interface for experimenting:
 
 The Playground is also there just in case I want to play around with something without writing any code.
 
-> [!tip]
+> [!TIP]
 > The Playground is the fastest way to compare two prompts side-by-side, or to gauge how a prompt will behave before committing to it in code. Iteration cycle: ~5 seconds in the Playground vs ~30 seconds in a code+run loop.
 
 ---
@@ -89,7 +92,8 @@ The **Usage** page is the budget watchdog:
 - Tokens consumed (input + output) per model.
 - Useful for catching runaway costs from accidentally-looping scripts.
 
-> [!example] Typical course-relevant costs (illustrative)
+> [!NOTE]
+> **Typical course-relevant costs (illustrative)**
 >
 > | Activity | Approx cost |
 > |---|---|
@@ -110,7 +114,7 @@ Pricing reference (approximate, mid-2020s):
 | GPT-3.5-turbo | ~$0.50 | ~$1.50 |
 | o3-mini | varies | varies |
 
-> [!note]
+> [!NOTE]
 > Token counts come from the same tokenization seen in [[04 - What is a Token]]. Counting tokens *before* sending (with [[05 - Coding our Own Tokenizer|tiktoken]]) lets cost get estimated up front.
 
 ---
@@ -131,10 +135,12 @@ The API is not free to use — every call costs money based on tokens consumed. 
 
 After payment, the dashboard shows a **credit balance** that ticks down with each API call.
 
-> [!warning] Watch for auto-recharge
+> [!WARNING]
+> **Watch for auto-recharge**
 > OpenAI's billing settings have an "auto-recharge when balance falls below X" option. **Default it to OFF** unless real production usage is happening. Otherwise an accidental loop could blow through hundreds of dollars without manual intervention.
 
-> [!tip] Set a hard usage limit
+> [!TIP]
+> **Set a hard usage limit**
 > Under **Settings → Limits → Monthly budget**, set a hard cap (e.g., $10/month). If usage exceeds that, the API stops working. Acts as a safety net for runaway scripts.
 
 ---
@@ -150,7 +156,8 @@ Path: **Dashboard → API keys → Create new secret key**
 - Optional: scope it to a specific project (a feature OpenAI added later).
 - Click **Create** → the key is shown **once**.
 
-> [!warning] One-time display
+> [!WARNING]
+> **One-time display**
 > The full secret key is visible **only at the moment of creation**. Copy it immediately. If lost, the only option is revoke + create a new one.
 
 ### Using a key
@@ -182,7 +189,8 @@ A few hard rules that save real money + grief:
 | ✅ Rotate keys periodically | ❌ Reuse the same key for years |
 | ✅ Revoke keys after demos / shared screen | ❌ Trust that "no one was watching" |
 
-> [!warning] Leaked keys are scanned
+> [!WARNING]
+> **Leaked keys are scanned**
 > GitHub, GitLab, and other code hosts run **secret scanners** that flag committed API keys. OpenAI also revokes keys that appear in public repos automatically. But "automatic" is best-effort — by the time it triggers, a leaked key may have already been used to rack up charges. **Never commit keys, full stop.**
 
 ---

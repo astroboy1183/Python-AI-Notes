@@ -21,10 +21,12 @@ related:
 
 # Structured Output with Few-Shot Prompting
 
-> [!abstract] TL;DR
+> [!NOTE]
+> **TL;DR**
 > Few-shot examples don't just teach **what** the model should answer — they also lock down **how** the answer is formatted. By declaring an output JSON schema in the system prompt and providing examples that conform to it, every reply comes back as a parseable JSON object. That makes the model's output **programmatically usable** — `json.loads(content)` → access fields with `.get("code")` etc. Worked example: a coding assistant that returns `{"code": "...", "is_coding_question": true/false}`. Free-form text becomes structured data → unlocks pipelines, automation, and downstream code. This is the foundation pattern for **tool use, agent steps, and reliable workflows** in the rest of the course.
 
-> [!info] Where this fits
+> [!NOTE]
+> **Where this fits**
 > Fifth note of **Section 3: Advanced Prompt Engineering Techniques**. Direct extension of [[04 - Few-Shot Prompting]] — same few-shot pattern, with examples deliberately designed to teach the model a **specific JSON schema**. The next note ([[06 - Chain of Thought Prompting]]) uses this same technique to implement step-by-step reasoning where each step is a JSON object.
 
 ---
@@ -206,7 +208,8 @@ response = client.chat.completions.create(
 
 This guarantees the response is valid JSON — no stray text before or after. Combine it with few-shot examples in the system prompt and the result is **highly reliable structured output**.
 
-> [!warning] JSON mode caveat
+> [!WARNING]
+> **JSON mode caveat**
 > JSON mode only guarantees **valid JSON syntax**, not that the JSON matches a specific schema. The few-shot examples still do the work of teaching the **shape** of the JSON.
 
 For schema-strict output, OpenAI also offers **Structured Outputs** (a stricter mode that enforces a JSON Schema):
@@ -236,7 +239,8 @@ response = client.chat.completions.create(
 
 With `strict: true`, the model **cannot** emit JSON that doesn't conform — invalid keys, missing fields, wrong types all become impossible.
 
-> [!example] Which to use when
+> [!NOTE]
+> **Which to use when**
 >
 > | Use case | Tool |
 > |---|---|
@@ -337,7 +341,8 @@ All of these become trivially consumable in code — no string parsing, no regex
 
 ## 9. Anti-patterns
 
-> [!warning] Common mistakes
+> [!WARNING]
+> **Common mistakes**
 
 | Mistake | Fix |
 |---|---|
