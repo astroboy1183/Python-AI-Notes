@@ -4,7 +4,7 @@ Structured, in-depth study notes covering **building AI / LLM applications end-t
 
 Written in Obsidian Markdown — they shine in any Obsidian vault (wiki-links + callouts) but read perfectly well on GitHub too (callouts use GitHub's native alert syntax).
 
-> **85 notes across 13 sections** (3 more sections in progress). Each note is a detailed, self-contained write-up with diagrams, comparison tables, pseudocode, gotchas, and follow-up questions.
+> **105 notes across 16 sections** — the full course. Each note is a detailed, self-contained write-up with diagrams, comparison tables, pseudocode, gotchas, and follow-up questions.
 
 ## 📚 Sections
 
@@ -23,9 +23,9 @@ Written in Obsidian Markdown — they shine in any Obsidian vault (wiki-links + 
 | 11 | [Building Agentic Workflows with LangGraph](<./Section 11: Building Agentic Workflows with LangGraph>) | 9 | Nodes, edges, state, the graph builder, LLM nodes, conditional edges |
 | 12 | [Checkpointing Workflows in LangGraph with MongoDB](<./Section 12: Checkpointing Workflows in LangGraph with MongoDB>) | 3 | State persistence, MongoDB checkpointer, per-thread/user scoping |
 | 13 | [The Memory Layer](<./Section 13: The Memory Layer - Building Short, Long, and Semantic Memory in AI Agents>) | 10 | Memory types (STM/LTM, factual/episodic/semantic) + a Mem0 + Qdrant build |
-| 14 | Graph Memory and Knowledge Graphs in AI Agents | — | *In progress* |
-| 15 | Conversational Agentic AI with Voice Agents & Chained Patterns | — | *In progress* |
-| 16 | Model Context Protocol (MCP) | — | *In progress* |
+| 14 | [Graph Memory and Knowledge Graphs in AI Agents](<./Section 14: Graph Memory and Knowledge Graphs In AI Agents>) | 8 | Why relationships need graphs, Neo4j + Cypher, wiring a knowledge graph into Mem0 |
+| 15 | [Conversational Agentic AI with Voice Agents & Chained Patterns](<./Section 15: Conversational Agentic AI with Voice Agents and Chained Patterns>) | 9 | Voice agents — S2S vs chained, STT → LLM → TTS, voice-enabling a tool-calling agent |
+| 16 | [Model Context Protocol (MCP)](<./Section 16: Model Context Protocol - MCP>) | 3 | MCP as "USB-C for AI" — standardized tool/data connection; Host/Client/Server |
 
 ## 🧠 Spotlight — The Memory Layer (Section 13)
 
