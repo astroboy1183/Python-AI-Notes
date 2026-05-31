@@ -4,9 +4,9 @@ Structured, in-depth study notes covering **building AI / LLM applications end-t
 
 Written in Obsidian Markdown — they shine in any Obsidian vault (wiki-links + callouts) but read perfectly well on GitHub too (callouts use GitHub's native alert syntax).
 
-> **105 notes across 16 sections** — the full course. Each note is a detailed, self-contained write-up with diagrams, comparison tables, pseudocode, gotchas, and follow-up questions.
+> **159 notes across 26 sections.** Sections **1–16** are the full course; sections **17–26** are my own **extension notes** filling the production/depth gaps the course didn't cover (evaluation, advanced RAG, safety, cost, fine-tuning, multi-agent, reasoning, LLMOps, ML/DL foundations, and generative models). Each note is a detailed, self-contained write-up with diagrams, comparison tables, pseudocode, gotchas, and follow-up questions.
 
-## 📚 Sections
+## 📚 Course Sections (1–16)
 
 | # | Section | Notes | What it covers |
 |---|---|:---:|---|
@@ -26,6 +26,25 @@ Written in Obsidian Markdown — they shine in any Obsidian vault (wiki-links + 
 | 14 | [Graph Memory and Knowledge Graphs in AI Agents](<./Section 14: Graph Memory and Knowledge Graphs In AI Agents>) | 8 | Why relationships need graphs, Neo4j + Cypher, wiring a knowledge graph into Mem0 |
 | 15 | [Conversational Agentic AI with Voice Agents & Chained Patterns](<./Section 15: Conversational Agentic AI with Voice Agents and Chained Patterns>) | 9 | Voice agents — S2S vs chained, STT → LLM → TTS, voice-enabling a tool-calling agent |
 | 16 | [Model Context Protocol (MCP)](<./Section 16: Model Context Protocol - MCP>) | 3 | MCP as "USB-C for AI" — standardized tool/data connection; Host/Client/Server |
+
+## 🧩 Extension Notes (17–26)
+
+> Self-authored notes (no course transcript) covering the production-readiness and depth topics that round out the course. Same format; heavily cross-linked back into sections 1–16.
+
+| # | Section | Notes | What it covers |
+|---|---|:---:|---|
+| 17 | [Evaluation & Observability](<./Section 17: Evaluation & Observability>) | 5 | Why eval matters, metrics, LLM-as-a-judge, RAGAS, tracing (LangSmith/Langfuse) |
+| 18 | [Advanced RAG](<./Section 18: Advanced RAG>) | 6 | Beyond naive RAG — chunking, hybrid search, reranking, query transformation, agentic RAG |
+| 19 | [Safety, Security & Guardrails](<./Section 19: Safety, Security & Guardrails>) | 5 | OWASP LLM risks, prompt injection, guardrails, PII/moderation, hallucination |
+| 20 | [Cost, Caching & Latency Optimization](<./Section 20: Cost, Caching & Latency Optimization>) | 5 | Token cost, prompt + semantic caching, streaming/latency, model routing |
+| 21 | [Fine-Tuning & Model Adaptation](<./Section 21: Fine-Tuning & Model Adaptation>) | 6 | Prompt vs RAG vs FT, SFT, LoRA/QLoRA, RLHF/DPO, quantization, workflow |
+| 22 | [Multi-Agent Systems](<./Section 22: Multi-Agent Systems>) | 5 | Architectures, handoffs, frameworks (LangGraph/CrewAI/AutoGen), best practices |
+| 23 | [Advanced Reasoning & Prompting](<./Section 23: Advanced Reasoning & Prompting>) | 5 | ReAct, reflection/Reflexion, Tree of Thoughts, reasoning models, DSPy |
+| 24 | [LLMOps & Deployment](<./Section 24: LLMOps & Deployment>) | 6 | Serving (vLLM), reliability, versioning/CI-CD, monitoring, deployment patterns |
+| 25 | [ML & Deep Learning Foundations with PyTorch](<./Section 25: ML & Deep Learning Foundations with PyTorch>) | 6 | ML basics, neural nets, backprop, gradient descent, PyTorch, MLP→Transformer |
+| 26 | [Generative Models — Diffusion & Image Generation](<./Section 26: Generative Models - Diffusion & Image Generation>) | 5 | Generative families, diffusion, text-to-image, image APIs, beyond images |
+
+> **Note:** Extension notes are written from my own understanding (well-established concepts), not a vetted course. Specific library APIs evolve — treat code snippets as illustrative and check current docs; each note links its authoritative sources.
 
 ## 🧠 Spotlight — The Memory Layer (Section 13)
 
