@@ -180,14 +180,14 @@ This key is what gets used across all projects — copy it once, paste it into a
 
 A few hard rules that save real money + grief:
 
-| Do | Don't |
-|---|---|
-| ✅ Store keys in `.env` files | ❌ Hardcode keys in source files |
-| ✅ Add `.env` to `.gitignore` | ❌ Commit `.env` to git |
-| ✅ Use one key per project / environment | ❌ Use one key everywhere — hard to revoke selectively |
-| ✅ Set monthly budget limits | ❌ Leave auto-recharge enabled by default |
-| ✅ Rotate keys periodically | ❌ Reuse the same key for years |
-| ✅ Revoke keys after demos / shared screen | ❌ Trust that "no one was watching" |
+| Do                                        | Don't                                                 |
+| ----------------------------------------- | ----------------------------------------------------- |
+| ✅ Store keys in `.env` files              | ❌ Hardcode keys in source files                       |
+| ✅ Add `.env` to `.gitignore`              | ❌ Commit `.env` to git                                |
+| ✅ Use one key per project / environment   | ❌ Use one key everywhere — hard to revoke selectively |
+| ✅ Set monthly budget limits               | ❌ Leave auto-recharge enabled by default              |
+| ✅ Rotate keys periodically                | ❌ Reuse the same key for years                        |
+| ✅ Revoke keys after demos / shared screen | ❌ Trust that "no one was watching"                    |
 
 > [!WARNING]
 > **Leaked keys are scanned**
